@@ -11,16 +11,23 @@ export interface TodoItems {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   item_name: string;
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  registration_date?: number;
+  registration_date?: Date | undefined ;
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  expire_date?: number;
+  expire_date?: Date | undefined ;
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  finished_date?: number;
+  finished_date?: Date | undefined ;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   is_deleted?: number;
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  create_date_time?: number;
+  create_date_time?: Date;
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  update_date_time?: number;
+  update_date_time?: Date;
   priority?: number;
-}
+  user:userModel;
+  }
+  
+  export interface userModel{
+    family_name:string;
+    first_name:string;
+   }
+

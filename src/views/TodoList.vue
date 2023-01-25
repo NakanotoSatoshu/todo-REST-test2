@@ -10,3 +10,6 @@ todoService.getAllTasks();
 <template>
       <TaskList :TodoList="todoService.todoItmes" ></TaskList>
 </template>
+
+<style >
+</style>

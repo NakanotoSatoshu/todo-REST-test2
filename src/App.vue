@@ -17,8 +17,15 @@ const menuItems: MenuItem[] = [
 </script>
 
 <template>
-  <AppNavi title="Todo App" :menu-items="menuItems"></AppNavi>
+  <!-- ナビバー非表示　現在
+  <AppNavi title="Todo App" :menu-items="menuItems"></AppNavi>-->
+  <div class="container-fluid ">
+            <!-- コンテンツをrouter-viewに変更 -->
+            <router-view />
+  </div>
+  
 </template>
+
 
 <style scoped>
 header {

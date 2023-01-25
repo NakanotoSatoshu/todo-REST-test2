@@ -10,10 +10,14 @@ import { dom } from "@fortawesome/fontawesome-svg-core";
 
 // Bootstrap 5 + SB Admin
 import "startbootstrap-sb-admin/src/scss/styles.scss";
+import "./assets/nice.css";
+import "./assets/Chaos.css";
+import 'animate.css';
+
 
 // アイコンをライブラリに追加して、DOM経由(class)で参照できるようにする。
 library.add(fas);
 dom.watch();
 
 // componentを追加
-createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount("#app");
+createApp(App).use(router).component("font-awesome-icon", FontAwesomeIcon).mount("#main");
