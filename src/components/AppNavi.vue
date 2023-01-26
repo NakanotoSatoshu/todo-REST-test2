@@ -29,9 +29,9 @@ const goToUrl = (url?: string) => {
 <template>
   <!-- js/script.jsを参考にbodyにtoggleを追加 -->
   <body class="sb-nav-fixed" :class="isToggle ? 'sb-sidenav-toggled' : ''">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-light bg-light McShadow">
       <!-- titleを可変にし、hrefをrouterで切り替えるように修正 -->
-      <a class="navbar-brand ps-3" @click="goToUrl('/')">{{ title }}</a>
+      <a class="navbar-brand ps-3 McShadow" @click="goToUrl('/')">{{ title }}</a>
       <!-- isToggleでスライドバーの表示/非表示を切り替える -->
       <button id="sidebarToggle" class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" @click="isToggle = !isToggle">
         <i class="fas fa-bars"></i>
@@ -40,7 +40,7 @@ const goToUrl = (url?: string) => {
     </nav>
     <div id="layoutSidenav">
       <div id="layoutSidenav_nav">
-        <nav id="sidenavAccordion" class="sb-sidenav accordion sb-sidenav-dark">
+        <nav id="sidenavAccordion" class="sb-sidenav accordion sb-sidenav-light">
           <div class="sb-sidenav-menu">
             <!-- menuItemsからメニューが生成されるように修正, サブメニューも改良すれば対応可能 -->
             <div v-for="(item, index) in menuItems" :key="index" class="nav">
@@ -54,12 +54,12 @@ const goToUrl = (url?: string) => {
         </nav>
       </div>
       <div id="layoutSidenav_content">
-        <main>
-          <div class="container-fluid px-4">
+        <section class="" id="">
+          <div class="container-fluid" >
             <!-- コンテンツをrouter-viewに変更 -->
             <router-view />
           </div>
-        </main>
+        </section>
       </div>
     </div>
   </body>

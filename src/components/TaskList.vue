@@ -6,6 +6,7 @@ import ja from 'dayjs/locale/ja';
 import type {TodoItems} from "../models/TodoItems";
 
 dayjs.locale(ja);
+
 const props = defineProps<{  TodoList: TodoItems[] }>();
 
 const emit = defineEmits<{
@@ -19,21 +20,17 @@ const msg = ref('Hello TypeScript');
 
 const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => {
 				   let created_at = dayjs(date).format('YYYY年M月DD日')
-				  return created_at
-				};
-
-const isInvalidDate = function(){
-					var da = new Date
-					return props.TodoList.filter(function(item){
-							    if(item.finished_date === null){
+				  return created_at      };
+//JSでのDateがNullの場合invailddate表示を防ぐ
+const isInvalidDate = () => {
+					return props.TodoList.filter( (item) => {
+						 if(item.finished_date === null){
 								Number(item.finished_date)
 								//console.log(item.finished_date)
-							    }else{
+						 }else{
                                 return item.finished_date
 								//console.log(item.finished_date)
-								}
-						}
-					)};
+					}})};
 
 const isNull = (d: Date | undefined ) => {
 					if(null === d){
@@ -42,8 +39,7 @@ const isNull = (d: Date | undefined ) => {
 					}else{
 					//	console.log('ぬるぽでない' )
 						return false
-					}
-				};
+					}};
  //完了日があるつまり完了してるやつ
 const hasNull = (d: Date | undefined ) => {
 					if(null === d){
@@ -51,23 +47,21 @@ const hasNull = (d: Date | undefined ) => {
 					}else{
 						//console.log('完了' + d  + Number(d))
 						return true
-					}
-				};
-
-const isExpire = (f: Date | undefined , e:  Date | undefined ) => {
-					var d = new Date			
+					}};
+//期限日を現在より過ぎている
+const isExpire = (f: Date  , e:  Date  ) => {
+					var d = new Date 			
 					if(f === null){
-						 if(new Date(e) < d) {
-							return true
+						 if(new Date(e)  < d) {
+							return true 
 						 }else{
 							return false
 						 }
-					}
-					//console.log("test")
-					return false
-				};
-
-const notExpire = (f: Date | undefined , e:  Date | undefined ) => {
+					}//console.log("test" + "期限日：" + e + "本日の日：" + d + "完了した日：" + f)
+					//return false    
+				   };
+//期限日以内である
+const notExpire = (f: Date  , e:  Date  ) => {
 					var d = new Date
 					if(f === null){
 						if(new Date(e) > d){
@@ -75,23 +69,20 @@ const notExpire = (f: Date | undefined , e:  Date | undefined ) => {
 						 }else{
 							return false
 						 }
-					}
-						return false
-			    };
+					} //return false     
+				 };
 
-const getFilter = () => props.TodoList.filter( (item) => {
-					return item.is_deleted === 0 } );
+const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );
 					
+const getComputed = computed (  () => props.TodoList.filter( (item) => { return item.is_deleted === 0 }));
+const testClick = () => { console.log('ClickThis??'); };
 
-const getComputed = computed (  () => props.TodoList.filter( (item) => {
-					return item.is_deleted === 0 }));
-					
-getFilter();
+//getFilter();
 isInvalidDate();
 </script>
 
 <template>
-  <table class="table table-hover table-sm my-1 iPhoneSE  opaS shadow-lg p-3 mb-3 rounded">
+  <table class="table table-hover table-sm my-1 iPhoneSE  opaS bg-body shadow-lg p-3 mb-3 rounded">
     <thead class="thead">
       <tr>
         <th class="col-sm-2">項目名</th>

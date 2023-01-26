@@ -13,9 +13,9 @@ export interface TodoItems {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   registration_date?: Date | undefined ;
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  expire_date?: Date | undefined ;
+  expire_date: Date  ;
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  finished_date?: Date | undefined ;
+  finished_date: Date  ;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   is_deleted?: number;
   // eslint-disable-next-line @typescript-eslint/naming-convention
