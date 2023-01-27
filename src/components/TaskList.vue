@@ -10,7 +10,7 @@ dayjs.locale(ja);
 const props = defineProps<{  TodoList: TodoItems[] }>();
 
 const emit = defineEmits<{
-  (eventName: "done", id?: number): void;
+  (eventName: "Complete", id?: number): void;
   (eventName: "delete", id?: number): void;
 }>();
 
@@ -125,10 +125,11 @@ isInvalidDate();
 							<li class="button animated  swing	">
 							
 								<button class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark"   
-								v-on:click="isShow = !isShow" 
+								
 								v-bind:href="'/complete/' + item.id" 
-								v-show="isNull(item.finished_date)
-								">完了</button>
+								v-show="isNull(item.finished_date)"
+								@click="emit('Complete',  item.id)"
+								 >完了</button>
 								<button class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
 								v-on:click="isShow = !isShow" 
 								v-bind:href="'/incomplete/' + item.id" 

@@ -2,9 +2,12 @@ import axios from "axios";
 import { reactive } from "vue";
 import type { TodoItems } from "../models/TodoItems";
 
+
 class TodoService {
   // RESTAPI URL
   // eslint-disable-next-line @typescript-eslint/naming-convention
+  
+
   private RESTAPI_URL = "/api/todo/";
   // タスクリスト
   
@@ -19,19 +22,25 @@ class TodoService {
   }
   // 全タスクを取得する。
   public getAllTasks(): void {
-    axios.get<TodoItems[]>(this.RESTAPI_URL).then((res) => {
+    axios.get<TodoItems[]>(this.RESTAPI_URL)
+      .then((res) => {
       Array.prototype.push.apply(this.TodoList, res.data);
       console.log(res.data);
+      
     });
   }
-  // タスクを完了する。
-  public getInComplete(): void {
-    fetch.get<TodoItems[]>(this.RESTAPI_URL).then((res) => {
-      Array.prototype.push.apply(this.TodoList, res.data);
-      console.log(res.data);
-    });
+ // 完了する。
+ public postComplete(id?: number): void  {
+  const toComplete = id;
+  if (toComplete !== undefined) {
+   // Complete.finished_date = !Id.id;
+    axios
+    .post(this.RESTAPI_URL)
+    .then((res) => { console.log(res.data) })
+    .catch( (error) => console.log(error));
+    console.log(toComplete);
   }
-
+}
 
 }
 export default new TodoService();
