@@ -4,13 +4,15 @@ import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 
 import type {TodoItems} from "../models/TodoItems";
+import type{ Task } from "../models/Task";
 
 dayjs.locale(ja);
 
-const props = defineProps<{  TodoList: TodoItems[] }>();
+const props = defineProps<{  TodoList: TodoItems[]  }>();
 
 const emit = defineEmits<{
-  (eventName: "Complete", id?: number): void;
+  (eventName: "complete", id?: number): void;
+  (eventName: "incomplete", id?: number): void;
   (eventName: "delete", id?: number): void;
 }>();
 
@@ -71,6 +73,7 @@ const notExpire = (f: Date  , e:  Date  ) => {
 						 }
 					} //return false     
 				 };
+const CompleteaAnime  = () => { };
 
 const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );
 					
@@ -95,15 +98,15 @@ isInvalidDate();
     </thead>
       <tbody class="animated fadeIn"> 
 	               <tr 
-				    v-for="(item,index)  in  TodoList "
+				    v-for="(item)  in  TodoList "
 				   :key="item.user_id"   
 				   class="testToggle"
 				   :class="{
 					'inComp':isExpire(item.finished_date,item.expire_date) ,
 					'forwardComp':notExpire(item.finished_date,item.expire_date)
 					}">
-						<!-- ------------ TODO項目-------------------->
-						<!-- ------------ 未完了----------->
+						<!-------------- TODO項目-------------------->
+						<!-------------- 未完了----------->
 						<td class="shadow-lg p-1 mb-1 rounded  align-middle btn-outline-warning modalDel" v-show="item.finished_date !== null" >
 						{{item.item_name}}		</td>       <!-- v-show="isNotComp" -->
 						<!-- ------------ 完了----------->
@@ -119,23 +122,25 @@ isInvalidDate();
 	                    <td class="shadow-lg p-1 mb-1 rounded  align-middle modalFinish"  v-show="hasNull(item.finished_date)">{{format(item.finished_date)}}</td>
 	                    <td class="shadow-lg p-3 mb-3 rounded  align-middle medachi2 modalFinish animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
 						<!-- ------------操作ボタン-------------------->
-						<td class="shadow-lg p-1 mb-1 rounded  animated  swing">
+						<td class="shadow-lg p-1 mb-1 rounded  animated  fadeIn">
 							<ul>
 							<!-- ------------ 完了系ボタン----------->
-							<li class="button animated  swing	">
-							
-								<button class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark"   
+							<li class="button animated  fadeIn	">
+					 <Transition >
+									<button class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark"   
 								
-								v-bind:href="'/complete/' + item.id" 
-								v-show="isNull(item.finished_date)"
-								@click="emit('Complete',  item.id)"
-								 >完了</button>
+									v-bind:href="'/complete/' + item.id" 
+									v-show="isNull(item.finished_date)"
+									@click="emit('complete',  item.id)"
+									 >完了</button>
+					</Transition>
+					<Transition>
 								<button class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
-								v-on:click="isShow = !isShow" 
+								@click="emit('incomplete',  item.id)"
 								v-bind:href="'/incomplete/' + item.id" 
 								v-show="hasNull(item.finished_date)
 								">未完了</button>
-								
+					</Transition>			
 							</li>
 							<!-- ------------ 未完了だった箇所----------->
 							<li class="  animated  fadeIn" >
@@ -145,11 +150,26 @@ isInvalidDate();
 	                           <button class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark modal-open2"   v-bind:href="'/edit/' + item.id" >更新</button>
 	                         </li>
 	                         <li><!-- ------------ 削除画面----------->
-	                  		  <button id="js-open" class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark  modal-open"   type="button" v-bind:href="'/delete/' + item.id">削除</button>
-	                  		</li>
+	                  		  <button id="js-open" 
+							  class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark  modal-open"  
+							   type="button" 
+							   v-bind:href="'/delete/' + item.id"
+							   @click="emit('delete', item.id)"
+							   >削除</button>
+							</li>
 	                  		</ul>
 						</td>
 	                </tr>
 	            </tbody>
   </table>
 </template>
+
+<style>
+.v-enter-active, .v-leave-active {
+  transition: opacity 1.3s ease;
+}
+
+.v-enter-from, .v-leave-to {
+  opacity: 0;
+}
+</style>
