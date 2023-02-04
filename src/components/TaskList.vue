@@ -2,13 +2,13 @@
 import { reactive, ref,computed,PropType } from 'vue';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
-
+import tra from '../services/TrantisonService';
 import type {TodoItems} from "../models/TodoItems";
 import type{ Task } from "../models/Task";
 
 dayjs.locale(ja);
 
-const props = defineProps<{  TodoList: TodoItems[]  }>();
+const props = defineProps<{  TodoList: TodoItems[] ,open: boolean }>();
 
 const emit = defineEmits<{
   (eventName: "complete", id?: number): void;
@@ -16,13 +16,32 @@ const emit = defineEmits<{
   (eventName: "delete", id?: number): void;
 }>();
 
+const open = ref(props.open);
+const testman = ref(emit);
+const testman2 = ref('完了');
+const docState = ref('saved')
+
+//完了アニメ
+
+async function transComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "未完了";
+  await el.animate(  [{ height: 0, }, { height: `${(el as HTMLElement).offsetHeight}px`,},],
+    { duration: 500, easing: "ease-out",}).finished;
+  el.classList.remove("overflow-hidden");
+  done();}
+// 未完了アニメ
+async function transInComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "完了";
+  await el.animate([{ height: `${(el as HTMLElement).offsetHeight}px`,},{height: 0,},],
+    {duration: 500,easing: "ease-out",}).finished;
+  el.classList.remove("overflow-hidden");
+  done();}
+
 const msg = ref('Hello TypeScript');
 
 //const TodoList = ref(); 
 
 const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => {
 				   let created_at = dayjs(date).format('YYYY年M月DD日')
-				  return created_at      };
+				 return created_at      };
 //JSでのDateがNullの場合invailddate表示を防ぐ
 const isInvalidDate = () => {
 					return props.TodoList.filter( (item) => {
@@ -51,8 +70,7 @@ const hasNull = (d: Date | undefined ) => {
 						return true
 					}};
 //期限日を現在より過ぎている
-const isExpire = (f: Date  , e:  Date  ) => {
-					var d = new Date 			
+const isExpire = (f: Date  , e:  Date  ) => { var d = new Date 			
 					if(f === null){
 						 if(new Date(e)  < d) {
 							return true 
@@ -63,8 +81,7 @@ const isExpire = (f: Date  , e:  Date  ) => {
 					//return false    
 				   };
 //期限日以内である
-const notExpire = (f: Date  , e:  Date  ) => {
-					var d = new Date
+const notExpire = (f: Date  , e:  Date  ) => { var d = new Date
 					if(f === null){
 						if(new Date(e) > d){
 							return true
@@ -74,13 +91,14 @@ const notExpire = (f: Date  , e:  Date  ) => {
 					} //return false     
 				 };
 const CompleteaAnime  = () => { };
-
+  
 const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );
 					
 const getComputed = computed (  () => props.TodoList.filter( (item) => { return item.is_deleted === 0 }));
 const testClick = () => { console.log('ClickThis??'); };
 
 //getFilter();
+console.log(emit);
 isInvalidDate();
 </script>
 
@@ -123,26 +141,39 @@ isInvalidDate();
 	                    <td class="shadow-lg p-3 mb-3 rounded  align-middle medachi2 modalFinish animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
 						<!-- ------------操作ボタン-------------------->
 						<td class="shadow-lg p-1 mb-1 rounded  animated  fadeIn">
-							<ul>
+						  <ul>
 							<!-- ------------ 完了系ボタン----------->
-							<li class="button animated  fadeIn	">
-					 <Transition >
-									<button class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark"   
+							  <li class="button animated  fadeIn	">
+		<div class="btn-container">
+					<Transition name="slide-up" mode="out-in">
+      			<button v-if="docState === 'saved'"
+          			    @click="docState = 'edited'">Edit</button>
+   				   <button v-else-if="docState === 'edited'"
+       				       @click="docState = 'editing'">Save</button>
+     			 <button v-else-if="docState === 'editing'"
+      			        @click="docState = 'saved'">Cancel</button>
+   				 </Transition>
+ 		 </div>
+					 <Transition name="slide-up" mode="out-in">
+								<button 
+								class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark"   
+								v-bind:href="'/complete/' + item.id" 
+								v-show="isNull(item.finished_date)"
+								@click="emit('complete',  item.id),testman2 = '未完了'"
+							    >完了</button>
+							</Transition>
+							<Transition name="slide-up" mode="out-in">
+								<button 
 								
-									v-bind:href="'/complete/' + item.id" 
-									v-show="isNull(item.finished_date)"
-									@click="emit('complete',  item.id)"
-									 >完了</button>
-					</Transition>
-					<Transition>
-								<button class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
-								@click="emit('incomplete',  item.id)"
+								class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
+								@click="emit('incomplete',  item.id),testman2 = '完了'"
 								v-bind:href="'/incomplete/' + item.id" 
 								v-show="hasNull(item.finished_date)
 								">未完了</button>
-					</Transition>			
+					</Transition>	
+					<Transition @enter="tra.testEnter" @leave="tra.testLeave"></Transition>		
 							</li>
-							<!-- ------------ 未完了だった箇所----------->
+							<!-- ------------ 未完了だった箇所----------- v-if="testman2 === '完了'" v-else-if="testman2 === '未完了'"-->
 							<li class="  animated  fadeIn" >
 								
 							</li>
@@ -171,5 +202,35 @@ isInvalidDate();
 
 .v-enter-from, .v-leave-to {
   opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+.btn-container {
+  display: inline-block;
+  position: relative;
+  height: 1em;
+}
+
+
+
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease-out;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>

@@ -12,6 +12,7 @@ todoService.getAllTasks();
 <template>
       <Head :open="open"  ></Head>
       <TaskList 
+      :open="open" 
       :TodoList="todoService.todoItmes" 
       @delete="(id) => todoService.deleteTask(id)"
       @complete="(id) => todoService.postComplete(id)"

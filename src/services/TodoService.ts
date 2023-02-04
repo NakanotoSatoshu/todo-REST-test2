@@ -25,17 +25,14 @@ class TodoService {
   //削除フラグのあるものをこの世から消し去る
   private getFilter = () => this.TodoList.filter( (item) => { return item.is_deleted === 0 } );
   
-  // タスクを取得する。
-  get todoItmes(): TodoItems[] { 
-    return this.getFilter()
-  }
+  // タスクをこの地球上から取得する。
+  get todoItmes(): TodoItems[] {  return this.getFilter() };
 
-  // 全タスクを取得する。
+  // 全タスクを地球上から取得する。
   public getAllTasks() : void {
     axios.get<TodoItems[]>(this.RESTAPI_URL)
-      .then((res) => {
-      Array.prototype.push.apply(this.TodoList, res.data);
-      console.log(res.data);
+      .then((res) => { Array.prototype.push.apply(this.TodoList, res.data);
+     console.log(res.data);
     });
   }
 
@@ -53,12 +50,10 @@ class TodoService {
     const index = this.tasks.findIndex((t) => t.id === id);
     if (index !== undefined) {
       this.tasks.splice(index, 1);
-      console.log(this.RESTAPI_URL + id);
       axios.delete(this.RESTAPI_URL  + id);
     }
   }
-  public obj = 0;
-	public global = 0;
+
  // 完了する。
  public postComplete(id?: number): void  {
   const toComplete = id;
@@ -71,14 +66,14 @@ class TodoService {
     //.then((res) => { console.log(res.data) })
     .then((res) => {
       /* 　　セレクタもVue化できたら　　*/
-      obj.textContent = "未完了";
+      /* obj.textContent = "未完了";
       obj.setAttribute('href','/incomplete/' + global );
       obj.classList.remove('btn-complete','btn-dark');
       obj.classList.add('btn-incomplete','btn-outline-dark');
       obj.closest("tr");
       obj.parentNode.parentElement.parentElement.parentElement.classList.add('inComp');
       obj.parentNode.parentNode.parentNode.parentNode.firstElementChild.classList.remove('btn-outline-warning');
-      obj.parentNode.parentNode.parentNode.parentNode.firstElementChild.classList.add('btn-lg');
+      obj.parentNode.parentNode.parentNode.parentNode.firstElementChild.classList.add('btn-lg'); */
        /* 　　　アニメーション処理　　　Vueトランジション使いたい 
       obj.classList.toggle('swing');
       //obj.parentNode.parentElement.parentElement.parentElement.classList.add('animated' );
@@ -86,8 +81,6 @@ class TodoService {
     })
     .catch( (error) => console.log(error)
     );
-    console.log(this.RESTAPI_URL + id);
-    console.log(toComplete);
   }
 }
 // 完了しない。
@@ -102,8 +95,6 @@ public postInComplete(id?: number): void  {
     .then((res) => { console.log(res.data) })
     .catch( (error) => console.log(error)
     );
-    console.log(this.RESTAPI_URL + id);
-    console.log(toInComplete);
   }
 }
 }

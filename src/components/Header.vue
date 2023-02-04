@@ -14,7 +14,7 @@ async function enter(el: Element, done: () => void) {
   await el.animate(
     [
       {
-        height: 60,
+        height: 0,
       },
       {
         height: `${(el as HTMLElement).offsetHeight}px`,
@@ -41,7 +41,7 @@ async function leave(el: Element, done: () => void) {
         height: `${(el as HTMLElement).offsetHeight}px`,
       },
       {
-        height: 20,
+        height: 0,
       },
     ],
     {

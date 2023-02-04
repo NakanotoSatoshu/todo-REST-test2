@@ -9,7 +9,6 @@ export default  defineConfig({
   },
   server: {
     proxy: {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       "/api": "http://localhost:8080",
     },
   },
