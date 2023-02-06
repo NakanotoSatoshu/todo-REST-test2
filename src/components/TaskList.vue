@@ -8,21 +8,23 @@ import type{ Task } from "../models/Task";
 
 dayjs.locale(ja);
 
-const props = defineProps<{  TodoList: TodoItems[] ,open: boolean }>();
+const props = defineProps<{TodoList: TodoItems[] ,open: boolean }>();
 
 const emit = defineEmits<{
-  (eventName: "complete", id?: number): void;
+  (eventName: "complete", id?: number): any;
   (eventName: "incomplete", id?: number): void;
   (eventName: "delete", id?: number): void;
+  (transName: "comp",id?:number): any;
 }>();
+const ttt = ():any => {
+ console.log(emit);}
 
 const open = ref(props.open);
-const testman = ref(emit);
-const testman2 = ref('完了');
-const docState = ref('saved')
+const testman = ref<(emit)
+const testman2 = ref('');
+const docState = ref('完了'  )
 
 //完了アニメ
-
 async function transComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "未完了";
   await el.animate(  [{ height: 0, }, { height: `${(el as HTMLElement).offsetHeight}px`,},],
     { duration: 500, easing: "ease-out",}).finished;
@@ -52,23 +54,18 @@ const isInvalidDate = () => {
                                 return item.finished_date
 								//console.log(item.finished_date)
 					}})};
-
+//完了日があるつまり完了してるやつ
 const isNull = (d: Date | undefined ) => {
-					if(null === d){
-					//	console.log('未完了' + d)
-						return true
-					}else{
-					//	console.log('ぬるぽでない' )
-						return false
-					}};
- //完了日があるつまり完了してるやつ
+					if(null === d){//	console.log('未完了' + d)　　
+					return true
+					}else{//	console.log('ぬるぽでない' )
+				    return false        }};
+
+//完了日がないつまり未完了してるやつ
 const hasNull = (d: Date | undefined ) => {
-					if(null === d){
-						return false
-					}else{
-						//console.log('完了' + d  + Number(d))
-						return true
-					}};
+					if(null === d){ return false
+					}else{//console.log('完了' + d  + Number(d))
+				    return true          }};
 //期限日を現在より過ぎている
 const isExpire = (f: Date  , e:  Date  ) => { var d = new Date 			
 					if(f === null){
@@ -98,8 +95,9 @@ const getComputed = computed (  () => props.TodoList.filter( (item) => { return 
 const testClick = () => { console.log('ClickThis??'); };
 
 //getFilter();
-console.log(emit);
+//console.log(emit);
 isInvalidDate();
+
 </script>
 
 <template>
@@ -145,24 +143,30 @@ isInvalidDate();
 							<!-- ------------ 完了系ボタン----------->
 							  <li class="button animated  fadeIn	">
 		<div class="btn-container">
-					<Transition name="slide-up" mode="out-in">
-      			<button v-if="docState === 'saved'"
-          			    @click="docState = 'edited'">Edit</button>
-   				   <button v-else-if="docState === 'edited'"
-       				       @click="docState = 'editing'">Save</button>
-     			 <button v-else-if="docState === 'editing'"
-      			        @click="docState = 'saved'">Cancel</button>
-   				 </Transition>
+				<Transition name="slide-up" mode="out-in">
+      			<button 
+				  class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark" 
+				  v-bind:href="'/complete/' + item.id" 
+				v-if="docState === '完了' && isNull(item.finished_date)"           
+				@click="emit('complete',  item.id),docState = '未完了'"
+				>完了</button>
+   				<button 
+				   class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
+				   v-bind:href="'/incomplete/' + item.id" 
+				 v-else-if="docState === '未完了' && hasNull(item.finished_date)"
+				 @click="emit('incomplete',  item.id), docState = '完了'">
+				 未完了</button>
+   				</Transition>
  		 </div>
-					 <Transition name="slide-up" mode="out-in">
+					 <Transition  name="slide-up" mode="out-in">
 								<button 
 								class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark"   
 								v-bind:href="'/complete/' + item.id" 
 								v-show="isNull(item.finished_date)"
-								@click="emit('complete',  item.id),testman2 = '未完了'"
+								@click="emit('complete',  item.id)" 
 							    >完了</button>
-							</Transition>
-							<Transition name="slide-up" mode="out-in">
+					</Transition>
+					<Transition name="slide-up" mode="out-in">
 								<button 
 								
 								class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
@@ -178,7 +182,9 @@ isInvalidDate();
 								
 							</li>
 							<li><!-- ------------ 更新画面----------->
-	                           <button class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark modal-open2"   v-bind:href="'/edit/' + item.id" >更新</button>
+	                           <button class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark modal-open2"   
+							   v-bind:href="'/edit/' + item.id" >
+							   更新</button>
 	                         </li>
 	                         <li><!-- ------------ 削除画面----------->
 	                  		  <button id="js-open" 

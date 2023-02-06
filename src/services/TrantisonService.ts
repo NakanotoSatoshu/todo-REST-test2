@@ -5,8 +5,15 @@ import { Task } from "../models/Task";
 
 class trantisonService {
 
+//完了日があるつまり完了してるやつ
+public isNull = (d: Date | undefined ) => { if(null === d){ return true  }else{  return false }};
+
+//完了日がないつまり未完了してるやつ
+public hasNull = (d: Date | undefined ) => {if(null === d){ return false }else{ return true   }};
+
     public testEnter = (element: any) => {
-        element.animated
+       // element.textContent = "王将"; 
+       // console.log("うひょおおおおおおおおおおおおおおおおおおおおおおおお");
         // const height = getComputedStyle(element).height;
         // element.style.height = 0;
         // getComputedStyle(element);

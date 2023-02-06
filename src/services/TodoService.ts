@@ -32,19 +32,10 @@ class TodoService {
   public getAllTasks() : void {
     axios.get<TodoItems[]>(this.RESTAPI_URL)
       .then((res) => { Array.prototype.push.apply(this.TodoList, res.data);
-     console.log(res.data);
+    // console.log(res.data);
     });
   }
-
-  private createNewUser = () : void => {
-    axios
-      .post('https://jsonplaceholder.typicode.com/users', {
-        name: name.value,
-      })
-      .then((response) => users.value.unshift(response.data))
-      .catch((error) => console.log(error));
-  };
- 
+  
   // タスクを削除する。
   public deleteTask(id?: number): void {
     const index = this.tasks.findIndex((t) => t.id === id);
