@@ -3,11 +3,13 @@ import { reactive } from "vue";
 import type { TodoItems } from "../models/TodoItems";
 import { Task } from "../models/Task";
 
+
 //CRUD単体テストのAPI津kる
 
 class TodoService {
   // RESTAPI URL
   // eslint-disable-next-line @typescript-eslint/naming-convention
+  
   private service = axios.create({
     timeout: 30000,
     headers: {
@@ -17,8 +19,8 @@ class TodoService {
   })
 
   private RESTAPI_URL = '/api/todo/';
-  // タスクリスト
   
+  // タスクリスト
   private tasks: Task[] = reactive([]);
   private TodoList: TodoItems[] = reactive([]); 
 
@@ -46,7 +48,7 @@ class TodoService {
   }
 
  // 完了する。
- public postComplete(id?: number): void  {
+ public postComplete(id?: number,item?: any): void  {
   const toComplete = id;
   if (toComplete !== undefined) {
    // Complete.finished_date = !Id.id;
@@ -56,6 +58,7 @@ class TodoService {
       { headers:         { 'Content-Type': 'application/json;charset=UTF-8',}})
     //.then((res) => { console.log(res.data) })
     .then((res) => {
+      item.finished_date = true;
       /* 　　セレクタもVue化できたら　　*/
       /* obj.textContent = "未完了";
       obj.setAttribute('href','/incomplete/' + global );
@@ -75,7 +78,7 @@ class TodoService {
   }
 }
 // 完了しない。
-public postInComplete(id?: number): void  {
+public postInComplete(id?: number , item?:any): void  {
   const toInComplete = id;
   if (toInComplete !== undefined) {
    // Complete.finished_date = !Id.id;
@@ -83,7 +86,9 @@ public postInComplete(id?: number): void  {
     .post(this.RESTAPI_URL + 'in' + id, 
       { withCredentials:true} ,  
       { headers:{ 'Content-Type': 'application/json;charset=UTF-8',}})
-    .then((res) => { console.log(res.data) })
+    .then((res) => { 
+      item.finished_date = null;
+    })
     .catch( (error) => console.log(error)
     );
   }

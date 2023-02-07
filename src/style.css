@@ -67,6 +67,13 @@ button:focus-visible {
   text-align: center;
 }
 
+/*文字の色変える重要 */
+.btn-outline-warning {
+color: #000000 !important;
+}
+
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

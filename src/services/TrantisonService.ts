@@ -9,7 +9,7 @@ class trantisonService {
 public isNull = (d: Date | undefined ) => { if(null === d){ return true  }else{  return false }};
 
 //完了日がないつまり未完了してるやつ
-public hasNull = (d: Date | undefined ) => {if(null === d){ return false }else{ return true   }};
+public hasNull = (d: Date | undefined ) => {if(null === d){ return false }else{ return  true  }};
 
     public testEnter = (element: any) => {
        // element.textContent = "王将"; 

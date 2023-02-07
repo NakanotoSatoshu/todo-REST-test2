@@ -11,8 +11,8 @@ dayjs.locale(ja);
 const props = defineProps<{TodoList: TodoItems[] ,open: boolean }>();
 
 const emit = defineEmits<{
-  (eventName: "complete", id?: number): any;
-  (eventName: "incomplete", id?: number): void;
+  (eventName: "complete", id?: number ,item?: any): any;
+  (eventName: "incomplete", id?: number , item?:any): any;
   (eventName: "delete", id?: number): void;
   (transName: "comp",id?:number): any;
 }>();
@@ -22,7 +22,7 @@ const ttt = ():any => {
 const open = ref(props.open);
 const testman = ref<(emit)
 const testman2 = ref('');
-const docState = ref('完了'  )
+const docState = ref('完了')
 
 //完了アニメ
 async function transComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "未完了";
@@ -41,9 +41,10 @@ const msg = ref('Hello TypeScript');
 
 //const TodoList = ref(); 
 
+//DATEフォーマット
 const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => {
-				   let created_at = dayjs(date).format('YYYY年M月DD日')
-				 return created_at      };
+				   let created_at = dayjs(date).format('YYYY年M月DD日') 
+				   return created_at      };
 //JSでのDateがNullの場合invailddate表示を防ぐ
 const isInvalidDate = () => {
 					return props.TodoList.filter( (item) => {
@@ -113,6 +114,7 @@ isInvalidDate();
       </tr>
     </thead>
       <tbody class="animated fadeIn"> 
+		<transition-group name="flip-list" tag="">
 	               <tr 
 				    v-for="(item)  in  TodoList "
 				   :key="item.user_id"   
@@ -121,7 +123,7 @@ isInvalidDate();
 					'inComp':isExpire(item.finished_date,item.expire_date) ,
 					'forwardComp':notExpire(item.finished_date,item.expire_date)
 					}">
-						<!-------------- TODO項目-------------------->
+						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
 						<!-------------- 未完了----------->
 						<td class="shadow-lg p-1 mb-1 rounded  align-middle btn-outline-warning modalDel" v-show="item.finished_date !== null" >
 						{{item.item_name}}		</td>       <!-- v-show="isNotComp" -->
@@ -142,38 +144,37 @@ isInvalidDate();
 						  <ul>
 							<!-- ------------ 完了系ボタン----------->
 							  <li class="button animated  fadeIn	">
-		<div class="btn-container">
+		<!-- <div class="btn-container">
 				<Transition name="slide-up" mode="out-in">
       			<button 
 				  class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark" 
 				  v-bind:href="'/complete/' + item.id" 
 				v-if="docState === '完了' && isNull(item.finished_date)"           
 				@click="emit('complete',  item.id),docState = '未完了'"
-				>完了</button>
+				>完了２</button>
    				<button 
 				   class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
 				   v-bind:href="'/incomplete/' + item.id" 
-				 v-else-if="docState === '未完了' && hasNull(item.finished_date)"
+				 v-else-if="docState === '未完了' || hasNull(item.finished_date)"
 				 @click="emit('incomplete',  item.id), docState = '完了'">
-				 未完了</button>
+				 未完了２</button>
    				</Transition>
- 		 </div>
+ 		 </div> -->
 					 <Transition  name="slide-up" mode="out-in">
 								<button 
 								class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark"   
 								v-bind:href="'/complete/' + item.id" 
 								v-show="isNull(item.finished_date)"
-								@click="emit('complete',  item.id)" 
+								@click="emit('complete',  item.id, item)" 
 							    >完了</button>
 					</Transition>
 					<Transition name="slide-up" mode="out-in">
 								<button 
-								
 								class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
-								@click="emit('incomplete',  item.id),testman2 = '完了'"
 								v-bind:href="'/incomplete/' + item.id" 
-								v-show="hasNull(item.finished_date)
-								">未完了</button>
+								v-show="hasNull(item.finished_date)"
+								@click="emit('incomplete',  item.id, item) "
+								>編集</button>
 					</Transition>	
 					<Transition @enter="tra.testEnter" @leave="tra.testLeave"></Transition>		
 							</li>
@@ -197,8 +198,10 @@ isInvalidDate();
 	                  		</ul>
 						</td>
 	                </tr>
-	            </tbody>
-  </table>
+				</transition-group>
+	        </tbody>
+			
+        </table>
 </template>
 
 <style>
@@ -227,16 +230,20 @@ isInvalidDate();
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 0.25s ease-out;
+  transition: all 0.14s ease-in-out;
 }
 
 .slide-up-enter-from {
-  opacity: 0;
-  transform: translateY(30px);
+	opacity: 0;
+  transform: translateY(10px);
 }
 
 .slide-up-leave-to {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateY(-10px);
+}
+
+.flip-list-move {
+  transition: transform 0.8s ease;
 }
 </style>
