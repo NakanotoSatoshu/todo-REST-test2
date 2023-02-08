@@ -16,6 +16,7 @@ const emit = defineEmits<{
   (eventName: "delete", id?: number): void;
   (transName: "comp",id?:number): any;
 }>();
+
 const ttt = ():any => {
  console.log(emit);}
 
@@ -42,26 +43,19 @@ const msg = ref('Hello TypeScript');
 //const TodoList = ref(); 
 
 //DATEフォーマット
-const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => {
-				   let created_at = dayjs(date).format('YYYY年M月DD日') 
-				   return created_at      };
+const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY年M月DD日') 
+				                                                                     return created_at      };
 //JSでのDateがNullの場合invailddate表示を防ぐ
-const isInvalidDate = () => {
-					return props.TodoList.filter( (item) => {
-						 if(item.finished_date === null){
-								Number(item.finished_date)
+const isInvalidDate = () => { return props.TodoList.filter( (item) => {
+						      if(item.finished_date === null){ Number(item.finished_date)
 								//console.log(item.finished_date)
-						 }else{
-                                return item.finished_date
-								//console.log(item.finished_date)
-					}})};
+						      }else{  return item.finished_date         }})};
 //完了日があるつまり完了してるやつ
 const isNull = (d: Date | undefined ) => {
 					if(null === d){//	console.log('未完了' + d)　　
 					return true
 					}else{//	console.log('ぬるぽでない' )
 				    return false        }};
-
 //完了日がないつまり未完了してるやつ
 const hasNull = (d: Date | undefined ) => {
 					if(null === d){ return false
@@ -72,22 +66,15 @@ const isExpire = (f: Date  , e:  Date  ) => { var d = new Date
 					if(f === null){
 						 if(new Date(e)  < d) {
 							return true 
-						 }else{
-							return false
-						 }
+						 }else{ return false }
 					}//console.log("test" + "期限日：" + e + "本日の日：" + d + "完了した日：" + f)
-					//return false    
-				   };
+				                            };
 //期限日以内である
 const notExpire = (f: Date  , e:  Date  ) => { var d = new Date
 					if(f === null){
 						if(new Date(e) > d){
 							return true
-						 }else{
-							return false
-						 }
-					} //return false     
-				 };
+						 }else{ 	return false  }}  };
 const CompleteaAnime  = () => { };
   
 const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );
@@ -102,15 +89,17 @@ isInvalidDate();
 </script>
 
 <template>
-  <table class="table table-hover table-sm my-1 iPhoneSE  opaS bg-body shadow-lg p-3 mb-3 rounded">
-    <thead class="thead">
+	目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数
+  <table class="table  table-hover table-sm my-1 p-1 iPhoneSE  opaS bg-body shadow-lg p-1 mb-0 rounded ">
+    <thead class="table-group-divider">
       <tr>
-        <th class="col-sm-2">項目名</th>
-        <th class="col-sm-2">担当者</th>
-        <th class="col-sm-2 iPhoneSE2">登録日</th>
-        <th class="col-sm-2 iPhoneSE2">期限日</th>
-        <th class="col-sm-2">完了日</th>
-        <th class="col-sm-2" colspan="3">操作</th>
+		
+        <th class="col-3 text-center">項目名</th>
+        <th class="col-1 text-center">担当者</th>
+        <th class="col-2 text-center iPhoneSE2">登録日</th>
+        <th class="col-2 text-center iPhoneSE2">期限日</th>
+        <th class="col-2 text-center">完了日</th>
+        <th class="col-2 text-center iPhoneSE2" colspan="">操作</th>
       </tr>
     </thead>
       <tbody class="animated fadeIn"> 
@@ -123,27 +112,29 @@ isInvalidDate();
 					'inComp':isExpire(item.finished_date,item.expire_date) ,
 					'forwardComp':notExpire(item.finished_date,item.expire_date)
 					}">
-						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
+						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする--
+						<th scope="row"><input type="checkbox" class="check text-center align-middle" id="btncheck1" autocomplete="off">
+ 						 </th>-->
 						<!-------------- 未完了----------->
-						<td class="shadow-lg p-1 mb-1 rounded  align-middle btn-outline-warning modalDel" v-show="item.finished_date !== null" >
+						<td class="shadow-lg p-1 mb-1 rounded  align-middle btn-sm btn-outline-warning modalDel" v-show="item.finished_date !== null" >
 						{{item.item_name}}		</td>       <!-- v-show="isNotComp" -->
 						<!-- ------------ 完了----------->
-						<td class="shadow-lg p-1 mb-1 rounded align-middle btn-lg modalDel"  v-show="item.finished_date === null">{{item.item_name}}</td>
+						<td class="shadow-lg p-1 mb-1 rounded align-middle btn-sm modalDel"  v-show="item.finished_date === null">{{item.item_name}}</td>
 	                   <!-- ------------ 名前-------------------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  align-middle modalName" >{{item.user.family_name}}{{item.user.first_name}}
+	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle modalName" >{{item.user.family_name}}{{item.user.first_name}}
 	                    </td>
 	                    <!-- ------------ 登録日-------------フォーマットデイト必須------->
-	                  <td class="shadow-lg p-1 mb-1 rounded  align-middle iPhoneSE2 modalRegist" >{{format(item.registration_date)}}</td>
+	                  <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalRegist" >{{format(item.registration_date)}}</td>
 	                    <!-- ------------ 期限日-------------------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  align-middle iPhoneSE2 modalExpire" >{{format(item.expire_date)}} </td>
+	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalExpire" >{{format(item.expire_date)}} </td>
 	                    <!-- ------------完了日-------------------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  align-middle modalFinish"  v-show="hasNull(item.finished_date)">{{format(item.finished_date)}}</td>
-	                    <td class="shadow-lg p-3 mb-3 rounded  align-middle medachi2 modalFinish animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
+	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle modalFinish"  v-show="hasNull(item.finished_date)">{{format(item.finished_date)}}</td>
+	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle medachi2 modalFinish animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
 						<!-- ------------操作ボタン-------------------->
 						<td class="shadow-lg p-1 mb-1 rounded  animated  fadeIn">
-						  <ul>
+						  <ul class="iPhoneSE2">
 							<!-- ------------ 完了系ボタン----------->
-							  <li class="button animated  fadeIn	">
+							  <li class=" button animated fadeIn	">
 		<!-- <div class="btn-container">
 				<Transition name="slide-up" mode="out-in">
       			<button 

@@ -1,16 +1,6 @@
 @charset "UTF-8";
-
-目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数
-
-目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数
-目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数
-目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数
-目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数
-目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数
-目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数
-
 .testToggle{
-	background-color: #71717169;
+	background-color: #808080f5;
     color: rgba(0, 0, 0, 0.685);
 }
 
@@ -24,17 +14,27 @@
     color: hsl(180, 100%, 0%);
 }
 
-@media (max-width: 670px){
+/*文字の色変える重要 */
+.btn-outline-warning {
+  color: #000000 !important;
+}
 
+@media (max-width: 670px){
      .iPhoneSE2 {
         display: none;
     }
+}
 
-  }
+@media (max-width: 670px){
+  .iPhoneSE3 {
+     display: none;
+ }
+}
 
 .iPhoneSE{
 	word-break: break-all;
-    width: 100%;
+    width: 98%;
+    
 }
 
 font{
@@ -42,32 +42,28 @@ font{
 	font-size:2px;
 }
 
-
-
-
-
 li{
 	list-style-type: none;
 	float:left;
 }
+
 table{
 	font-family: 'Noto Sans JP', sans-serif;
-	border-radius: 10px;
+  font-size:12px;
+	border-radius: 5px;
 }
+
 tr{
 	display: -webkit - box;
-    display:
-        -webkit - flex;
-
-
-    position: relative;
-	border-radius: 20px;
-	box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%);
+  display: -webkit - flex;
+  position: relative;
+	border-radius: 5px;
+	box-shadow: 0 2px 2px 0 rgba(44, 44, 43, 0.452);
 }
+
 td{
 	font-family: 'Noto Sans JP', sans-serif;
-
-	border-radius: 10px;
+	border-radius: 1px;
 }
 
 /*カルーセルスライダーCSS
@@ -197,16 +193,11 @@ td{
   display: none;
 }
 
-
-
-
-
-
  /* ボタンを横並びにする */
-        form {
-           /* display: inline-block;
+        form {   
+           display: inline-block;
         }
-
+      
         /* 打消し線を入れる */
         tr.del>td {
             text-decoration: line-through;
@@ -219,25 +210,27 @@ td{
 
 .float-right{
 	float:right;
+  clear: both;
 }
 .float-left{
 	float:left;
+  clear: both;
 }
 
 
 .table-hover {
-  tbody tr {
+  tbody :tr {
     @include hover() {
       width:105%;
 	  opacity:1;
       color: $table-hover-color;
       background-color: $table-hover-bg;
     }
-  }
+  },
 }
-目の動き、幅、フォントそろえる、スマホ版の項目数
-}
-./////////form-control:hover{
+
+
+.form-control:hover{
 	animation:    1s alternate ;
 	 animation-duration: ;
  	 animation-iteration-count:infinite;
@@ -246,7 +239,7 @@ td{
 	overflow: hidden;
 }
 
-}
+
 
 @keyframes pokemon{
   0%{
@@ -321,10 +314,9 @@ td{
 }
 
 .medachi2{
-	font-size:31px;
-	font-weight: 1000;
+	font-size:24px;
 	opacity:1;
-	font-stretch:ultra-expanded;
+	
 }
 
 .tyottodekai{

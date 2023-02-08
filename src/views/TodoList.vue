@@ -22,6 +22,7 @@ todoService.getAllTasks();
       :open="open"
       :TodoList="todoService.todoItmes"  
             ></Edit>
+      <div class="container-sm p-1 McShadow">
       <TaskList 
       :open="open" 
       :TodoList="todoService.todoItmes" 
@@ -29,6 +30,7 @@ todoService.getAllTasks();
       @complete="(id,item) => todoService.postComplete(id,item) " 
       @incomplete="(id,item) => todoService.postInComplete(id,item)"></TaskList>
       <Head :open="open"  ></Head>
+      </div>
 </template>
 
 <style >

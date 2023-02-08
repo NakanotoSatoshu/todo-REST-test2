@@ -31,11 +31,12 @@ const goToUrl = (url?: string) => {
   <body class="sb-nav-fixed" :class="isToggle ? 'sb-sidenav-toggled' : ''">
     <nav class="sb-topnav navbar navbar-expand navbar-light bg-light McShadow">
       <!-- titleを可変にし、hrefをrouterで切り替えるように修正 -->
-      <a class="navbar-brand ps-3 McShadow" @click="goToUrl('/')">{{ title }}</a>
+      <a class="navbar-brand ps-3 " @click="goToUrl('/')">{{ title }}</a>
       <!-- isToggleでスライドバーの表示/非表示を切り替える -->
       <button id="sidebarToggle" class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" @click="isToggle = !isToggle">
         <i class="fas fa-bars"></i>
       </button>
+      sdjfisdhofjsdpkg@dkpksd@k@
       <!-- 不要な項目は削除 -->
     </nav>
     <div id="layoutSidenav">
