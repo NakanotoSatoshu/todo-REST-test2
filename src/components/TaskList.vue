@@ -20,6 +20,7 @@ const emit = defineEmits<{
 const ttt = ():any => {
  console.log(emit);}
 
+ const show = ref(false);
 const open = ref(props.open);
 const testman = ref<(emit)
 const testman2 = ref('');
@@ -80,7 +81,12 @@ const CompleteaAnime  = () => { };
 const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );
 					
 const getComputed = computed (  () => props.TodoList.filter( (item) => { return item.is_deleted === 0 }));
+
 const testClick = () => { console.log('ClickThis??'); };
+
+const toggle = () => {
+  show.value = !show.value;
+};
 
 //getFilter();
 //console.log(emit);
@@ -89,32 +95,32 @@ isInvalidDate();
 </script>
 
 <template>
-	目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数
+	目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数table-group-divider
+<div class="col-xl-11 col-md-8">
   <table class="table  table-hover table-sm my-1 p-1 iPhoneSE  opaS bg-body shadow-lg p-1 mb-0 rounded ">
-    <thead class="table-group-divider">
+    <thead class="table-dark">
       <tr>
-		
-        <th class="col-3 text-center">項目名</th>
-        <th class="col-1 text-center">担当者</th>
-        <th class="col-2 text-center iPhoneSE2">登録日</th>
-        <th class="col-2 text-center iPhoneSE2">期限日</th>
-        <th class="col-2 text-center">完了日</th>
-        <th class="col-2 text-center iPhoneSE2" colspan="">操作</th>
+		<th scope="col align-middle" width="20" class="text-center ">#</th>
+        <th scope="col align-middle" width="600" class="text-center ">項目名</th>
+        <th scope="col align-middle" class="text-center col-1">担当者</th>
+        <th scope="col align-middle" class="text-center col-2 iPhoneSE2">登録日</th>
+        <th scope="col align-middle" class="text-center col-2 iPhoneSE2">期限日</th>
+        <th scope="col align-middle" class="text-center col-2">完了日</th>
+        <th scope="col align-middle" class="text-center col-2 iPhoneSE2" colspan="">操作</th>
       </tr>
     </thead>
       <tbody class="animated fadeIn"> 
 		<transition-group name="flip-list" tag="">
-	               <tr 
-				    v-for="(item)  in  TodoList "
-				   :key="item.user_id"   
-				   class="testToggle"
+	        <template v-for="(item)  in  TodoList " :key="item.user_id"  >
+				<tr class="testToggle"
 				   :class="{
 					'inComp':isExpire(item.finished_date,item.expire_date) ,
 					'forwardComp':notExpire(item.finished_date,item.expire_date)
 					}">
-						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする--
-						<th scope="row"><input type="checkbox" class="check text-center align-middle" id="btncheck1" autocomplete="off">
- 						 </th>-->
+						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
+					    <th >
+						     <input type="checkbox" class="check text-center align-middle" id="btncheck1" autocomplete="off">
+ 					    </th>
 						<!-------------- 未完了----------->
 						<td class="shadow-lg p-1 mb-1 rounded  align-middle btn-sm btn-outline-warning modalDel" v-show="item.finished_date !== null" >
 						{{item.item_name}}		</td>       <!-- v-show="isNotComp" -->
@@ -124,7 +130,7 @@ isInvalidDate();
 	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle modalName" >{{item.user.family_name}}{{item.user.first_name}}
 	                    </td>
 	                    <!-- ------------ 登録日-------------フォーマットデイト必須------->
-	                  <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalRegist" >{{format(item.registration_date)}}</td>
+	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalRegist" >{{format(item.registration_date)}}</td>
 	                    <!-- ------------ 期限日-------------------->
 	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalExpire" >{{format(item.expire_date)}} </td>
 	                    <!-- ------------完了日-------------------->
@@ -132,8 +138,8 @@ isInvalidDate();
 	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle medachi2 modalFinish animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
 						<!-- ------------操作ボタン-------------------->
 						<td class="shadow-lg p-1 mb-1 rounded  animated  fadeIn">
-						  <ul class="iPhoneSE2">
-							<!-- ------------ 完了系ボタン----------->
+						<!-- ------------ 完了系ボタン----------->
+							<ul class="iPhoneSE2">
 							  <li class=" button animated fadeIn	">
 		<!-- <div class="btn-container">
 				<Transition name="slide-up" mode="out-in">
@@ -185,14 +191,29 @@ isInvalidDate();
 							   v-bind:href="'/delete/' + item.id"
 							   @click="emit('delete', item.id)"
 							   >削除</button>
-							</li>
-	                  		</ul>
-						</td>
+							 </li>
+	                  	  </ul>
+						  <div class="iPhoneSE3">
+							<div class="accordion accordion-flush" id="accordionFlushExample">
+  								<div class="accordion-item">
+   											 <h5 class="accordion-header" id="flush-headingOne">
+  								   		 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+      										   #1
+     									 </button>
+    										</h5>
+   									 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+    							    <div class="accordion-body"> <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+   								 </div>
+ 									 </div>
+							</div>
+						  </div>
+					  </td>
 	                </tr>
-				</transition-group>
-	        </tbody>
-			
-        </table>
+				</template> 
+			</transition-group>
+	  </tbody>	
+  </table>
+</div>
 </template>
 
 <style>
