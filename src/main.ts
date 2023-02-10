@@ -13,6 +13,7 @@ import "startbootstrap-sb-admin/src/scss/styles.scss";
 import "./assets/nice.scss";
 import "./assets/Chaos.css";
 import 'animate.css';
+import './style.css';
 
 // dayjsのインポート
 import dayjs from 'dayjs'

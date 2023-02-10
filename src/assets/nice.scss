@@ -1,12 +1,14 @@
 @charset "UTF-8";
 .testToggle{
-	background-color: #808080f5;
+	background-color: #0000006e;
     color: rgba(0, 0, 0, 0.685);
+    font-weight: 100;
 }
 
 .inComp{
-	background-color: rgb(255, 204, 157)!important;
-    color: #ee0404;
+	background-color: rgba(226, 226, 226, 0.233)!important;
+    color: #ff0000;
+    font-weight: 700;
 }
 
 .forwardComp{
@@ -25,15 +27,16 @@
     }
 }
 
-@media (min-width: 670px){
+@media (man-width: 670px ){
   .iPhoneSE3 {
      display: -webkit-box;
+
  }
 }
 
 .iPhoneSE{
 	word-break: break-all;
-    width: 98%;
+    width: 99%;
     
 }
 
@@ -49,7 +52,7 @@ li{
 
 table{
 	font-family: 'Noto Sans JP', sans-serif;
-  font-size:12px;
+  font-size:16px;
 	border-radius: 5px;
 }
 

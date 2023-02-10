@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 import tra from '../services/TrantisonService';
 import type {TodoItems} from "../models/TodoItems";
+import SMenu from '../components/SlideMenu.vue';
 import type{ Task } from "../models/Task";
 
 dayjs.locale(ja);
@@ -17,10 +18,8 @@ const emit = defineEmits<{
   (transName: "comp",id?:number): any;
 }>();
 
-const ttt = ():any => {
- console.log(emit);}
+const ttt = ():any => { console.log(emit);}
 
- const show = ref(false);
 const open = ref(props.open);
 const testman = ref<(emit)
 const testman2 = ref('');
@@ -39,74 +38,45 @@ async function transInComp(el: Element, done: () => void) { el.classList.add("ov
   el.classList.remove("overflow-hidden");
   done();}
 
-const msg = ref('Hello TypeScript');
+//DATEフォーマット
+const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY/M/DD') ;return created_at      };
+//JSでのDateがNullの場合invailddate表示を防ぐ
+const isInvalidDate = () => { return props.TodoList.filter( (item) => { if(item.finished_date === null){ Number(item.finished_date) }else{  return item.finished_date         }})};
+//完了日があるつまり完了してるやつ
+const isNull = (d: Date | undefined ) => {if(null === d){return true}else{return false      }};
+//完了日がないつまり未完了してるやつ
+const hasNull = (d: Date | undefined ) => {if(null === d){ return false}else{ return true   }};
+//期限日を現在より過ぎている
+const isExpire = (f: Date  , e:  Date  ) => { var d = new Date 	;if(f === null){ if(new Date(e)  < d) {	return true  }else{ return false }	}   };
+//期限日以内である
+const notExpire = (f: Date  , e:  Date  ) => { var d = new Date ; if(f === null){if(new Date(e) > d){return true}else{ 	return false  }}  };
+const CompleteaAnime  = () => { };
 
+//テスト用
+const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );		
+const getComputed = computed (  () => props.TodoList.filter( (item) => { return item.is_deleted === 0 }));
+const testClick = () => { console.log('ClickThis??'); };
+const toggle2 = () => { showS.value = !showS.value; };
+const showS = ref(false);
+const msg = ref('Hello TypeScript');
 //const TodoList = ref(); 
 
-//DATEフォーマット
-const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY年M月DD日') 
-				                                                                     return created_at      };
-//JSでのDateがNullの場合invailddate表示を防ぐ
-const isInvalidDate = () => { return props.TodoList.filter( (item) => {
-						      if(item.finished_date === null){ Number(item.finished_date)
-								//console.log(item.finished_date)
-						      }else{  return item.finished_date         }})};
-//完了日があるつまり完了してるやつ
-const isNull = (d: Date | undefined ) => {
-					if(null === d){//	console.log('未完了' + d)　　
-					return true
-					}else{//	console.log('ぬるぽでない' )
-				    return false        }};
-//完了日がないつまり未完了してるやつ
-const hasNull = (d: Date | undefined ) => {
-					if(null === d){ return false
-					}else{//console.log('完了' + d  + Number(d))
-				    return true          }};
-//期限日を現在より過ぎている
-const isExpire = (f: Date  , e:  Date  ) => { var d = new Date 			
-					if(f === null){
-						 if(new Date(e)  < d) {
-							return true 
-						 }else{ return false }
-					}//console.log("test" + "期限日：" + e + "本日の日：" + d + "完了した日：" + f)
-				                            };
-//期限日以内である
-const notExpire = (f: Date  , e:  Date  ) => { var d = new Date
-					if(f === null){
-						if(new Date(e) > d){
-							return true
-						 }else{ 	return false  }}  };
-const CompleteaAnime  = () => { };
-  
-const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );
-					
-const getComputed = computed (  () => props.TodoList.filter( (item) => { return item.is_deleted === 0 }));
-
-const testClick = () => { console.log('ClickThis??'); };
-
-const toggle = () => {
-  show.value = !show.value;
-};
-
-//getFilter();
-//console.log(emit);
 isInvalidDate();
-
 </script>
 
 <template>
 	目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数table-group-divider
-<div class="col-xl-11 col-md-8">
-  <table class="table  table-hover table-sm my-1 p-1 iPhoneSE  opaS bg-body shadow-lg p-1 mb-0 rounded ">
+<div class="col-xl-12 col-md-10">
+  <table class="table  table-hover table-sm my-1 p-1 iPhoneSE bg-body shadow-sm p-1 mb-0 rounded ">
     <thead class="table-dark">
       <tr>
-		<th scope="col align-middle" width="20" class="text-center ">#</th>
-        <th scope="col align-middle" width="600" class="text-center ">項目名</th>
-        <th scope="col align-middle" class="text-center col-1">担当者</th>
+		<th scope="col align-middle"  class="text-center iPhonseSE2">#</th>
+        <th scope="col align-middle" class="text-center col-3 iPhoneSE2">項目名</th>
+        <th scope="col align-middle" class="text-center col-1 iPhoneSE2">担当者</th>
         <th scope="col align-middle" class="text-center col-2 iPhoneSE2">登録日</th>
         <th scope="col align-middle" class="text-center col-2 iPhoneSE2">期限日</th>
-        <th scope="col align-middle" class="text-center col-2">完了日</th>
-        <th scope="col align-middle" class="text-center col-2 iPhoneSE2" colspan="">操作</th>
+        <th scope="col align-middle" class="text-center col-2 iPhoneSE2">完了日</th>
+        <th scope="col align-middle" class="text-center col-4 iPhoneSE2" colspan="">操作</th>
       </tr>
     </thead>
       <tbody class="animated fadeIn"> 
@@ -118,16 +88,17 @@ isInvalidDate();
 					'forwardComp':notExpire(item.finished_date,item.expire_date)
 					}">
 						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
-					    <th >
-						     <input type="checkbox" class="check text-center align-middle" id="btncheck1" autocomplete="off">
+					    <th class="">
+						     <input type="checkbox" class="check text-center align-middle iPhonseSE2" id="btncheck1" autocomplete="off" 
+							 @click="toggle2" >
  					    </th>
 						<!-------------- 未完了----------->
 						<td class="shadow-lg p-1 mb-1 rounded  align-middle btn-sm btn-outline-warning modalDel" v-show="item.finished_date !== null" >
 						{{item.item_name}}		</td>       <!-- v-show="isNotComp" -->
 						<!-- ------------ 完了----------->
-						<td class="shadow-lg p-1 mb-1 rounded align-middle btn-sm modalDel"  v-show="item.finished_date === null">{{item.item_name}}</td>
+						<td class="shadow-lg p-1 mb-1 rounded align-middle btn-sm btn-outline-warning modalDel"  v-show="item.finished_date === null">{{item.item_name}}</td>
 	                   <!-- ------------ 名前-------------------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle modalName" >{{item.user.family_name}}{{item.user.first_name}}
+	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhonseSE2 modalName" >{{item.user.family_name}}{{item.user.first_name}}
 	                    </td>
 	                    <!-- ------------ 登録日-------------フォーマットデイト必須------->
 	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalRegist" >{{format(item.registration_date)}}</td>
@@ -137,9 +108,9 @@ isInvalidDate();
 	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle modalFinish"  v-show="hasNull(item.finished_date)">{{format(item.finished_date)}}</td>
 	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle medachi2 modalFinish animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
 						<!-- ------------操作ボタン-------------------->
-						<td class="shadow-lg p-1 mb-1 rounded  animated  fadeIn">
+						<td class="shadow-lg p-1 mb-1 rounded  text-center align-middle animated  fadeIn">
 						<!-- ------------ 完了系ボタン----------->
-							<ul class="iPhoneSE2">
+							<ul class="iPhoneSE2 iPhoneSE3 text-center align-middle">
 							  <li class=" button animated fadeIn	">
 		<!-- <div class="btn-container">
 				<Transition name="slide-up" mode="out-in">
@@ -163,7 +134,9 @@ isInvalidDate();
 								v-bind:href="'/complete/' + item.id" 
 								v-show="isNull(item.finished_date)"
 								@click="emit('complete',  item.id, item)" 
-							    >完了</button>
+							    >
+								<i class="fa-solid fa-arrow-down-long"></i>
+							    </button>
 					</Transition>
 					<Transition name="slide-up" mode="out-in">
 								<button 
@@ -171,7 +144,9 @@ isInvalidDate();
 								v-bind:href="'/incomplete/' + item.id" 
 								v-show="hasNull(item.finished_date)"
 								@click="emit('incomplete',  item.id, item) "
-								>編集</button>
+								>
+								<i class="fa-solid fa-truck-monster"></i>
+								</button>
 					</Transition>	
 					<Transition @enter="tra.testEnter" @leave="tra.testLeave"></Transition>		
 							</li>
@@ -182,7 +157,8 @@ isInvalidDate();
 							<li><!-- ------------ 更新画面----------->
 	                           <button class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark modal-open2"   
 							   v-bind:href="'/edit/' + item.id" >
-							   更新</button>
+							   <i class="fa-solid fa-calendar-days"></i>
+								</button>
 	                         </li>
 	                         <li><!-- ------------ 削除画面----------->
 	                  		  <button id="js-open" 
@@ -190,23 +166,14 @@ isInvalidDate();
 							   type="button" 
 							   v-bind:href="'/delete/' + item.id"
 							   @click="emit('delete', item.id)"
-							   >削除</button>
+							   >
+							    <i class="fa-solid fa-trash"></i>
+								</button>
 							 </li>
-	                  	  </ul>
-						  <div class="iPhoneSE3">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-  								<div class="accordion-item">
-   											 <h5 class="accordion-header" id="flush-headingOne">
-  								   		 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-      										   #1
-     									 </button>
-    										</h5>
-   									 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-    							    <div class="accordion-body"> <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
-   								 </div>
- 									 </div>
-							</div>
-						  </div>
+							</ul>
+						<div class="iPhoneSE3 iPhoneSE2">
+							<SMenu :showS="showS" ></SMenu>
+						</div>
 					  </td>
 	                </tr>
 				</template> 
