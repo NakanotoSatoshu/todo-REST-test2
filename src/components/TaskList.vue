@@ -6,6 +6,7 @@ import tra from '../services/TrantisonService';
 import type {TodoItems} from "../models/TodoItems";
 import SMenu from '../components/SlideMenu.vue';
 import type{ Task } from "../models/Task";
+import ME from './ModalEdit.vue';
 
 dayjs.locale(ja);
 
@@ -14,29 +15,10 @@ const props = defineProps<{TodoList: TodoItems[] ,open: boolean }>();
 const emit = defineEmits<{
   (eventName: "complete", id?: number ,item?: any): any;
   (eventName: "incomplete", id?: number , item?:any): any;
-  (eventName: "delete", id?: number): void;
+  (eventName: "delete2", id?: number): void;
+  (eventName: "delete",id?:number, item?:any):any;
   (transName: "comp",id?:number): any;
 }>();
-
-const ttt = ():any => { console.log(emit);}
-
-const open = ref(props.open);
-const testman = ref<(emit)
-const testman2 = ref('');
-const docState = ref('完了')
-
-//完了アニメ
-async function transComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "未完了";
-  await el.animate(  [{ height: 0, }, { height: `${(el as HTMLElement).offsetHeight}px`,},],
-    { duration: 500, easing: "ease-out",}).finished;
-  el.classList.remove("overflow-hidden");
-  done();}
-// 未完了アニメ
-async function transInComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "完了";
-  await el.animate([{ height: `${(el as HTMLElement).offsetHeight}px`,},{height: 0,},],
-    {duration: 500,easing: "ease-out",}).finished;
-  el.classList.remove("overflow-hidden");
-  done();}
 
 //DATEフォーマット
 const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY/M/DD') ;return created_at      };
@@ -50,14 +32,33 @@ const hasNull = (d: Date | undefined ) => {if(null === d){ return false}else{ re
 const isExpire = (f: Date  , e:  Date  ) => { var d = new Date 	;if(f === null){ if(new Date(e)  < d) {	return true  }else{ return false }	}   };
 //期限日以内である
 const notExpire = (f: Date  , e:  Date  ) => { var d = new Date ; if(f === null){if(new Date(e) > d){return true}else{ 	return false  }}  };
-const CompleteaAnime  = () => { };
 
 //テスト用
+const CompleteaAnime  = () => { };
 const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );		
 const getComputed = computed (  () => props.TodoList.filter( (item) => { return item.is_deleted === 0 }));
 const testClick = () => { console.log('ClickThis??'); };
+const ttt = ():any => { console.log(emit);}
+        //完了アニメ
+async function transComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "未完了";
+  await el.animate(  [{ height: 0, }, { height: `${(el as HTMLElement).offsetHeight}px`,},],
+    { duration: 500, easing: "ease-out",}).finished;
+  el.classList.remove("overflow-hidden");
+  done();}
+		// 未完了アニメ
+async function transInComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "完了";
+  await el.animate([{ height: `${(el as HTMLElement).offsetHeight}px`,},{height: 0,},],
+    {duration: 500,easing: "ease-out",}).finished;
+  el.classList.remove("overflow-hidden");
+  done();}
+const open = ref(props.open);
+const testman = ref<(emit)
+const testman2 = ref('');
+const docState = ref('完了')
 const toggle2 = () => { showS.value = !showS.value; };
 const showS = ref(false);
+const modalEdit =  ref(false);
+const modalEditToggle = () => { modalEdit.value = !modalEdit.value; };
 const msg = ref('Hello TypeScript');
 //const TodoList = ref(); 
 
@@ -65,7 +66,7 @@ isInvalidDate();
 </script>
 
 <template>
-	目の動き、幅、フォントそろえる、スマホ版の項目数目の動き、幅、フォントそろえる、スマホ版の項目数table-group-divider
+	
 <div class="col-xl-12 col-md-10">
   <table class="table  table-hover table-sm my-1 p-1 iPhoneSE bg-body shadow-sm p-1 mb-0 rounded ">
     <thead class="table-dark">
@@ -155,11 +156,21 @@ isInvalidDate();
 								
 							</li>
 							<li><!-- ------------ 更新画面----------->
-	                           <button class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark modal-open2"   
-							   v-bind:href="'/edit/' + item.id" >
+	                           <button 
+							   class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark modal-open2"   
+							   v-bind:href="'/edit/' + item.id" 
+							   @click="modalEditToggle">
 							   <i class="fa-solid fa-calendar-days"></i>
 								</button>
 	                         </li>
+							 <transition
+  								enter-active-class="transition duration-2100"
+  								enter-from-class="transform opacity-0 -translate-y-2 "
+  								leave-active-class="transition duration-4900"
+ 								 leave-to-class="transform opacity-1 -translate-y-20"
+									>		 
+							 <ME  :modalEdit="modalEdit"/> 
+							 </transition>
 	                         <li><!-- ------------ 削除画面----------->
 	                  		  <button id="js-open" 
 							  class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark  modal-open"  
@@ -176,6 +187,7 @@ isInvalidDate();
 						</div>
 					  </td>
 	                </tr>
+
 				</template> 
 			</transition-group>
 	  </tbody>	

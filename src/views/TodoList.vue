@@ -68,15 +68,11 @@ todoService.getAllTasks();
       :open="open"
       :TodoList="todoService.todoItmes"
       ></Delete>
-      <Edit 
-      :open="open"
-      :TodoList="todoService.todoItmes"  
-            ></Edit>
-      
             <TaskList 
             :open="open" 
             :TodoList="todoService.todoItmes" 
-              @delete="(id) => todoService.deleteTask(id)" 
+              @delete2="(id) => todoService.deleteTask(id)" 
+              @delete="(id) => todoService.postDelete(id)" 
              @complete="(id,item) => todoService.postComplete(id,item) " 
               @incomplete="(id,item) => todoService.postInComplete(id,item)"></TaskList>
              <Head :open="open"  ></Head>

@@ -38,7 +38,7 @@ class TodoService {
     });
   }
   
-  // タスクを削除する。
+  // お手本のタスクを削除する。
   public deleteTask(id?: number): void {
     const index = this.tasks.findIndex((t) => t.id === id);
     if (index !== undefined) {
@@ -46,6 +46,41 @@ class TodoService {
       axios.delete(this.RESTAPI_URL  + id);
     }
   }
+ // 削除する。
+ public postDelete(id?: number): void  {
+  const toDelete = id;
+  if (toDelete !== undefined) {
+   // Complete.finished_date = !Id.id;
+    axios
+    .post(this.RESTAPI_URL + '/delete/' +  id, 
+      { withCredentials:         true} ,  
+      { headers:         { 'Content-Type': 'application/json;charset=UTF-8',}})
+    //.then((res) => { console.log(res.data) })
+    .then((res) => {
+    
+    })
+    .catch( (error) => console.log(error)
+    );
+  }
+}
+
+// 編集する。
+public postEdit(id?: number , item?:any): void  {
+  const toEdit = id;
+  if (toEdit !== undefined) {
+   // Complete.finished_date = !Id.id;
+    axios
+    .post(this.RESTAPI_URL + '/edit/' +  id, 
+      { withCredentials:         true} ,  
+      { headers:         { 'Content-Type': 'application/json;charset=UTF-8',}})
+    //.then((res) => { console.log(res.data) })
+    .then((res) => {
+    
+    })
+    .catch( (error) => console.log(error)
+    );
+  }
+}
 
  // 完了する。
  public postComplete(id?: number,item?: any): void  {
