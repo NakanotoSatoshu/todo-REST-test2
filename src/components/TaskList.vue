@@ -6,7 +6,7 @@ import tra from '../services/TrantisonService';
 import type {TodoItems} from "../models/TodoItems";
 import SMenu from '../components/SlideMenu.vue';
 import type{ Task } from "../models/Task";
-import ME from './ModalEdit.vue';
+import ME from '../components/ModalEdit.vue';
 
 dayjs.locale(ja);
 
@@ -56,17 +56,21 @@ const testman = ref<(emit)
 const testman2 = ref('');
 const docState = ref('完了')
 const toggle2 = () => { showS.value = !showS.value; };
+const modalEditToggle2 = () => { console.log(childRef.value) };
+const childRef = ref();
+const childValue = "Hello, Zenn";
+const onChildMethodClick = () => { childRef.value.modalEditToggleChild();};
 const showS = ref(false);
-const modalEdit =  ref(false);
-const modalEditToggle = () => { modalEdit.value = !modalEdit.value; };
+const modalEdit = ref(false);
 const msg = ref('Hello TypeScript');
+
 //const TodoList = ref(); 
 
 isInvalidDate();
 </script>
 
 <template>
-	
+
 <div class="col-xl-12 col-md-10">
   <table class="table  table-hover table-sm my-1 p-1 iPhoneSE bg-body shadow-sm p-1 mb-0 rounded ">
     <thead class="table-dark">
@@ -159,18 +163,12 @@ isInvalidDate();
 	                           <button 
 							   class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark modal-open2"   
 							   v-bind:href="'/edit/' + item.id" 
-							   @click="modalEditToggle">
+							   @click="modalEditToggle2()">
 							   <i class="fa-solid fa-calendar-days"></i>
 								</button>
 	                         </li>
-							 <transition
-  								enter-active-class="transition duration-2100"
-  								enter-from-class="transform opacity-0 -translate-y-2 "
-  								leave-active-class="transition duration-4900"
- 								 leave-to-class="transform opacity-1 -translate-y-20"
-									>		 
-							 <ME  :modalEdit="modalEdit"/> 
-							 </transition>
+							 
+							 <ME ref="childRef" :modalEdit="modalEdit" ></ME>
 	                         <li><!-- ------------ 削除画面----------->
 	                  		  <button id="js-open" 
 							  class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark  modal-open"  
@@ -182,7 +180,7 @@ isInvalidDate();
 								</button>
 							 </li>
 							</ul>
-						<div class="iPhoneSE3 iPhoneSE2">
+						<div class="iPhoneSE3 ">
 							<SMenu :showS="showS" ></SMenu>
 						</div>
 					  </td>

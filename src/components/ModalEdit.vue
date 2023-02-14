@@ -8,25 +8,31 @@ import type{ Task } from "../models/Task";
 
 dayjs.locale(ja);
 
-const props = defineProps<{modalEdit: boolean }>();
+const props = defineProps<{ modalEdit: boolean }>();
 
-const emit = defineEmits<{
-  (eventName: "complete", id?: number ,item?: any): any;
-  (eventName: "incomplete", id?: number , item?:any): any;
-  (eventName: "delete", id?: number): void;
-  (transName: "comp",id?:number): any;
-}>();
-
-const modalEdit =  ref(props.modalEdit);
-
+const modalEditToggleChild = () => { modalEdit.value = !modalEdit.value; };
+const showS = ref(false);
+const modalEdit = ref(false);
+defineExpose({
+  modalEditToggleChild
+});
+//const modalEdit2 = ref(props.modalEdit);console.log(props.modalEdit);
+const modalEdit3 = ref(props.modalEdit);console.log(props.modalEdit);
+//console.log(modalEdit2.value);
 </script>
 
 <template>
-
-
- <div class="animated  fadeInLeft"	id="" v-show="modalEdit">
- <h5>おいしいよ！</h5>
+   
+              <transition
+  								enter-active-class="transition duration-100"
+  								enter-from-class="transform opacity-0 -translate-y-2 "
+  								leave-active-class="transition duration-100"
+ 								 leave-to-class="transform opacity-0 -translate-y-2">	
+             <div class="animated  fadeInLeft"	v-show="modalEdit" >
+                    <h5>おいしいよ！</h5>
 									<img src="src\assets\tk213-2.jpg" />
-              </div>
+                  </div>
+             </transition>
+
               
 </template>
