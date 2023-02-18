@@ -6,6 +6,27 @@ import tra from '../services/TrantisonService';
 import type {TodoItems} from "../models/TodoItems";
 import type{ Task } from "../models/Task";
 import { isTemplateNode } from '@vue/compiler-core';
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, integer } from "../utlis/i18n-validators";
+
+const formData = reactive({
+  name: "",
+  age: "",
+  email: "",
+});
+
+const rules = {
+  name: { required },
+  age: { required, integer },
+  email: { required, email },
+};
+
+const v$ = useVuelidate(rules, formData);
+
+const submitForm = async () => {
+  const result = await v$.value.$validate();
+  console.log('result', result); // true or false
+};
 dayjs.locale(ja);
 
 
@@ -66,6 +87,62 @@ defineExpose({
 						<!-- ------------操作ボタン-------------------->
 						<td class="shadow-lg p-1 mb-1 rounded  text-center align-middle animated  fadeIn">
 					  </td>
+            <div class="mt-12 flex justify-center">
+    <div class="w-full max-w-sm text-gray-700">
+      <h1 class="text-2xl font-bold mb-2"></h1>
+<form class="bg-white shadow-md rounded p-4" method="post" action="/edit/test" @submit.prevent="submitForm">
+  <div class="mb-4">
+    <label class="bloc text-sm font-bold mb-2" for="name"> 名前 </label>
+    <input
+      class="border rounded w-full p-2"
+      id="name"
+      type="text"
+      placeholder="名前"
+      v-model="formData.name"
+    />
+    <div v-for="error of v$.name.$errors" :key="error.$uid">
+      <div class="text-red-700 font-bold">{{ error.$message }}</div>
+    </div>
+  </div>
+  <div class="mb-4">
+    <label class="bloc text-sm font-bold mb-2" for="age">年齢 </label>
+    <input
+      class="border rounded w-full p-2 text-gray-700"
+      id="age"
+      type="age"
+      placeholder="年齢"
+      v-model="formData.age"
+    />
+    <div v-for="error of v$.age.$errors" :key="error.$uid">
+      <div class="text-red-700 font-bold">{{ error.$message }}</div>
+    </div>
+  </div>
+  <div class="mb-4">
+    <label class="block text-sm font-bold mb-2" for="email">
+      メールアドレス
+    </label>
+    <input
+      class="border rounded w-full p-2 text-gray-700"
+      id="email"
+      type="email"
+      placeholder="メールアドレス"
+      v-model="formData.email"
+    />
+    <div v-for="error of v$.email.$errors" :key="error.$uid">
+      <div class="text-red-700 font-bold">{{ error.$message }}</div>
+    </div>
+  </div>
+        <div class="flex items-center justify-between">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            type="submit"
+          >
+            送信
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 	   </tr>
      <!--  <div class="container-fluid animated  fadeInLeft"	v-show="modalEdit" >
         <tr class="">
