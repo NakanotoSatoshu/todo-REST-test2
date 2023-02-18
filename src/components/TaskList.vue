@@ -99,7 +99,7 @@ isInvalidDate();
       </tr>
     </thead>
       <tbody class="animated fadeIn"> 
-		<transition-group name="flip-list" tag="">
+	<!-- 	<transition-group name="flip-list" tag=""> -->
 	        <template v-for="(item)  in  TodoList " :key="item.user_id"  >
 				<tr class="testToggle"
 				   :class="{
@@ -186,7 +186,7 @@ isInvalidDate();
 	                </tr>
 					<ME ref="childRef" :modalEdit="modalEdit"  :item="item" :TodoList="TodoList"></ME>
 				</template> 
-			</transition-group>
+			<!-- </transition-group> -->
 	  </tbody>	
   </table>
 </div>
