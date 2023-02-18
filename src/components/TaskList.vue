@@ -56,14 +56,28 @@ const testman = ref<(emit)
 const testman2 = ref('');
 const docState = ref('完了')
 const toggle2 = () => { showS.value = !showS.value; };
-const modalEditToggle2 = () => { console.log(childRef.value) };
-const childRef = ref();
-const childValue = "Hello, Zenn";
-const onChildMethodClick = () => { childRef.value.modalEditToggleChild();};
+const MEShow = ref(false);
+const modalEditToggle = () => { MEShow.value = !MEShow.value }; //----これですると全部のTRで出てしまう
+//テスト----------------DevOps-----------------------------------------------------------------------------------------------------
+const modalEditToggle3 = () => { childRef.value.modalEditToggleChild();  };
+const childRef = ref(ME);
+const onChildMethodClick2 = (e:any) => { 
+	// 何番目の要素かチェック
+	//console.log(e.currentTarget.closest);
+	let trs = document.getElementsByTagName( "tr" ) ;
+	let trss: any[] = [].slice.call( trs ) ;
+	//console.log(elm)
+	let tr = e.currentTarget.closest( "tr" );
+	let num = trss.indexOf( tr );
+	childRef.value[num - 1 ].modalEditToggleChild(); 
+	//console.log(number);
+	//childRef.value[number-1].modalEditToggleChild();
+}
+//const onChildMethodClick = (id :any) => { childRef.value[num].modalEditToggleChild(); };
+//テスト----------------DevOps-----------------------------------------------------------------------------------------------------
 const showS = ref(false);
 const modalEdit = ref(false);
 const msg = ref('Hello TypeScript');
-
 //const TodoList = ref(); 
 
 isInvalidDate();
@@ -73,7 +87,7 @@ isInvalidDate();
 
 <div class="col-xl-12 col-md-10">
   <table class="table  table-hover table-sm my-1 p-1 iPhoneSE bg-body shadow-sm p-1 mb-0 rounded ">
-    <thead class="table-dark">
+    <thead class="table-Secondary opaS">
       <tr>
 		<th scope="col align-middle"  class="text-center iPhonseSE2">#</th>
         <th scope="col align-middle" class="text-center col-3 iPhoneSE2">項目名</th>
@@ -114,26 +128,11 @@ isInvalidDate();
 	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle medachi2 modalFinish animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
 						<!-- ------------操作ボタン-------------------->
 						<td class="shadow-lg p-1 mb-1 rounded  text-center align-middle animated  fadeIn">
-						<!-- ------------ 完了系ボタン----------->
+						<!-- ------------ 完了系ボタン--------------------------------------------->
 							<ul class="iPhoneSE2 iPhoneSE3 text-center align-middle">
-							  <li class=" button animated fadeIn	">
-		<!-- <div class="btn-container">
-				<Transition name="slide-up" mode="out-in">
-      			<button 
-				  class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark" 
-				  v-bind:href="'/complete/' + item.id" 
-				v-if="docState === '完了' && isNull(item.finished_date)"           
-				@click="emit('complete',  item.id),docState = '未完了'"
-				>完了２</button>
-   				<button 
-				   class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
-				   v-bind:href="'/incomplete/' + item.id" 
-				 v-else-if="docState === '未完了' || hasNull(item.finished_date)"
-				 @click="emit('incomplete',  item.id), docState = '完了'">
-				 未完了２</button>
-   				</Transition>
- 		 </div> -->
-					 <Transition  name="slide-up" mode="out-in">
+							  <li class=" button animated fadeIn">
+					 <!-------------- 完了-------------------------------------------------------->
+		 			<Transition  name="slide-up" mode="out-in">
 								<button 
 								class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark"   
 								v-bind:href="'/complete/' + item.id" 
@@ -143,6 +142,7 @@ isInvalidDate();
 								<i class="fa-solid fa-arrow-down-long"></i>
 							    </button>
 					</Transition>
+					<!-------------- 戻す---------------------------------------------------------->
 					<Transition name="slide-up" mode="out-in">
 								<button 
 								class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
@@ -159,17 +159,16 @@ isInvalidDate();
 							<li class="  animated  fadeIn" >
 								
 							</li>
-							<li><!-- ------------ 更新画面----------->
+							<li><!-------------- 更新画面----------------------------------------->
 	                           <button 
 							   class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark modal-open2"   
 							   v-bind:href="'/edit/' + item.id" 
-							   @click="modalEditToggle2()">
+							   @click="onChildMethodClick2">
 							   <i class="fa-solid fa-calendar-days"></i>
 								</button>
 	                         </li>
-							 
-							 <ME ref="childRef" :modalEdit="modalEdit" ></ME>
-	                         <li><!-- ------------ 削除画面----------->
+							 		
+	                         <li><!-- ------------ 削除画面--------------------------------------------------->
 	                  		  <button id="js-open" 
 							  class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark  modal-open"  
 							   type="button" 
@@ -185,7 +184,7 @@ isInvalidDate();
 						</div>
 					  </td>
 	                </tr>
-
+					<ME ref="childRef" :modalEdit="modalEdit"  :item="item" :TodoList="TodoList"></ME>
 				</template> 
 			</transition-group>
 	  </tbody>	

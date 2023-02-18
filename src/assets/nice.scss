@@ -103,6 +103,14 @@ td{
   z-index: 11;
   display: none;
 }*/
+.modalEdit{
+  position: relative;
+  top: -1%;
+  left: 2%;
+  box-shadow: 0 20px 25px 0 rgba(45, 194, 169, 0.9);
+  transform: translate(0px, -20px), scale(1.5, 2.7) rotate(2deg);
+  z-index: 10;
+}
 
  .modal {
   width: 65%;

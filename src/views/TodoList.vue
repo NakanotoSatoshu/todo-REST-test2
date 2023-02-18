@@ -75,7 +75,7 @@ todoService.getAllTasks();
               @delete="(id) => todoService.postDelete(id)" 
              @complete="(id,item) => todoService.postComplete(id,item) " 
               @incomplete="(id,item) => todoService.postInComplete(id,item)"></TaskList>
-             <Head :open="open"  ></Head>
+            <!--  <Head :open="open"  ></Head> -->
       
    </div> 
 </template>
