@@ -73,7 +73,8 @@ todoService.getAllTasks();
             :TodoList="todoService.todoItmes" 
               @delete2="(id) => todoService.deleteTask(id)" 
               @delete="(id) => todoService.postDelete(id)" 
-             @complete="(id,item) => todoService.postComplete(id,item) " 
+              @edit="(id,item) => todoService.postEdit(id)" 
+              @complete="(id,item) => todoService.postComplete(id,item) " 
               @incomplete="(id,item) => todoService.postInComplete(id,item)"></TaskList>
             <!--  <Head :open="open"  ></Head> -->
       

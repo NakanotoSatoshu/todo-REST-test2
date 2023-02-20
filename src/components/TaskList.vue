@@ -17,6 +17,7 @@ const emit = defineEmits<{
   (eventName: "incomplete", id?: number , item?:any): any;
   (eventName: "delete2", id?: number): void;
   (eventName: "delete",id?:number, item?:any):any;
+  (eventName: "edit",id?:number, item?:any):any;
   (transName: "comp",id?:number): any;
 }>();
 
@@ -65,12 +66,14 @@ const onChildMethodClick2 = (e:any) => {
 	// 何番目の要素かチェック
 	//console.log(e.currentTarget.closest);
 	let trs = document.getElementsByTagName( "tr" ) ;
+	//console.log(trs);
 	let trss: any[] = [].slice.call( trs ) ;
-	//console.log(elm)
+	//console.log(trss);
 	let tr = e.currentTarget.closest( "tr" );
 	let num = trss.indexOf( tr );
+	console.log(num);
 	childRef.value[num - 1 ].modalEditToggleChild(); 
-	//console.log(number);
+	
 	//childRef.value[number-1].modalEditToggleChild();
 }
 //const onChildMethodClick = (id :any) => { childRef.value[num].modalEditToggleChild(); };
@@ -89,7 +92,7 @@ isInvalidDate();
   <table class="table  table-hover table-sm my-1 p-1 iPhoneSE bg-body shadow-sm p-1 mb-0 rounded ">
     <thead class="table-Secondary opaS">
       <tr>
-		<th scope="col align-middle"  class="text-center iPhonseSE2">#</th>
+		<!-- <th scope="col align-middle"  class="text-center iPhonseSE2">#</th> -->
         <th scope="col align-middle" class="text-center col-3 iPhoneSE2">項目名</th>
         <th scope="col align-middle" class="text-center col-1 iPhoneSE2">担当者</th>
         <th scope="col align-middle" class="text-center col-2 iPhoneSE2">登録日</th>
@@ -107,10 +110,10 @@ isInvalidDate();
 					'forwardComp':notExpire(item.finished_date,item.expire_date)
 					}">
 						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
-					    <th class="">
+					    <!-- <th class="">
 						     <input type="checkbox" class="check text-center align-middle iPhonseSE2" id="btncheck1" autocomplete="off" 
 							 @click="toggle2" >
- 					    </th>
+ 					    </th> -->
 						<!-------------- 未完了----------->
 						<td class="shadow-lg p-1 mb-1 rounded  align-middle btn-sm btn-outline-warning modalDel" v-show="item.finished_date !== null" >
 						{{item.item_name}}		</td>       <!-- v-show="isNotComp" -->
@@ -159,7 +162,8 @@ isInvalidDate();
 							<li class="  animated  fadeIn" >
 								
 							</li>
-							<li><!-------------- 更新画面----------------------------------------->
+						    <!-------------- 更新画面----------------------------------------->
+							<li>
 	                           <button 
 							   class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark modal-open2"   
 							   v-bind:href="'/edit/' + item.id" 
@@ -167,8 +171,8 @@ isInvalidDate();
 							   <i class="fa-solid fa-calendar-days"></i>
 								</button>
 	                         </li>
-							 		
-	                         <li><!-- ------------ 削除画面--------------------------------------------------->
+							 	<!-------------- 削除画面--------------------------------------------------->	
+	                         <li>
 	                  		  <button id="js-open" 
 							  class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark  modal-open"  
 							   type="button" 
@@ -180,11 +184,19 @@ isInvalidDate();
 							 </li>
 							</ul>
 						<div class="iPhoneSE3 ">
-							<SMenu :showS="showS" ></SMenu>
+							<!--------------iPhone用に各機能を移さなければならない--------------------------------------------------->
+							<SMenu 
+							:showS="showS" 
+							></SMenu>
 						</div>
 					  </td>
 	                </tr>
-					<ME ref="childRef" :modalEdit="modalEdit"  :item="item" :TodoList="TodoList"></ME>
+					<ME 
+					ref="childRef" 
+					:modalEdit="modalEdit"  
+					:item="item" 
+					:TodoList="TodoList"
+					></ME>
 				</template> 
 			<!-- </transition-group> -->
 	  </tbody>	

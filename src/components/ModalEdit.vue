@@ -8,17 +8,43 @@ import type{ Task } from "../models/Task";
 import { isTemplateNode } from '@vue/compiler-core';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, integer } from "../utlis/i18n-validators";
+dayjs.locale(ja);
 
+const props = defineProps<{ modalEdit: boolean ,  item: TodoItems , TodoList: TodoItems[]}>();
+const emit = defineEmits<{
+  (eventName: "edit",id?:number, item?:any):any;
+}>();
+//const fullName2 =(props.item.family_name);
+//console.log(props.item.user.family_name);
+const fullName = computed(() =>`${props.item.user.family_name} ${props.item.user.first_name}`); 
 const formData = reactive({
+  massage:" " ,
   name: "",
   age: "",
   email: "",
+  id:"",
+  user_id:"",
+  item_name:"",
+  fullName:"",
+  expire_date:"",
+  finished_date:"",
+   
+    user:  {
+    family_name:"",
+    first_name:""
+  }
 });
+
+
 
 const rules = {
   name: { required },
   age: { required, integer },
   email: { required, email },
+  item_name: { required },
+  expire_date: { required },
+  finished_date: { required },
+  fullName: { required },
 };
 
 const v$ = useVuelidate(rules, formData);
@@ -27,10 +53,6 @@ const submitForm = async () => {
   const result = await v$.value.$validate();
   console.log('result', result); // true or false
 };
-dayjs.locale(ja);
-
-
-const props = defineProps<{ modalEdit: boolean ,  item: TodoItems , TodoList: TodoItems[]}>();
 
 //DATEフォーマット
 const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY/M/DD') ;return created_at      };
@@ -47,103 +69,122 @@ const notExpire = (f: Date  , e:  Date  ) => { var d = new Date ; if(f === null)
 //モーダルトグル
 const modalEditToggleChild = () => { modalEdit.value = !modalEdit.value; };
 const modalEdit = ref(false);
+
+
+//テスト--------------------DevOps-------------------------------------
 const modalEdit3 = ref(props.modalEdit);
 const fadeAway = ref(false);
-const massage = ref('message');
-const message = String;
+const readOnlyMode = ( e:any) => {
+  console.log(e.currentTarget.classList)
+
+ 
+};
+//テスト--------------------DevOps-------------------------------------
+
+//メソッドエクスポート
 isInvalidDate();
 defineExpose({
   modalEditToggleChild
 });
+
 </script>
 
 <template>
-  <transition
+  <Transition
   	enter-active-class="transition duration-100"
   	enter-from-class="transform opacity-0 -translate-y-20 "
   	leave-active-class="transition duration-10"
  		leave-to-class="transform opacity-0 -translate-y-20">	
-     <tr class="bg-info  modalEdit animated  fadeInLeft" v-show="modalEdit">
-						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
-					  <th class=""> 
- 					  </th>
-						<!-------------- 未完了----------->
-						<td class="  align-middle btn-sm btn-outline-warning " v-show="item.finished_date !== null" >
-              <p>Message is: {{ message}}</p> <input   v-model="message" placeholder="{{item.item_name}}" />
-								</td>       <!-- v-show="isNotComp" -->
-						<!-- ------------ 完了----------->
-						<td class="shadow-lg p-1 mb-1 rounded align-middle btn-sm btn-outline-warning modalDel"  v-show="item.finished_date === null">
-              <p>Message is: {{ message}}</p> <input   v-model="message" placeholder="{{item.item_name}}" /></td>
-	                   <!-- ------------ 名前-------------------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhonseSE2 modalName" >{{item.user.family_name}}{{item.user.first_name}}
-	                    </td>
-	                    <!-- ------------ 登録日-------------フォーマットデイト必須------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalRegist" >{{format(item.registration_date)}}</td>
-	                    <!-- ------------ 期限日-------------------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalExpire" >{{format(item.expire_date)}} </td>
-	                    <!-- ------------完了日-------------------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle modalFinish"  v-show="hasNull(item.finished_date)">{{format(item.finished_date)}}</td>
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle medachi2 modalFinish animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
-						<!-- ------------操作ボタン-------------------->
-						<td class="shadow-lg p-1 mb-1 rounded  text-center align-middle animated  fadeIn">
-					  </td>
-            <div class="mt-12 flex justify-center">
+     <div class="bg-info  modalEdit animated  fadeInLeft" v-show="modalEdit">
+      <div class="mt-1 flex justify-center">
     <div class="w-full max-w-sm text-gray-700">
-      <h1 class="text-2xl font-bold mb-2"></h1>
-<form class="bg-white shadow-md rounded p-4" method="post" action="/edit/test" @submit.prevent="submitForm">
-  <div class="mb-4">
-    <label class="bloc text-sm font-bold mb-2" for="name"> 名前 </label>
-    <input
-      class="border rounded w-full p-2"
-      id="name"
-      type="text"
-      placeholder="名前"
-      v-model="formData.name"
-    />
-    <div v-for="error of v$.name.$errors" :key="error.$uid">
-      <div class="text-red-700 font-bold">{{ error.$message }}</div>
-    </div>
-  </div>
-  <div class="mb-4">
-    <label class="bloc text-sm font-bold mb-2" for="age">年齢 </label>
-    <input
-      class="border rounded w-full p-2 text-gray-700"
-      id="age"
-      type="age"
-      placeholder="年齢"
-      v-model="formData.age"
-    />
-    <div v-for="error of v$.age.$errors" :key="error.$uid">
-      <div class="text-red-700 font-bold">{{ error.$message }}</div>
-    </div>
-  </div>
-  <div class="mb-4">
-    <label class="block text-sm font-bold mb-2" for="email">
-      メールアドレス
-    </label>
-    <input
-      class="border rounded w-full p-2 text-gray-700"
-      id="email"
-      type="email"
-      placeholder="メールアドレス"
-      v-model="formData.email"
-    />
-    <div v-for="error of v$.email.$errors" :key="error.$uid">
-      <div class="text-red-700 font-bold">{{ error.$message }}</div>
-    </div>
-  </div>
+      <h5 class="text-2xl font-bold mb-2">EDIT</h5>
+<form class=" shadow-md rounded p-2" method=""  @submit.prevent="submitForm">
+						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
+					 <!--  <th class=""> 
+ 					  </th> 親で必要な場合ブロックコメントは消してください   
+            下は全てオンクリックでhiddenを表示させます インプット要素がバインディングされていて送信されるない-->
+						<td class="btn-s btn-outline-warning" 
+            @click="readOnlyMode" >
+              {{ item.item_name }}
+            </td>  
+              <input 
+               class="border rounded w-full p-2"
+               id="item_name"
+               type="text"
+               placeholder="項目名"
+               :value="item.item_name"
+                />
+                <div v-for="error of v$.item_name.$errors" :key="error.$uid">
+                  <div class="text-red-700 font-bold">{{ error.$message }}</div>
+                </div>
+								     
+                  
+	                   <!--セレクトにする------------ 名前-------------------->
+	                    <td class="btn-s btn-outline-warning" >
+                        {{item.user.family_name}}{{item.user.first_name}}
+                    </td>
+                        <input 
+                        class="border rounded w-full p-2"
+                        id="fullName"
+                        type="hidden"
+                        placeholder="担当者"
+                        v-model="formData.fullName"
+                         />
+                <div v-for="error of v$.fullName.$errors" :key="error.$uid">
+                  <div class="text-red-700 font-bold">{{ error.$message }}</div>
+                </div>  
+	                    
+	                    <!-- ------------ 登録日-------------フォーマットデイト必須------->
+	                    <td class="btn-s btn-outline-warning" ></td>
+	                    <!-- ------------ 期限日-------------------->
+	                    <td class="btn-s btn-outline-warning" >
+                        {{format(item.expire_date)}}
+                      </td>
+                        <input 
+                          class="border rounded w-full p-2"
+                          id="expire_date"
+                          type="hidden"
+                          placeholder="期限日"
+                          v-model="item.expire_date"
+                          />
+                        <div v-for="error of v$.expire_date.$errors" :key="error.$uid">
+                          <div class="text-red-700 font-bold">{{ error.$message }}</div>
+                        </div>
+                      
+	                    <!-- ------------完了日-------------------->
+	                    <td class="btn-s btn-outline-warning"  v-show="hasNull(item.finished_date)">
+                        {{format(item.finished_date)}}
+                      </td>
+                        <input 
+                          class="border rounded w-full p-2"
+                          id="finished_date"
+                          type="hidden"
+                          placeholder="完了日"
+                          v-model="item.finished_date"
+                          />
+                        <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
+                          <div class="text-red-700 font-bold">{{ error.$message }}</div>
+                        </div>
+                      
+	                   
+                      <td class=" animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
+						<!-- ------------操作ボタン-------------------->
+						<td class=" animated  fadeIn">
+					  
         <div class="flex items-center justify-between">
-          <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            type="submit"
-          >
-            送信
-          </button>
+          <button 
+          class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark"
+          type="submit"
+					v-bind:href="'/edit/' + item.id"
+					@click="emit('edit', item.id , item)">送信</button>
         </div>
+        </td>
       </form>
     </div>
   </div>
-	   </tr>
+  </div>
+
      <!--  <div class="container-fluid animated  fadeInLeft"	v-show="modalEdit" >
         <tr class="">
         <td class="shadow-lg p-1 mb-1 rounded  align-middle btn-sm btn-outline-warning modalDel"  > </td>        
@@ -161,7 +202,7 @@ defineExpose({
         <td class="shadow-lg p-1 mb-1 rounded  align-middle btn-sm btn-outline-warning modalDel"  ></td>                  
     </tr>
    </div> -->
-  </transition>
+  </Transition>
            <!--   <div class="animated  fadeInLeft"	v-show="fadeAway" >
                           <h5>おいしいよ！</h5>
                            <template v-for="(item)  in  TodoList " :key="item.user_id"  >

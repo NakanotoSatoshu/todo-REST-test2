@@ -20,5 +20,5 @@ const emit = defineEmits<{
 </script>
 
 <template>
- <div> I am Model Delete </div>
+ <div>  </div>
 </template>

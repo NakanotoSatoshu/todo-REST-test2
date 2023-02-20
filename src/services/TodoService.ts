@@ -3,9 +3,6 @@ import { reactive } from "vue";
 import type { TodoItems } from "../models/TodoItems";
 import { Task } from "../models/Task";
 
-
-//CRUD単体テストのAPI津kる
-
 class TodoService {
   // RESTAPI URL
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -47,25 +44,18 @@ class TodoService {
     }
   }
  // 削除する。
- public postDelete(id?: number): void  {
-  const toDelete = id;
+ public postDelete(id?: number): void  { const toDelete = id;
   if (toDelete !== undefined) {
-   // Complete.finished_date = !Id.id;
     axios
     .post(this.RESTAPI_URL + '/delete/' +  id, 
       { withCredentials:         true} ,  
       { headers:         { 'Content-Type': 'application/json;charset=UTF-8',}})
-    //.then((res) => { console.log(res.data) })
-    .then((res) => {
-    
-    })
-    .catch( (error) => console.log(error)
-    );
+    .then((res) => { console.log(res)      })
+    .catch( (error) => console.log(error)  );
   }
 }
-
 // 編集する。
-public postEdit(id?: number , item?:any): void  {
+public postEdit(id?: number , item?:any ): void  {
   const toEdit = id;
   if (toEdit !== undefined) {
    // Complete.finished_date = !Id.id;
@@ -81,53 +71,28 @@ public postEdit(id?: number , item?:any): void  {
     );
   }
 }
-
- // 完了する。
- public postComplete(id?: number,item?: any): void  {
-  const toComplete = id;
-  if (toComplete !== undefined) {
-   // Complete.finished_date = !Id.id;
-    axios
-    .post(this.RESTAPI_URL + id, 
+// 完了する。
+public postComplete(id?: number,item?: any): void  { const toComplete = id;
+  if (toComplete !== undefined) { axios
+    .post( this.RESTAPI_URL + id, 
       { withCredentials:         true} ,  
       { headers:         { 'Content-Type': 'application/json;charset=UTF-8',}})
-    //.then((res) => { console.log(res.data) })
-    .then((res) => {
-      item.finished_date = true;
-      /* 　　セレクタもVue化できたら　　*/
-      /* obj.textContent = "未完了";
-      obj.setAttribute('href','/incomplete/' + global );
-      obj.classList.remove('btn-complete','btn-dark');
-      obj.classList.add('btn-incomplete','btn-outline-dark');
-      obj.closest("tr");
-      obj.parentNode.parentElement.parentElement.parentElement.classList.add('inComp');
-      obj.parentNode.parentNode.parentNode.parentNode.firstElementChild.classList.remove('btn-outline-warning');
-      obj.parentNode.parentNode.parentNode.parentNode.firstElementChild.classList.add('btn-lg'); */
-       /* 　　　アニメーション処理　　　Vueトランジション使いたい 
-      obj.classList.toggle('swing');
-      //obj.parentNode.parentElement.parentElement.parentElement.classList.add('animated' );
-      obj.parentNode.parentElement.parentElement.parentElement.classList.toggle('bounce');　　　*/
-    })
-    .catch( (error) => console.log(error)
-    );
+    .then((res) => {     item.finished_date = true; console.log(res.data);  })
+    .catch( (error) => console.log(error)           );
   }
 }
 // 完了しない。
-public postInComplete(id?: number , item?:any): void  {
-  const toInComplete = id;
-  if (toInComplete !== undefined) {
-   // Complete.finished_date = !Id.id;
-    axios
-    .post(this.RESTAPI_URL + 'in' + id, 
+public postInComplete(id?: number , item?:any): void  { const toInComplete = id;
+  if (toInComplete !== undefined) { axios
+    .post(     this.RESTAPI_URL + 'in' + id, 
       { withCredentials:true} ,  
       { headers:{ 'Content-Type': 'application/json;charset=UTF-8',}})
-    .then((res) => { 
-      item.finished_date = null;
-    })
-    .catch( (error) => console.log(error)
-    );
+    .then((res) =>      {     item.finished_date = null;  })
+    .catch( (error) =>            console.log(error)       );
   }
 }
-}
 
+
+
+}
 export default new TodoService();
