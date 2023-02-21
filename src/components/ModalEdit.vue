@@ -11,12 +11,15 @@ import { required, email, integer } from "../utlis/i18n-validators";
 dayjs.locale(ja);
 
 const props = defineProps<{ modalEdit: boolean ,  item: TodoItems , TodoList: TodoItems[]}>();
+
 const emit = defineEmits<{
   (eventName: "edit",id?:number, item?:any):any;
 }>();
+
 //const fullName2 =(props.item.family_name);
 //console.log(props.item.user.family_name);
 const fullName = computed(() =>`${props.item.user.family_name} ${props.item.user.first_name}`); 
+
 const formData = reactive({
   massage:" " ,
   name: "",
@@ -34,8 +37,6 @@ const formData = reactive({
     first_name:""
   }
 });
-
-
 
 const rules = {
   name: { required },
@@ -55,7 +56,7 @@ const submitForm = async () => {
 };
 
 //DATEフォーマット
-const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY/M/DD') ;return created_at      };
+const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY-MM-DD') ;return created_at      };
 //JSでのDateがNullの場合invailddate表示を防ぐ
 const isInvalidDate = () => { return props.TodoList.filter( (item) => { if(item.finished_date === null){ Number(item.finished_date) }else{  return item.finished_date         }})};
 //完了日があるつまり完了してるやつ
@@ -74,11 +75,10 @@ const modalEdit = ref(false);
 //テスト--------------------DevOps-------------------------------------
 const modalEdit3 = ref(props.modalEdit);
 const fadeAway = ref(false);
-const readOnlyMode = ( e:any) => {
-  console.log(e.currentTarget.classList)
-
- 
-};
+const readOnlyMode = ( ) => { document.getElementById('item_name').setAttribute('type','text') };
+const readOnlyMode2 = ( ) => { document.getElementById('fullName').setAttribute('type','select') };
+const readOnlyMode3 = ( ) => { document.getElementById('expire_date').setAttribute('type','date') };
+const readOnlyMode4 = ( ) => { document.getElementById('finished_date').setAttribute('type','date') };
 //テスト--------------------DevOps-------------------------------------
 
 //メソッドエクスポート
@@ -104,82 +104,121 @@ defineExpose({
 					 <!--  <th class=""> 
  					  </th> 親で必要な場合ブロックコメントは消してください   
             下は全てオンクリックでhiddenを表示させます インプット要素がバインディングされていて送信されるない-->
-						<td class="btn-s btn-outline-warning" 
+        <ul>
+          <li>
+						<td 
+            class="btn-s btn-outline-warning" 
             @click="readOnlyMode" >
               {{ item.item_name }}
             </td>  
               <input 
                class="border rounded w-full p-2"
+               style="background-color:transparent;"
                id="item_name"
-               type="text"
+               type="hidden"
                placeholder="項目名"
                :value="item.item_name"
                 />
                 <div v-for="error of v$.item_name.$errors" :key="error.$uid">
                   <div class="text-red-700 font-bold">{{ error.$message }}</div>
                 </div>
-								     
-                  
-	                   <!--セレクトにする------------ 名前-------------------->
-	                    <td class="btn-s btn-outline-warning" >
+            </li>
+            <li>
+	             <!--セレクトにする------------ 名前-------------------->
+	                   <td 
+                       class="btn-s btn-outline-warning"
+                       @click="readOnlyMode2" >
                         {{item.user.family_name}}{{item.user.first_name}}
                     </td>
-                        <input 
+                        <select 
                         class="border rounded w-full p-2"
+                        style="background-color:transparent;"
                         id="fullName"
                         type="hidden"
                         placeholder="担当者"
-                        v-model="formData.fullName"
+                        :value="fullName"
                          />
                 <div v-for="error of v$.fullName.$errors" :key="error.$uid">
                   <div class="text-red-700 font-bold">{{ error.$message }}</div>
                 </div>  
-	                    
+                </li>
+                <li>       
 	                    <!-- ------------ 登録日-------------フォーマットデイト必須------->
 	                    <td class="btn-s btn-outline-warning" ></td>
+                </li>
+                <li>
 	                    <!-- ------------ 期限日-------------------->
-	                    <td class="btn-s btn-outline-warning" >
+	                    <td 
+                      class="btn-s btn-outline-warning"
+                      @click="readOnlyMode3"
+                      >
                         {{format(item.expire_date)}}
                       </td>
                         <input 
                           class="border rounded w-full p-2"
+                          style="background-color:transparent;"
                           id="expire_date"
                           type="hidden"
                           placeholder="期限日"
-                          v-model="item.expire_date"
+                          :value="format(item.expire_date)"
                           />
                         <div v-for="error of v$.expire_date.$errors" :key="error.$uid">
                           <div class="text-red-700 font-bold">{{ error.$message }}</div>
                         </div>
-                      
+                    </li>
+                    <li>  
 	                    <!-- ------------完了日-------------------->
-	                    <td class="btn-s btn-outline-warning"  v-show="hasNull(item.finished_date)">
-                        {{format(item.finished_date)}}
+	                    <td 
+                      class="btn-s btn-outline-warning"  
+                      v-show="hasNull(item.finished_date)"
+                      @click="readOnlyMode4"
+                      >
+                      {{(item.finished_date)}}
                       </td>
                         <input 
                           class="border rounded w-full p-2"
+                          style="background-color:transparent;"
                           id="finished_date"
                           type="hidden"
                           placeholder="完了日"
-                          v-model="item.finished_date"
+                          :value="format(item.finished_date)"
                           />
                         <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
                           <div class="text-red-700 font-bold">{{ error.$message }}</div>
                         </div>
-                      
-	                   
-                      <td class=" animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
-						<!-- ------------操作ボタン-------------------->
-						<td class=" animated  fadeIn">
-					  
-        <div class="flex items-center justify-between">
-          <button 
-          class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark"
-          type="submit"
-					v-bind:href="'/edit/' + item.id"
-					@click="emit('edit', item.id , item)">送信</button>
-        </div>
-        </td>
+                    </li>
+                    <li>
+                      <td 
+                      class=" animated fadeIn infinite" 
+                      v-show="isNull(item.finished_date)"
+                      @click="readOnlyMode4"
+                      >未
+                    </td>
+                      <input 
+                          class="border rounded w-full p-2"
+                          style="background-color:transparent;"
+                          id="finished_date"
+                          type="hidden"
+                          placeholder="完了日"
+                          :value="item.finished_date"
+                          />
+                        <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
+                          <div class="text-red-700 font-bold">{{ error.$message }}</div>
+                        </div>
+                      </li>
+                      <li>
+						           <!-- ------------操作ボタン-------------------->
+					         	<td class=" animated  fadeIn">  
+                       <div class="flex items-center justify-between">
+                    <button 
+                    class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark"
+                    type="submit"
+					          v-bind:href="'/edit/' + item.id"
+					          @click="emit('edit', item.id , item)">送信</button>
+                   </div>
+                  </td>
+             </li>
+           </ul>
       </form>
     </div>
   </div>

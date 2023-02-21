@@ -3,10 +3,11 @@ import { reactive, ref,computed,PropType } from 'vue';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 import tra from '../services/TrantisonService';
+import todoService from "../services/TodoService";
 import type {TodoItems} from "../models/TodoItems";
 import SMenu from '../components/SlideMenu.vue';
 import type{ Task } from "../models/Task";
-import ME from '../components/ModalEdit.vue';
+import ModalE from '../components/ModalEdit.vue';
 
 dayjs.locale(ja);
 
@@ -22,7 +23,7 @@ const emit = defineEmits<{
 }>();
 
 //DATEフォーマット
-const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY/M/DD') ;return created_at      };
+const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY-M-DD') ;return created_at      };
 //JSでのDateがNullの場合invailddate表示を防ぐ
 const isInvalidDate = () => { return props.TodoList.filter( (item) => { if(item.finished_date === null){ Number(item.finished_date) }else{  return item.finished_date         }})};
 //完了日があるつまり完了してるやつ
@@ -61,7 +62,7 @@ const MEShow = ref(false);
 const modalEditToggle = () => { MEShow.value = !MEShow.value }; //----これですると全部のTRで出てしまう
 //テスト----------------DevOps-----------------------------------------------------------------------------------------------------
 const modalEditToggle3 = () => { childRef.value.modalEditToggleChild();  };
-const childRef = ref(ME);
+const childRef = ref(ModalE);
 const onChildMethodClick2 = (e:any) => { 
 	// 何番目の要素かチェック
 	//console.log(e.currentTarget.closest);
@@ -87,10 +88,12 @@ isInvalidDate();
 </script>
 
 <template>
-
-<div class="col-xl-12 col-md-10">
+<!--------------コンテイナー幅なんとかして---------------------->
+<div class="row">
+<div id="" class="col-1 McShadow iPhoneSE2" ></div>
+<div class="col-xl-10 col-md-9">
   <table class="table  table-hover table-sm my-1 p-1 iPhoneSE bg-body shadow-sm p-1 mb-0 rounded ">
-    <thead class="table-Secondary opaS">
+    <thead class="table-dark opaS">
       <tr>
 		<!-- <th scope="col align-middle"  class="text-center iPhonseSE2">#</th> -->
         <th scope="col align-middle" class="text-center col-3 iPhoneSE2">項目名</th>
@@ -184,25 +187,29 @@ isInvalidDate();
 							 </li>
 							</ul>
 						<div class="iPhoneSE3 ">
-							<!--------------iPhone用に各機能を移さなければならない--------------------------------------------------->
+							<!--------------iPhone用に各機能を移さなければならない----あとWEB晩では非表示に----------------------------------------->
 							<SMenu 
 							:showS="showS" 
 							></SMenu>
 						</div>
 					  </td>
 	                </tr>
-					<ME 
+					<ModalE 
 					ref="childRef" 
 					:modalEdit="modalEdit"  
 					:item="item" 
+					@edit="(id,item) => todoService.postEdit(id)" 
 					:TodoList="TodoList"
-					></ME>
+					></ModalE>
 				</template> 
 			<!-- </transition-group> -->
-	  </tbody>	
-  </table>
+	     </tbody>	
+       </table>
+      </div>
+    <div id="" class="col-1 McShadow iPhoneSE2" ></div>
 </div>
 </template>
+
 
 <style>
 .v-enter-active, .v-leave-active {

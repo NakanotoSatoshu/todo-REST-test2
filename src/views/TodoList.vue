@@ -63,7 +63,7 @@ todoService.getAllTasks();
      </div>
   </div>
 </div> -->
-<div class="container-fluid px-4 McShadow">
+<div class="container-fluid p-1 m-1 ">
       <Delete
       :open="open"
       :TodoList="todoService.todoItmes"
