@@ -5,7 +5,6 @@ import type { UsersModel } from "../models/TodoItems";
 import { Task } from "../models/Task";
 
 class TodoService {
-  // RESTAPI URL
   // eslint-disable-next-line @typescript-eslint/naming-convention
   
   private service = axios.create({
@@ -29,13 +28,14 @@ class TodoService {
   // タスクをこの地球上から取得する。
   get todoItmes(): TodoItems[] {  return this.getFilter() };
   // ユーザーをこの地球上から取得する
-  get users(): UsersModel[] { return  this.UsersList    };
+  get users(): UsersModel[] { console.log('getMoreUser' ); return this.UsersList     };
 
   // 全ユーザーを地球上から取得する。
   public getUsers() : void { axios
-    .get<UsersModel[]>(this.RESTAPI_URL)
+    .get<UsersModel[]>(this.RESTAPI_URL + 'home')
     .then((res) => { Array.prototype
     .push.apply(this.UsersList, res.data);
+    console.log('getUser' + this.UsersList);
   });}
 
   // 全タスクを地球上から取得する。

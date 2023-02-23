@@ -1,3 +1,71 @@
+<script setup lang="ts">
+import { reactive, ref,computed,PropType } from 'vue';
+import dayjs from 'dayjs';
+import ja from 'dayjs/locale/ja';
+import tra from '../services/TrantisonService';
+import todoService from "../services/TodoService";
+import type {TodoItems} from "../models/TodoItems";
+import type {UsersModel} from "../models/TodoItems";
+import SMenu from '../components/SlideMenu.vue';
+import type{ Task } from "../models/Task";
+import altHome from '../components/altHome.vue';
+
+const open = ref(true);
+//const UserList : UsersModel[] = reactive([]);
+const tasks: Task[] = reactive([
+  {
+    id: 1,
+    title: "起きる",
+    done: false,
+  },
+  {
+    id: 2,
+    title: "着替える",
+    done: false,
+  },]);
+
+// taskを検索し、フラグを更新する。
+const addTask = (newTaskTitle: string) => {
+  let newTask: Task = {
+    id: Date.now(),
+    title: newTaskTitle,
+    done: false,
+  };
+  tasks.push(newTask);
+};
+
+// taskを検索し、フラグを更新する。
+const doneTask = (id: number) => {
+  let task = tasks.find((t) => t.id === id);
+  if (task !== undefined) {
+    task.done = !task.done;
+  }
+};
+
+// taskを削除する。
+const deleteTask = (id: number) => {
+  tasks.forEach((task, index) => {
+    if (task.id == id) tasks.splice(index, 1);
+  });
+};
+
+// taskをすべて取得する。
+//todoService.getAllTasks();
+todoService.getUsers();
+const UserList : UsersModel[] = todoService.users;
+console.log('USA!USA!' + UserList);
+</script>
+
 <template>
-    <h1 class="mt-4">Home</h1>
-  </template>
+   <div class="container-fluid px-4 McShadow">
+      <h1 class="mt-4">Todo List</h1>
+     <div class="row">
+       <div class="col-xl-6 col-md-6">
+    <!--   <TaskAdd @add="(newTaskTitle: string) => addTask(newTaskTitle)"></TaskAdd>
+      <TaskTest :tasks="tasks" @delete="(id: number) => deleteTask(id)" @done="(id: number) => doneTask(id)"></TaskTest>  -->
+       <altHome :UserList="todoService.users" ></altHome>  
+        
+      </div>
+     </div>
+  </div> 
+</template>

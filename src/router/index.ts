@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import AppHome from "../views/AppHome.vue";
+import Home from "../views/AppHome.vue";
 import TodoList from "../views/TodoList.vue";
 import NotFound from "../components/NotFound.vue";
 
 
 const routers: Array<RouteRecordRaw> = [
   {
-    path: "/",
-    component: AppHome,
+    path: "/home",
+    component: Home,
   },
   {
     path: "/todo",

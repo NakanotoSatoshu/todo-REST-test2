@@ -63,11 +63,11 @@ todoService.getAllTasks();
      </div>
   </div>
 </div> -->
-<div class="container-fluid p-1 m-1 ">
-      <Delete
-      :open="open"
-      :TodoList="todoService.todoItmes"
-      ></Delete>
+  <div class="container-fluid p-1 m-1 ">
+           <Delete
+            :open="open"
+            :TodoList="todoService.todoItmes"
+            ></Delete>
             <TaskList 
             :open="open" 
             :UserList="todoService.users"
@@ -78,7 +78,6 @@ todoService.getAllTasks();
               @complete="(id,item) => todoService.postComplete(id,item) " 
               @incomplete="(id,item) => todoService.postInComplete(id,item)"></TaskList>
             <!--  <Head :open="open"  ></Head> -->
-      
    </div> 
 </template>
 

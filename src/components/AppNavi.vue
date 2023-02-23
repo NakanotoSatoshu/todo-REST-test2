@@ -7,8 +7,7 @@ import dayjs from "dayjs";
 
 // ロケール設定
 //DATEフォーマット
-const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY年M月DD日') 
-				                                                                     return created_at      };
+const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY年M月DD日'); return created_at      };
 
 // メニュー用のinterfaceを追加
 export interface MenuItem {
@@ -32,8 +31,7 @@ const isToggle = ref(false);
 
 const goToUrl = (url?: string) => {
   if (url != undefined) {
-    router.push(url);
-  }
+    router.push(url); }
 };
 </script>
 
@@ -42,30 +40,25 @@ const goToUrl = (url?: string) => {
   <body class="sb-nav-fixed" :class="isToggle ? 'sb-sidenav-toggled' : ''">
     <nav class="sb-topnav navbar navbar-expand navbar-light bg-light McShadow">
       <!-- titleを可変にし、hrefをrouterで切り替えるように修正 -->
-      <a class="navbar-brand ps-3 " @click="goToUrl('/')">{{ title }}</a>
+      <a class="navbar-brand ps-3 " @click="goToUrl('/home')">{{ title }}</a>
       <!-- isToggleでスライドバーの表示/非表示を切り替える -->
       <button id="sidebarToggle" class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" @click="isToggle = !isToggle">
         <i class="fas fa-bars"></i>
       </button>
-     
       <!--   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button> -->
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active ">
-                    <a class="nav-link " href="/home"> <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="/entry">登録</a>
                 </li>
                 <li class="nav-item "></li>
-
                  <!--   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-
 					 <a class="nav-link "  id="navbar" role="button"
                         data-toggle="" aria-haspopup="true" aria-expanded="false" href="#" sec:authentication="name"></a>
 							<li sec:authorize="isAuthenticated()"></li>
@@ -73,7 +66,6 @@ const goToUrl = (url?: string) => {
                 <!--   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                          <div class="dropdown-divider"></div>
                         <form class="dropdown-item" method="post" >-->
-
             </ul>
             現在日時
             <div class="mr-2 shadow-lg p-1 mb-2  rounded border-bottom-0" text="">{{dayjs().format('YYYY年M月DD日')}}</div>
