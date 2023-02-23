@@ -58,14 +58,12 @@ console.log('USA!USA!' + UserList);
 
 <template>
    <div class="container-fluid px-4 McShadow">
-      <h1 class="mt-4">Todo List</h1>
-     <div class="row">
-       <div class="col-xl-6 col-md-6">
+      <h1 class="mt-4">User List</h1>
+      <div class="mt-1 flex justify-center">
     <!--   <TaskAdd @add="(newTaskTitle: string) => addTask(newTaskTitle)"></TaskAdd>
       <TaskTest :tasks="tasks" @delete="(id: number) => deleteTask(id)" @done="(id: number) => doneTask(id)"></TaskTest>  -->
        <altHome :UserList="todoService.users" ></altHome>  
         
       </div>
      </div>
-  </div> 
 </template>
