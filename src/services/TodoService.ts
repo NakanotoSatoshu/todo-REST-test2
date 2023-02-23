@@ -1,6 +1,7 @@
 import axios from "axios";
 import { reactive } from "vue";
 import type { TodoItems } from "../models/TodoItems";
+import type { UsersModel } from "../models/TodoItems";
 import { Task } from "../models/Task";
 
 class TodoService {
@@ -20,20 +21,30 @@ class TodoService {
   // タスクリスト
   private tasks: Task[] = reactive([]);
   private TodoList: TodoItems[] = reactive([]); 
+  private UsersList: UsersModel[] = reactive([]);
 
   //削除フラグのあるものをこの世から消し去る
   private getFilter = () => this.TodoList.filter( (item) => { return item.is_deleted === 0 } );
   
   // タスクをこの地球上から取得する。
   get todoItmes(): TodoItems[] {  return this.getFilter() };
+  // ユーザーをこの地球上から取得する
+  get users(): UsersModel[] { return  this.UsersList    };
+
+  // 全ユーザーを地球上から取得する。
+  public getUsers() : void { axios
+    .get<UsersModel[]>(this.RESTAPI_URL)
+    .then((res) => { Array.prototype
+    .push.apply(this.UsersList, res.data);
+  });}
 
   // 全タスクを地球上から取得する。
-  public getAllTasks() : void {
-    axios.get<TodoItems[]>(this.RESTAPI_URL)
-      .then((res) => { Array.prototype.push.apply(this.TodoList, res.data);
+  public getAllTasks() : void {axios
+      .get<TodoItems[]>(this.RESTAPI_URL)
+      .then((res) => { Array.prototype
+      .push.apply(this.TodoList, res.data);
     // console.log(res.data);
-    });
-  }
+  });}
   
   // お手本のタスクを削除する。
   public deleteTask(id?: number): void {

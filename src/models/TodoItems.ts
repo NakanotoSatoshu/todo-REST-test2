@@ -23,11 +23,18 @@ export interface TodoItems {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   update_date_time?: Date;
   priority?: number;
-  user:userModel;
+  user:UsersModel;
   }
   
-  export interface userModel{
+  export interface UsersModel{
+    id? : number;
+    username: string;
+    password:string;
     family_name:string;
     first_name:string;
+    authority:string;
+    is_deleted:boolean;
+    create_date_time:Date;
+    update_date_time:Date;
    }
 

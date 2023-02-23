@@ -5,7 +5,7 @@ import { createI18n } from "vue-i18n";
 const messages = {
   ja: {
     validations: {
-      required: "この項目は必須ですぞよおおおおおおおおおおおおおおおおおおおおおおおおおおおお.",
+      required: "この項目は必須です.",
       email: "正しいメールアドレスの形式で入力してください。",
       integer: "数字で入力してください",
     },

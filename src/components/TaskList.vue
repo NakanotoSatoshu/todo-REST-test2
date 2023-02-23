@@ -5,13 +5,14 @@ import ja from 'dayjs/locale/ja';
 import tra from '../services/TrantisonService';
 import todoService from "../services/TodoService";
 import type {TodoItems} from "../models/TodoItems";
+import type {UsersModel} from "../models/TodoItems";
 import SMenu from '../components/SlideMenu.vue';
 import type{ Task } from "../models/Task";
 import ModalE from '../components/ModalEdit.vue';
 
 dayjs.locale(ja);
 
-const props = defineProps<{TodoList: TodoItems[] ,open: boolean }>();
+const props = defineProps<{TodoList: TodoItems[] ,UserList: UsersModel[] , open: boolean }>();
 
 const emit = defineEmits<{
   (eventName: "complete", id?: number ,item?: any): any;
@@ -200,6 +201,7 @@ isInvalidDate();
 					:item="item" 
 					@edit="(id,item) => todoService.postEdit(id)" 
 					:TodoList="TodoList"
+					:UserList="UserList"
 					></ModalE>
 				</template> 
 			<!-- </transition-group> -->

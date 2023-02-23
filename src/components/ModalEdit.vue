@@ -4,13 +4,14 @@ import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 import tra from '../services/TrantisonService';
 import type {TodoItems} from "../models/TodoItems";
+import type {UsersModel} from "../models/TodoItems";
 import type{ Task } from "../models/Task";
 import { isTemplateNode } from '@vue/compiler-core';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, integer } from "../utlis/i18n-validators";
 dayjs.locale(ja);
 
-const props = defineProps<{ modalEdit: boolean ,  item: TodoItems , TodoList: TodoItems[]}>();
+const props = defineProps<{ modalEdit: boolean ,  item: TodoItems , TodoList: TodoItems[] ,UserList: UsersModel[]  }>();
 
 const emit = defineEmits<{
   (eventName: "edit",id?:number, item?:any):any;
@@ -73,10 +74,19 @@ const modalEdit = ref(false);
 
 
 //テスト--------------------DevOps-------------------------------------
+const d = () => { new Date('yyyy-MM-dd')}
+//date: new Date().toISOString().slice(0, 10);
+//console.log();
+//const day2 = dayjs(new Date(props.item.finished_date));
+//console.log('day2' + typeof(day2));
+//console.log('formatじゃ' + typeof(format(props.item.finished_date)));
+//console.log(format(props.item.expire_date));
+//console.log(new Date(props.item.expire_date));
+//console.log('itemのやつ' + typeof(props.item.finished_date));
 const modalEdit3 = ref(props.modalEdit);
 const fadeAway = ref(false);
 const readOnlyMode = ( ) => { document.getElementById('item_name').setAttribute('type','text') };
-const readOnlyMode2 = ( ) => { document.getElementById('fullName').setAttribute('type','select') };
+const readOnlyMode2 = ( ) => { document.getElementById('fullName').setAttribute('type','text') };
 const readOnlyMode3 = ( ) => { document.getElementById('expire_date').setAttribute('type','date') };
 const readOnlyMode4 = ( ) => { document.getElementById('finished_date').setAttribute('type','date') };
 //テスト--------------------DevOps-------------------------------------
@@ -117,7 +127,7 @@ defineExpose({
                id="item_name"
                type="hidden"
                placeholder="項目名"
-               :value="item.item_name"
+               v-model="item.item_name"
                 />
                 <div v-for="error of v$.item_name.$errors" :key="error.$uid">
                   <div class="text-red-700 font-bold">{{ error.$message }}</div>
@@ -128,16 +138,23 @@ defineExpose({
 	                   <td 
                        class="btn-s btn-outline-warning"
                        @click="readOnlyMode2" >
-                        {{item.user.family_name}}{{item.user.first_name}}
+                        {{fullName}}
                     </td>
-                        <select 
+                 <!--    <select v-model="UserList">
+                   <option v-for="(index) in UserList" :key="" :value="">
+                       {{ index }}
+                    </option>
+                    </select> -->
+                        <input
                         class="border rounded w-full p-2"
                         style="background-color:transparent;"
                         id="fullName"
                         type="hidden"
                         placeholder="担当者"
-                        :value="fullName"
+                        v-model="fullName"
                          />
+                        
+                        
                 <div v-for="error of v$.fullName.$errors" :key="error.$uid">
                   <div class="text-red-700 font-bold">{{ error.$message }}</div>
                 </div>  
@@ -160,7 +177,7 @@ defineExpose({
                           id="expire_date"
                           type="hidden"
                           placeholder="期限日"
-                          :value="format(item.expire_date)"
+                          v-model="item.expire_date"
                           />
                         <div v-for="error of v$.expire_date.$errors" :key="error.$uid">
                           <div class="text-red-700 font-bold">{{ error.$message }}</div>
@@ -181,7 +198,7 @@ defineExpose({
                           id="finished_date"
                           type="hidden"
                           placeholder="完了日"
-                          :value="format(item.finished_date)"
+                          v-model="item.finished_date"
                           />
                         <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
                           <div class="text-red-700 font-bold">{{ error.$message }}</div>
@@ -192,7 +209,9 @@ defineExpose({
                       class=" animated fadeIn infinite" 
                       v-show="isNull(item.finished_date)"
                       @click="readOnlyMode4"
-                      >未
+                      >
+                      <li>未
+                        </li>
                     </td>
                       <input 
                           class="border rounded w-full p-2"
@@ -200,8 +219,9 @@ defineExpose({
                           id="finished_date"
                           type="hidden"
                           placeholder="完了日"
-                          :value="item.finished_date"
-                          />
+                          v-model="item.finished_date"
+                    
+                          /><!--  :value="format(item.finished_date)" -->
                         <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
                           <div class="text-red-700 font-bold">{{ error.$message }}</div>
                         </div>

@@ -70,6 +70,7 @@ todoService.getAllTasks();
       ></Delete>
             <TaskList 
             :open="open" 
+            :UserList="todoService.users"
             :TodoList="todoService.todoItmes" 
               @delete2="(id) => todoService.deleteTask(id)" 
               @delete="(id) => todoService.postDelete(id)" 
