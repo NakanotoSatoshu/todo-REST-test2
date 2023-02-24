@@ -13,6 +13,12 @@ const menuItems: MenuItem[] = [
     icon: "fa-list",
     url: "/todo",
   },
+  {
+    type: "menu",
+    title: "Game",
+    icon: "fa-list",
+    url: "/game",
+  },
 ];
 </script>
 

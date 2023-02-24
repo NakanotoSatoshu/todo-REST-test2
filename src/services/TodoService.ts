@@ -35,7 +35,7 @@ class TodoService {
     .get<UsersModel[]>(this.RESTAPI_URL + 'home')
     .then((res) => { Array.prototype
     .push.apply(this.UsersList, res.data);
-    console.log('getUser' + this.UsersList);
+    console.log('getUser');
   });}
 
   // 全タスクを地球上から取得する。

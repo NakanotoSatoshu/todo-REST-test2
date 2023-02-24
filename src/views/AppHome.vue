@@ -8,7 +8,8 @@ import type {TodoItems} from "../models/TodoItems";
 import type {UsersModel} from "../models/TodoItems";
 import SMenu from '../components/SlideMenu.vue';
 import type{ Task } from "../models/Task";
-import altHome from '../components/altHome.vue';
+import AltHome from '../components/AltHome.vue';
+import Game from '../components/Game.vue';
 
 const open = ref(true);
 //const UserList : UsersModel[] = reactive([]);
@@ -62,8 +63,7 @@ console.log('USA!USA!' + UserList);
       <div class="mt-1 flex justify-center">
     <!--   <TaskAdd @add="(newTaskTitle: string) => addTask(newTaskTitle)"></TaskAdd>
       <TaskTest :tasks="tasks" @delete="(id: number) => deleteTask(id)" @done="(id: number) => doneTask(id)"></TaskTest>  -->
-       <altHome :UserList="todoService.users" ></altHome>  
-        
+       <AltHome :UserList="todoService.users" ></AltHome>  
       </div>
      </div>
 </template>

@@ -24,7 +24,7 @@ const emit = defineEmits<{
 }>();
 
 //DATEフォーマット
-const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY-M-DD') ;return created_at      };
+const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY-MM-DD') ;return created_at      };
 //JSでのDateがNullの場合invailddate表示を防ぐ
 const isInvalidDate = () => { return props.TodoList.filter( (item) => { if(item.finished_date === null){ Number(item.finished_date) }else{  return item.finished_date         }})};
 //完了日があるつまり完了してるやつ

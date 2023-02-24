@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/AppHome.vue";
 import TodoList from "../views/TodoList.vue";
+import Game from "../components/Game.vue";
 import NotFound from "../components/NotFound.vue";
 
 
@@ -12,6 +13,10 @@ const routers: Array<RouteRecordRaw> = [
   {
     path: "/todo",
     component: TodoList,
+  },
+  {
+    path: "/game",
+    component: Game,
   },
   {
     path: "/:pathMatch(.*)*",
