@@ -100,6 +100,7 @@ defineExpose({
 </script>
 
 <template>
+  i am modal edit
   <Transition
   	enter-active-class="transition duration-100"
   	enter-from-class="transform opacity-0 -translate-y-20 "

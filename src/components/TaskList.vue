@@ -91,7 +91,9 @@ isInvalidDate();
 <template>
 <!--------------コンテイナー幅なんとかして---------------------->
 <div class="row">
+<!-----レフトサイド、コンポーネント化するーーーーーーーーーーーーー-->
 <div id="" class="col-1 McShadow iPhoneSE2" ></div>
+<!-----テーブル幅レスポンシブ指定-->
 <div class="col-xl-10 col-md-9">
   <table class="table  table-hover table-sm my-1 p-1 iPhoneSE bg-body shadow-sm p-1 mb-0 rounded ">
     <thead class="table-dark opaS">
@@ -208,6 +210,7 @@ isInvalidDate();
 	     </tbody>	
        </table>
       </div>
+	<!-----コンポーネント化するーーーーーーーーーーーーー-->
     <div id="" class="col-1 McShadow iPhoneSE2" ></div>
 </div>
 </template>
