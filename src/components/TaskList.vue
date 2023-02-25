@@ -12,7 +12,7 @@ import ModalE from '../components/ModalEdit.vue';
 
 dayjs.locale(ja);
 
-const props = defineProps<{TodoList: TodoItems[] ,UserList: UsersModel[] , open: boolean }>();
+const props = defineProps<{TodoList: TodoItems[] , UserList: UsersModel[] ,open: boolean }>();
 
 const emit = defineEmits<{
   (eventName: "complete", id?: number ,item?: any): any;
@@ -92,7 +92,8 @@ isInvalidDate();
 <!--------------コンテイナー幅なんとかして---------------------->
 <div class="row">
 <!-----レフトサイド、コンポーネント化するーーーーーーーーーーーーー-->
-<div id="" class="col-1 McShadow iPhoneSE2" ></div>
+<div id="" class="col-1 bg-primary McShadow iPhoneSE2" >
+</div>
 <!-----テーブル幅レスポンシブ指定-->
 <div class="col-xl-10 col-md-9">
   <table class="table  table-hover table-sm my-1 p-1 iPhoneSE bg-body shadow-sm p-1 mb-0 rounded ">
@@ -197,14 +198,14 @@ isInvalidDate();
 						</div>
 					  </td>
 	                </tr>
-					<ModalE 
+				    <ModalE 
 					ref="childRef" 
 					:modalEdit="modalEdit"  
 					:item="item" 
 					@edit="(id,item) => todoService.postEdit(id)" 
 					:TodoList="TodoList"
 					:UserList="UserList"
-					></ModalE>
+					></ModalE> 
 				</template> 
 			<!-- </transition-group> -->
 	     </tbody>	

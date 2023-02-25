@@ -3,12 +3,14 @@ import { reactive, ref,computed,PropType } from 'vue';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 import tra from '../services/TrantisonService';
+import todoService from "../services/TodoService";
 import type {TodoItems} from "../models/TodoItems";
 import type {UsersModel} from "../models/TodoItems";
 import type{ Task } from "../models/Task";
 import { isTemplateNode } from '@vue/compiler-core';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email, integer } from "../utlis/i18n-validators";
+import { useRoute } from 'vue-router';
 dayjs.locale(ja);
 
 const props = defineProps<{ modalEdit: boolean ,  item: TodoItems , TodoList: TodoItems[] ,UserList: UsersModel[]  }>();
@@ -20,6 +22,8 @@ const emit = defineEmits<{
 //const fullName2 =(props.item.family_name);
 //console.log(props.item.user.family_name);
 const fullName = computed(() =>`${props.item.user.family_name} ${props.item.user.first_name}`); 
+//TODOリスト内のユーザーとユーザーリストのユーザーの一致
+//const nameIsEql = computed(() => fullName === useRoute.family_name + user.fairsname); 
 
 const formData = reactive({
   massage:" " ,
@@ -39,6 +43,7 @@ const formData = reactive({
   }
 });
 
+//バリデーション
 const rules = {
   name: { required },
   age: { required, integer },
@@ -83,12 +88,14 @@ const d = () => { new Date('yyyy-MM-dd')}
 //console.log(format(props.item.expire_date));
 //console.log(new Date(props.item.expire_date));
 //console.log('itemのやつ' + typeof(props.item.finished_date));
+
 const modalEdit3 = ref(props.modalEdit);
 const fadeAway = ref(false);
-const readOnlyMode = ( ) => { document.getElementById('item_name').setAttribute('type','text') };
-const readOnlyMode2 = ( ) => { document.getElementById('fullName').setAttribute('type','text') };
-const readOnlyMode3 = ( ) => { document.getElementById('expire_date').setAttribute('type','date') };
-const readOnlyMode4 = ( ) => { document.getElementById('finished_date').setAttribute('type','date') };
+const OpenModalItem = (e:any) => { e.currentTarget.nextElementSibling.setAttribute('type','text'); };
+const OpenModalName = (e:any ) => { e.currentTarget.nextElementSibling.setAttribute('style',''); };
+const OpenModalExipire = (e:any ) => { e.currentTarget.nextElementSibling.setAttribute('type','date'); };
+const OpenModalFinish = (e:any ) => { e.currentTarget.nextElementSibling.setAttribute('type','date'); };
+
 //テスト--------------------DevOps-------------------------------------
 
 //メソッドエクスポート
@@ -97,10 +104,12 @@ defineExpose({
   modalEditToggleChild
 });
 
+// ユーザーをすべて取得する。ここでこれを実行すると全てのtrで実行されるので重たくなり避ける
+//todoService.getUsers();
 </script>
 
 <template>
-  i am modal edit
+  
   <Transition
   	enter-active-class="transition duration-100"
   	enter-from-class="transform opacity-0 -translate-y-20 "
@@ -119,13 +128,13 @@ defineExpose({
           <li>
 						<td 
             class="btn-s btn-outline-warning" 
-            @click="readOnlyMode" >
+            @click="OpenModalItem" >
               {{ item.item_name }}
             </td>  
               <input 
                class="border rounded w-full p-2"
                style="background-color:transparent;"
-               id="item_name"
+               id="item_name "
                type="hidden"
                placeholder="項目名"
                v-model="item.item_name"
@@ -138,24 +147,27 @@ defineExpose({
 	             <!--セレクトにする------------ 名前-------------------->
 	                   <td 
                        class="btn-s btn-outline-warning"
-                       @click="readOnlyMode2" >
-                        {{fullName}}
+                       @click="OpenModalName" >
+                      {{ fullName }}
                     </td>
-                 <!--    <select v-model="UserList">
-                   <option v-for="(index) in UserList" :key="" :value="">
-                       {{ index }}
+                    <select 
+                    class="border rounded w-full p-2"  
+                    name="index" 
+                    style="background-color:transparent;"
+                    v-model="fullName">
+                    <option 
+                      class="border rounded w-full p-2" 
+                      v-for="user in UserList"  v-bind:value="user.id" >
                     </option>
-                    </select> -->
-                        <input
+	                  </select> 
+                   <!--      <input
                         class="border rounded w-full p-2"
                         style="background-color:transparent;"
                         id="fullName"
                         type="hidden"
                         placeholder="担当者"
                         v-model="fullName"
-                         />
-                        
-                        
+                         />  style="display:none"  -->
                 <div v-for="error of v$.fullName.$errors" :key="error.$uid">
                   <div class="text-red-700 font-bold">{{ error.$message }}</div>
                 </div>  
@@ -168,7 +180,7 @@ defineExpose({
 	             <!-------------- 期限日-------------------->
 	                    <td 
                       class="btn-s btn-outline-warning"
-                      @click="readOnlyMode3"
+                      @click="OpenModalExipire"
                       >
                         {{format(item.expire_date)}}
                       </td>
@@ -189,7 +201,7 @@ defineExpose({
 	                    <td 
                       class="btn-s btn-outline-warning"  
                       v-show="hasNull(item.finished_date)"
-                      @click="readOnlyMode4"
+                      @click="OpenModalFinish"
                       >
                       {{(item.finished_date)}}
                       </td>
@@ -209,7 +221,7 @@ defineExpose({
                       <td 
                       class=" animated fadeIn infinite" 
                       v-show="isNull(item.finished_date)"
-                      @click="readOnlyMode4"
+                      @click="OpenModalFinish"
                       >
                       <li>未
                         </li>
@@ -239,6 +251,7 @@ defineExpose({
                    </div>
                   </td>
              </li>
+    
            </ul>
       </form>
     </div>

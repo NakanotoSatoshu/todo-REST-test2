@@ -51,6 +51,8 @@ const deleteTask = (id: number) => {
 const open = ref(true);
 // taskをすべて取得する。
 todoService.getAllTasks();
+// ユーザーをすべて取得する。
+todoService.getUsers();
 </script>
 
 <template>

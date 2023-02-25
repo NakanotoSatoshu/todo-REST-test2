@@ -7,15 +7,46 @@ import todoService from "../services/TodoService";
 import type {TodoItems} from "../models/TodoItems";
 import type {UsersModel} from "../models/TodoItems";
 import type{ Task } from "../models/Task";
+import { number } from '@intlify/core-base';
 //import { shuffle as _shuffle } from 'lodash-es'
 
 const props = defineProps<{ UserList: UsersModel[]  }>();
+//テスト----------------------------------------------------------------------------------------
 //console.log(props.UserList + 'うおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおお');
 //const UserList = ref(props.UserList);
+const index  = { type: Number};
+const year = {type: Number }
+const fullName =  computed(() =>`${props.UserList} ${props.UserList}`); 
+const inputIndex = ref(index);
+const inputYear = ref(year)
+//const usersid = ref(users);
+const useris = reactive([     ]);
+//const nn = ref(n)
+//const n = {type: number };
+//const username = ref( );
+//テスト----------------------------------------------------------------------------------------
 
 </script>
 
 <template>  
+
+<!--      <select class="form-select form-select-sm mb-3" v-model.number="usersid">
+      <optio class="btn-lg btn-outline-dark" v-for="(user) in UserList"  ><h5>ID:{{ user.id }}</h5></optio>
+	</select> 
+   -->
+    <li class="animated fadeInUp"> <h1>{{ useris }}</h1></li>
+  <select class="form-select form-select-sm mb-3"  name="index" v-model="useris">
+      <option class="btn-lg btn-outline-dark" v-for="user in UserList"  v-bind:value="fullName" >
+        <h5>{{ user.family_name }}{{ user.first_name}}</h5></option>
+	</select>  
+        <select  name="index" v-model.number="inputIndex">
+            <option v-for="n in 25" v-bind:value="n">{{ n }}番目</option>
+        </select> 
+        <div>
+        <select  name="year" v-model.number="inputYear">
+            <option v-for="n in 19" v-bind:value="n + 1999">{{ n + 1999 }}年</option>
+        </select>
+    </div>  
 
 <TransitionGroup name="list" tag="ul">
     <li class="list-group-item list-group-item-primary McShadow" v-for="(user) in UserList" :key="user.id">

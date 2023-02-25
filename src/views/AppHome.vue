@@ -53,8 +53,8 @@ const deleteTask = (id: number) => {
 // taskをすべて取得する。
 //todoService.getAllTasks();
 todoService.getUsers();
-const UserList : UsersModel[] = todoService.users;
-console.log('USA!USA!' + UserList);
+//const UserList : UsersModel[] = todoService.users;
+//console.log('USA!USA!' + UserList);
 </script>
 
 <template>
