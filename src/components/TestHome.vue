@@ -21,6 +21,7 @@ const inputIndex = ref(index);
 const inputYear = ref(year)
 //const usersid = ref(users);
 const useris = reactive([     ]);
+const selected3 = ref( 'initial');
 //const nn = ref(n)
 //const n = {type: number };
 //const username = ref( );
@@ -29,11 +30,21 @@ const useris = reactive([     ]);
 </script>
 
 <template>  
-
+ <h1>This is My Test </h1>
 <!--      <select class="form-select form-select-sm mb-3" v-model.number="usersid">
       <optio class="btn-lg btn-outline-dark" v-for="(user) in UserList"  ><h5>ID:{{ user.id }}</h5></optio>
 	</select> 
    -->
+  <div class="bg-primary">
+   <p>専用の初期値を設定する</p>
+    <select v-model="selected3">
+      <option disabled value="initial">Please Select</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+    </select>
+    <p>プロパティの値: {{selected3}}</p>
+  </div>
     <li class="animated fadeInUp"> <h1>{{ useris }}</h1></li>
   <select class="form-select form-select-sm mb-3"  name="index" v-model="useris">
       <option class="btn-lg btn-outline-dark" v-for="user in UserList"  v-bind:value="fullName" >

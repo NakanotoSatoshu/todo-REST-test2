@@ -6,7 +6,6 @@ import { Task } from "../models/Task";
 
 class TodoService {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  
   private service = axios.create({
     timeout: 30000,
     headers: {
@@ -18,9 +17,9 @@ class TodoService {
   private RESTAPI_URL = '/api/todo/';
   
   // タスクリスト
-  private tasks: Task[] = reactive([]);
-  private TodoList: TodoItems[] = reactive([]); 
-  private UsersList: UsersModel[] = reactive([]);
+  private tasks: Task[] =            reactive([]);
+  private TodoList: TodoItems[] =    reactive([]); 
+  private UsersList: UsersModel[] =  reactive([]);
 
   //削除フラグのあるものをこの世から消し去る
   private getFilter = () => this.TodoList.filter( (item) => { return item.is_deleted === 0 } );
@@ -31,11 +30,11 @@ class TodoService {
   get users(): UsersModel[] { console.log('getMoreUser' ); return this.UsersList     };
 
   // 全ユーザーを地球上から取得する。
-  public getUsers() : void { axios
+  public getAllUsers() : void { axios
     .get<UsersModel[]>(this.RESTAPI_URL + 'home')
     .then((res) => { Array.prototype
     .push.apply(this.UsersList, res.data);
-    console.log('getUser');
+     console.log('getUser');
   });}
 
   // 全タスクを地球上から取得する。
@@ -58,41 +57,32 @@ class TodoService {
  public postDelete(id?: number): void  { const toDelete = id;
   if (toDelete !== undefined) {
     axios
-    .post(this.RESTAPI_URL + '/delete/' +  id, 
-      { withCredentials:         true} ,  
-      { headers:         { 'Content-Type': 'application/json;charset=UTF-8',}})
+    .post(this.RESTAPI_URL + '/delete/' +  id,{ withCredentials:true},{ headers:{ 'Content-Type': 'application/json;charset=UTF-8',}})
     .then((res) => { console.log(res)      })
     .catch( (error) => console.log(error)  );
   }
 }
 // 編集する。
-public postEdit(id?: number , item?:any ): void  { const toEdit = id;
+public postEdit(id?: number , item?: TodoItems[] ): void  { const toEdit = id;
   console.log(toEdit + 'きちゃあああああああああ')
   if (toEdit !== undefined) { axios
-    .post(this.RESTAPI_URL + '/edit/' +  id, 
-      { withCredentials:         true} ,  
-      { headers:         { 'Content-Type': 'application/json;charset=UTF-8',}})
-    .then((res) => {  console.log(res.data);  })
-    .catch( (error) => console.log(error)
-    );
+    .post<TodoItems[]>(this.RESTAPI_URL + '/edit/' +  id, item,{ withCredentials:true})
+    .then((res) => {  console.log(res.data);   console.log(item); })
+    .catch( (error) => console.log(error)                          );console.log(item);
   }
 }
 // 完了する。
 public postComplete(id?: number,item?: any): void  { const toComplete = id;
   if (toComplete !== undefined) { axios
-    .post( this.RESTAPI_URL + id, 
-      { withCredentials:         true} ,  
-      { headers:         { 'Content-Type': 'application/json;charset=UTF-8',}})
-    .then((res) => {     item.finished_date = true; console.log(res.data);  })
-    .catch( (error) => console.log(error)           );
+    .post( this.RESTAPI_URL + id, { withCredentials:true},{ headers:{ 'Content-Type': 'application/json;charset=UTF-8',}})
+    .then((res) => { item.finished_date = true; console.log(res.data);  })
+    .catch( (error) => console.log(error)                               );
   }
 }
 // 完了しない。
 public postInComplete(id?: number , item?:any): void  { const toInComplete = id;
   if (toInComplete !== undefined) { axios
-    .post(     this.RESTAPI_URL + 'in' + id, 
-      { withCredentials:true} ,  
-      { headers:{ 'Content-Type': 'application/json;charset=UTF-8',}})
+    .post(     this.RESTAPI_URL + 'in' + id,{ withCredentials:true},{headers:{ 'Content-Type': 'application/json;charset=UTF-8',}})
     .then((res) =>      {     item.finished_date = null;  })
     .catch( (error) =>            console.log(error)       );
   }

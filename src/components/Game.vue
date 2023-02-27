@@ -29,7 +29,8 @@ watch(count, () => {
   <TransitionGroup class="row" name="list" tag="div">
     <!--アニメ要素-->
         <div class="col-1 "  v-for="(item, index) in list" :key="index">
-          <input class=" bg-primary mt-2 p-3" v-model="item.text" />
+         <!--  <input class=" bg-primary mt-2 p-3" v-model="item.text" /> -->
+         <img src="../assets/abe.jpg" :v-bind="item.text" />
         </div>
       
      </TransitionGroup>
@@ -40,11 +41,11 @@ watch(count, () => {
   <style>
     .list-enter-active,
     .list-leave-active {
-      transition: all 1.5s ease-in-out;
+      transition: all 8.5s ease-in-out;
     }
     .list-enter-from,
     .list-leave-to {
       opacity: 0;
-      transform: translateX(30px);
+      transform: translateX(-230px);
     }
     </style>

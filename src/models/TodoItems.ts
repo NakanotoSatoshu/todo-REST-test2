@@ -1,3 +1,4 @@
+import "./UsersModel.ts";
 export interface TodoItems {
   id?: number;
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -24,9 +25,7 @@ export interface TodoItems {
   update_date_time?: Date;
   priority?: number;
   user:UsersModel;
-  }
-  
-  export interface UsersModel{
+  }export interface UsersModel{
     id? : number;
     username: string;
     password:string;

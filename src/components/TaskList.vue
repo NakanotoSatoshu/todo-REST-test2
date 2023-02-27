@@ -91,8 +91,10 @@ isInvalidDate();
 <template>
 <!--------------コンテイナー幅なんとかして---------------------->
 <div class="row">
+<!--------------UserList受取確認---------------------->
+<!-- [{{ UserList }}  -->
 <!-----レフトサイド、コンポーネント化するーーーーーーーーーーーーー-->
-<div id="" class="col-1 bg-primary McShadow iPhoneSE2" >
+<div id="" class="col-1 bg-light McShadow iPhoneSE2" >
 </div>
 <!-----テーブル幅レスポンシブ指定-->
 <div class="col-xl-10 col-md-9">

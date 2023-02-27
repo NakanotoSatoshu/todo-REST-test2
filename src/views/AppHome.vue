@@ -8,7 +8,7 @@ import type {TodoItems} from "../models/TodoItems";
 import type {UsersModel} from "../models/TodoItems";
 import SMenu from '../components/SlideMenu.vue';
 import type{ Task } from "../models/Task";
-import AltHome from '../components/AltHome.vue';
+import TestHome from '../components/TestHome.vue';
 import Game from '../components/Game.vue';
 
 const open = ref(true);
@@ -52,9 +52,10 @@ const deleteTask = (id: number) => {
 
 // taskをすべて取得する。
 //todoService.getAllTasks();
-todoService.getUsers();
+
+todoService.getAllUsers();
 //const UserList : UsersModel[] = todoService.users;
-//console.log('USA!USA!' + UserList);
+console.log('USA!USA!');
 </script>
 
 <template>
@@ -63,7 +64,7 @@ todoService.getUsers();
       <div class="mt-1 flex justify-center">
     <!--   <TaskAdd @add="(newTaskTitle: string) => addTask(newTaskTitle)"></TaskAdd>
       <TaskTest :tasks="tasks" @delete="(id: number) => deleteTask(id)" @done="(id: number) => doneTask(id)"></TaskTest>  -->
-       <AltHome :UserList="todoService.users" ></AltHome>  
+       <TestHome :UserList="todoService.users" ></TestHome>  
       </div>
      </div>
 </template>
