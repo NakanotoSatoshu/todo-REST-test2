@@ -19,7 +19,7 @@ const emit = defineEmits<{
   (eventName: "incomplete", id?: number , item?:any): any;
   (eventName: "delete2", id?: number): void;
   (eventName: "delete",id?:number, item?:any):any;
-  (eventName: "edit",id?:number, item?:any):any;
+  (eventName: "edit",id?:number, item?:TodoItems):any;
   (transName: "comp",id?:number): any;
 }>();
 
@@ -204,7 +204,7 @@ isInvalidDate();
 					ref="childRef" 
 					:modalEdit="modalEdit"  
 					:item="item" 
-					@edit="(id,item) => todoService.postEdit(id)" 
+					@edit="(id,item) => todoService.postEdit(id,item)" 
 					:TodoList="TodoList"
 					:UserList="UserList"
 					></ModalE> 
