@@ -19,17 +19,25 @@
 /*文字の色変える重要 */
 .btn-outline-warning {
   color: #000000 !important;
+  border-color: #ffffff00;
+}
+/*スライドメニュ時の高さ */
+.showNow{
+ height: 20%;
 }
 
-@media (max-width: 670px){
+@media (max-width: 596px){
      .iPhoneSE2 {
         display: none;
     }
 }
+.iPhoneSE3 {
+  display: none;
 
-@media (man-width: 670px ){
+}
+@media (max-width: 596px ){
   .iPhoneSE3 {
-     display: -webkit-box;
+     display: block;
 
  }
 }
@@ -54,6 +62,9 @@ table{
 	font-family: 'Noto Sans JP', sans-serif;
   font-size:16px;
 	border-radius: 5px;
+  border-bottom-width:0px!important;
+ /*  background-image: url(../assets/tamu.jpg) ; */
+  
 }
 
 tr{

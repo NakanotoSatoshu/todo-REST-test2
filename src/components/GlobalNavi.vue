@@ -23,7 +23,9 @@ import { ref } from "vue";
 import { RouterView, useRouter } from "vue-router";
 
 // タイトルとメニューアイテムを設定できるようにする。
-defineProps<{ title: string; menuItems: MenuItem[] }>();
+defineProps<{ title: string; menuItems: MenuItem[] ,EntryOpen: boolean}>();
+
+const EntryOpen = ref(false);
 
 const router = useRouter();
 
@@ -42,7 +44,7 @@ const goToUrl = (url?: string) => {
       <!-- titleを可変にし、hrefをrouterで切り替えるように修正 -->
       <a class="navbar-brand ps-3 " @click="goToUrl('/home')">{{ title }}</a>
       <!-- isToggleでスライドバーの表示/非表示を切り替える -->
-      <button id="sidebarToggle" class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" @click="isToggle = !isToggle">
+      <button id="sidebarToggle" class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 " @click="isToggle = !isToggle">
         <i class="fas fa-bars"></i>
       </button>
       <!--   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -54,30 +56,45 @@ const goToUrl = (url?: string) => {
                 <li class="nav-item active ">
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="/entry">登録</a>
+                    <a class="nav-link mr-2 shadow-lg p-1 mb-2  rounded border-bottom-0" href="/entry">タスク追加</a>
                 </li>
-                <li class="nav-item "></li>
+                <li class="nav-item ">
+
+                </li>
                  <!--   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-					 <a class="nav-link "  id="navbar" role="button"
+					           <a class="nav-link "  id="navbar" role="button"
                         data-toggle="" aria-haspopup="true" aria-expanded="false" href="#" sec:authentication="name"></a>
 							<li sec:authorize="isAuthenticated()"></li>
-							<li class="nav-link">さんようこそ。</li>
+							<li class="nav-link mr-2 shadow-lg p-1 mb-2  rounded border-bottom-0 iPhoneSE2">さんようこそ。</li>
                 <!--   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                          <div class="dropdown-divider"></div>
                         <form class="dropdown-item" method="post" >-->
-            </ul>
+            <li>
+              <div class="mr-2 shadow-lg p-1 mb-2  rounded border-bottom-0 iPhoneSE2" text="">
             現在日時
-            <div class="mr-2 shadow-lg p-1 mb-2  rounded border-bottom-0" text="">{{dayjs().format('YYYY年M月DD日')}}</div>
-            <div text=""></div>
-           	<div class="mr-2"></div>
-            <div class="mr-2"><a class="btn btn-outline-dark my-2 my-sm-0 shadow-lg p-1" href="http://localhost:8080/logout">ログアウト</a>
-                    </div>
+          </div>
+            </li>
+            <li>
+            <div class="mr-2 shadow-lg p-1 mb-2  rounded border-bottom-0 iPhoneSE2" text="">{{dayjs().format('YYYY年M月DD日')}}</div>
+            </li>
+          <!--   <div text=""></div>
+           	<div class="mr-2"></div> -->
+            <li>
             <form class="form-inline my-2 my-lg-0" action="/search" method="post">
-                <input class="form-control mr-sm-2 shadow-lg p-1" type="search" placeholder="Search" aria-label="Search" name="str"
+                <li>
+                <input class="form-control mr-sm-2 shadow-lg p-1 iPhoneSE2" type="search" placeholder="Search" aria-label="Search" name="str"
                     value="">
-                <button class="btn btn-outline-dark my-2 my-sm-0 shadow-lg p-1" type="submit">検索</button>
+                </li>
+                <li>
+                <button class="btn btn-outline-dark my-2 my-sm-0 shadow-lg p-1 iPhoneSE2" type="submit">検索</button>
+              </li>
             </form>
+            </li>
+            <li>
+              <a class="btn btn-outline-dark my-2 my-sm-0 shadow-lg p-1 iPhoneSE2" href="http://localhost:8080/logout">ログアウト</a>
+            </li>
+          </ul>
         </div>  
       <!-- 不要な項目は削除 -->
     </nav>

@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Home from "../views/AppHome.vue";
-import TodoList from "../views/TodoList.vue";
+import Home from "../views/Home.vue";
+import TodoList from "../views/MainApp.vue";
 import Game from "../components/Game.vue";
 import ModalE from "../components/ModalEdit.vue";
+import Entry from "../components/Entry.vue";
 import NotFound from "../components/NotFound.vue";
 
 
@@ -14,6 +15,10 @@ const routers: Array<RouteRecordRaw> = [
   {
     path: "/todo",
     component: TodoList,
+  },
+  {
+    path: "/entry",
+    component: Entry,
   },
   {
     path: "/edit",

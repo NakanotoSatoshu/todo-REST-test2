@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import AppNavi, { type MenuItem } from "./components/AppNavi.vue";
+import { ref ,reactive} from "vue";
+import AppNavi, { type MenuItem } from "./components/GlobalNavi.vue";
 
+const EntryOpen = ref(false);
 // メニューを設定する。
 const menuItems: MenuItem[] = [
   {
@@ -24,7 +26,7 @@ const menuItems: MenuItem[] = [
 
 <template>
   <!-- ナビバー  表示　現在 -->
-  <AppNavi title="Todo" :menu-items="menuItems" ></AppNavi>  
+  <AppNavi :EntryOpen="EntryOpen" title="Todo" :menu-items="menuItems" ></AppNavi>  
   
 </template>
 

@@ -6,9 +6,9 @@ import tra from '../services/TrantisonService';
 import todoService from "../services/TodoService";
 import type {TodoItems} from "../models/TodoItems";
 import type {UsersModel} from "../models/TodoItems";
-import SMenu from '../components/SlideMenu.vue';
+import SMenu from './SlideMenu.vue';
 import type{ Task } from "../models/Task";
-import ModalE from '../components/ModalEdit.vue';
+import ModalE from './ModalEdit.vue';
 
 dayjs.locale(ja);
 
@@ -141,28 +141,28 @@ isInvalidDate();
 						<!-- ------------操作ボタン-------------------->
 						<td class="shadow-lg p-1 mb-1 rounded  text-center align-middle animated  fadeIn">
 						<!-- ------------ 完了系ボタン--------------------------------------------->
-							<ul class="iPhoneSE2 iPhoneSE3 text-center align-middle">
+							<ul class="iPhoneSE2 iPhone text-center align-middle">
 							  <li class=" button animated fadeIn">
 					 <!-------------- 完了-------------------------------------------------------->
 		 			<Transition  name="slide-up" mode="out-in">
 								<button 
-								class="shadow-lg p-1 mb-1 rounded btn-complete btn-sm btn-dark"   
+								class="shadow-lg p-1 mb-1 rounded btn-complete btn-lg btn-light"   
 								v-bind:href="'/complete/' + item.id" 
 								v-show="isNull(item.finished_date)"
 								@click="emit('complete',  item.id, item)" 
 							    >
-								<i class="fa-solid fa-arrow-down-long"></i>
+								<i class="fa-solid fa-power-off"></i>
 							    </button>
 					</Transition>
 					<!-------------- 戻す---------------------------------------------------------->
 					<Transition name="slide-up" mode="out-in">
 								<button 
-								class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-dark" 
+								class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-lg btn-outline-light" 
 								v-bind:href="'/incomplete/' + item.id" 
 								v-show="hasNull(item.finished_date)"
 								@click="emit('incomplete',  item.id, item) "
 								>
-								<i class="fa-solid fa-truck-monster"></i>
+								<i class="fa-solid fa-rotate-right"></i>
 								</button>
 					</Transition>	
 					<Transition @enter="tra.testEnter" @leave="tra.testLeave"></Transition>		
@@ -174,7 +174,7 @@ isInvalidDate();
 						    <!-------------- 更新画面----------------------------------------->
 							<li>
 	                           <button 
-							   class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark modal-open2"   
+							   class="shadow-lg p-1 mb-1 rounded btn-lg btn-light modal-open2"   
 							   v-bind:href="'/edit/' + item.id" 
 							   @click="onChildMethodClick2">
 							   <i class="fa-solid fa-calendar-days"></i>
@@ -183,7 +183,7 @@ isInvalidDate();
 							 	<!-------------- 削除画面--------------------------------------------------->	
 	                         <li>
 	                  		  <button id="js-open" 
-							  class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark  modal-open"  
+							  class="shadow-lg p-1 mb-1 rounded btn-lg btn-light  modal-open"  
 							   type="button" 
 							   v-bind:href="'/delete/' + item.id"
 							   @click="emit('delete', item.id)"
@@ -194,9 +194,7 @@ isInvalidDate();
 							</ul>
 						<div class="iPhoneSE3 ">
 							<!--------------iPhone用に各機能を移さなければならない----あとWEB晩では非表示に----------------------------------------->
-							<SMenu 
-							:showS="showS" 
-							></SMenu>
+							<SMenu :showS="showS" ></SMenu>
 						</div>
 					  </td>
 	                </tr>
