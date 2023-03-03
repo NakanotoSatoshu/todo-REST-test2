@@ -98,7 +98,7 @@ isInvalidDate();
 </div>
 <!-----テーブル幅レスポンシブ指定-->
 <div class="col-xl-10 col-md-9">
-  <table class="table  table-hover table-sm my-1 p-1 iPhoneSE bg-body shadow-sm p-1 mb-0 rounded ">
+  <table class="table  table-hover table-sm mb-4 p-4 iPhoneSE bg-body mb-4  ">
     <thead class="table-dark opaS">
       <tr>
 		<!-- <th scope="col align-middle"  class="text-center iPhonseSE2">#</th> -->
@@ -113,7 +113,7 @@ isInvalidDate();
       <tbody class="animated fadeIn"> 
 	<!-- 	<transition-group name="flip-list" tag=""> -->
 	        <template v-for="(item)  in  TodoList " :key="item.user_id"  >
-				<tr class="testToggle"
+				<tr class="m-4  testToggle"
 				   :class="{
 					'inComp':isExpire(item.finished_date,item.expire_date) ,
 					'forwardComp':notExpire(item.finished_date,item.expire_date)
@@ -124,29 +124,29 @@ isInvalidDate();
 							 @click="toggle2" >
  					    </th> -->
 						<!-------------- 未完了----------->
-						<td class="shadow-lg p-1 mb-1 rounded  align-middle btn-sm btn-outline-warning modalDel" v-show="item.finished_date !== null" >
+						<td class=" p-1 mb-1 rounded  align-middle btn-sm btn-outline-warning modalDel" v-show="item.finished_date !== null" >
 						{{item.item_name}}		</td>       <!-- v-show="isNotComp" -->
 						<!-- ------------ 完了----------->
-						<td class="shadow-lg p-1 mb-1 rounded align-middle btn-sm btn-outline-warning modalDel"  v-show="item.finished_date === null">{{item.item_name}}</td>
+						<td class=" p-1 mb-1 rounded align-middle btn-sm btn-outline-warning modalDel"  v-show="item.finished_date === null">{{item.item_name}}</td>
 	                   <!-- ------------ 名前-------------------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhonseSE2 modalName" >{{item.user.family_name}}{{item.user.first_name}}
+	                    <td class=" p-1 mb-1 rounded  text-center align-middle iPhonseSE2 modalName" >{{item.user.family_name}}{{item.user.first_name}}
 	                    </td>
 	                    <!-- ------------ 登録日-------------フォーマットデイト必須------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalRegist" >{{format(item.registration_date)}}</td>
+	                    <td class=" p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalRegist" >{{format(item.registration_date)}}</td>
 	                    <!-- ------------ 期限日-------------------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalExpire" >{{format(item.expire_date)}} </td>
+	                    <td class=" p-1 mb-1 rounded  text-center align-middle iPhoneSE2 modalExpire" >{{format(item.expire_date)}} </td>
 	                    <!-- ------------完了日-------------------->
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle modalFinish"  v-show="hasNull(item.finished_date)">{{format(item.finished_date)}}</td>
-	                    <td class="shadow-lg p-1 mb-1 rounded  text-center align-middle medachi2 modalFinish animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
+	                    <td class=" p-1 mb-1 rounded  text-center align-middle modalFinish"  v-show="hasNull(item.finished_date)">{{format(item.finished_date)}}</td>
+	                    <td class=" p-1 mb-1 rounded  text-center align-middle medachi2 modalFinish animated fadeIn infinite" v-show="isNull(item.finished_date)">未</td>
 						<!-- ------------操作ボタン-------------------->
-						<td class="shadow-lg p-1 mb-1 rounded  text-center align-middle animated  fadeIn">
+						<td class=" p-1 mb-1 rounded  text-center align-middle animated  fadeIn">
 						<!-- ------------ 完了系ボタン--------------------------------------------->
 							<ul class="iPhoneSE2 iPhone text-center align-middle">
 							  <li class=" button animated fadeIn">
 					 <!-------------- 完了-------------------------------------------------------->
 		 			<Transition  name="slide-up" mode="out-in">
 								<button 
-								class="shadow-lg p-1 mb-1 rounded btn-complete btn-lg btn-light"   
+								class="shadow-l p-1 mb-1 rounded btn-complete btn-lg btn-light"   
 								v-bind:href="'/complete/' + item.id" 
 								v-show="isNull(item.finished_date)"
 								@click="emit('complete',  item.id, item)" 

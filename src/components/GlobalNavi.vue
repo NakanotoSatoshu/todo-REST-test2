@@ -56,7 +56,7 @@ const goToUrl = (url?: string) => {
                 <li class="nav-item active ">
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link mr-2 shadow-lg p-1 mb-2  rounded border-bottom-0" href="/entry">タスク追加</a>
+                    <a class="nav-link mr-2  p-1 mb-2  rounded border-bottom-0" href="/entry">タスク追加</a>
                 </li>
                 <li class="nav-item ">
 
@@ -66,33 +66,33 @@ const goToUrl = (url?: string) => {
 					           <a class="nav-link "  id="navbar" role="button"
                         data-toggle="" aria-haspopup="true" aria-expanded="false" href="#" sec:authentication="name"></a>
 							<li sec:authorize="isAuthenticated()"></li>
-							<li class="nav-link mr-2 shadow-lg p-1 mb-2  rounded border-bottom-0 iPhoneSE2">さんようこそ。</li>
+							<li class="nav-link mr-2  p-1 mb-2  rounded border-bottom-0 iPhoneSE2">さんようこそ。</li>
                 <!--   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                          <div class="dropdown-divider"></div>
                         <form class="dropdown-item" method="post" >-->
             <li>
-              <div class="mr-2 shadow-lg p-1 mb-2  rounded border-bottom-0 iPhoneSE2" text="">
+              <div class="mr-2  p-2 mb-2  rounded border-bottom-0 iPhoneSE2" text="">
             現在日時
           </div>
             </li>
             <li>
-            <div class="mr-2 shadow-lg p-1 mb-2  rounded border-bottom-0 iPhoneSE2" text="">{{dayjs().format('YYYY年M月DD日')}}</div>
+            <div class="mr-2  p-2 mb-2  rounded border-bottom-0 iPhoneSE2" text="">{{dayjs().format('YYYY年M月DD日')}}</div>
             </li>
           <!--   <div text=""></div>
            	<div class="mr-2"></div> -->
             <li>
             <form class="form-inline my-2 my-lg-0" action="/search" method="post">
                 <li>
-                <input class="form-control mr-sm-2 shadow-lg p-1 iPhoneSE2" type="search" placeholder="Search" aria-label="Search" name="str"
+                <input class="form-control mr-sm-2 m-1 p-2 iPhoneSE2" type="search" placeholder="Search" aria-label="Search" name="str"
                     value="">
                 </li>
                 <li>
-                <button class="btn btn-outline-dark my-2 my-sm-0 shadow-lg p-1 iPhoneSE2" type="submit">検索</button>
+                <button class="btn btn-outline-dark m-4 my-sm-1  p-2 iPhoneSE2" type="submit">検索</button>
               </li>
             </form>
             </li>
             <li>
-              <a class="btn btn-outline-dark my-2 my-sm-0 shadow-lg p-1 iPhoneSE2" href="http://localhost:8080/logout">ログアウト</a>
+              <a class="btn btn-outline-dark my-2 my-sm-1  p-2 iPhoneSE2" href="http://localhost:8080/logout">ログアウト</a>
             </li>
           </ul>
         </div>  

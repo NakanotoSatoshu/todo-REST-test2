@@ -1,6 +1,8 @@
 @charset "UTF-8";
 .testToggle{
-	background-color: #0000006e;
+  /* appleGray */
+ /*  background-color: #6e6e73; */
+ 	background-color: #dee2e6; 
     color: rgba(0, 0, 0, 0.685);
     font-weight: 100;
 }
@@ -51,6 +53,8 @@
 font{
 	font-family: 'Noto Sans JP', sans-serif;
 	font-size:2px;
+  line-height: 1.42859;
+  font-weight: 400;
 }
 
 li{
@@ -63,21 +67,29 @@ table{
   font-size:16px;
 	border-radius: 5px;
   border-bottom-width:0px!important;
+  box-shadow:0px 2px 4px rgb(0 0 0 / 30%)!important;
  /*  background-image: url(../assets/tamu.jpg) ; */
   
+}
+
+thead{
+  border-radius: 8px;
+  padding:  8px;
 }
 
 tr{
 /* 	display: -webkit - box;
   display: -webkit - flex; */
   position: relative;
-	border-radius: 5px;
-	box-shadow: 0 2px 2px 0 rgba(44, 44, 43, 0.452);
+	border-radius: 8px;
+  margin: 10px;
+	box-shadow: 0px 2px 4px rgb(0 0 0 / 30%);
+ 
 }
 
 td{
 	font-family: 'Noto Sans JP', sans-serif;
-	border-radius: 1px;
+	border-radius: 0px;
 }
 
 /*カルーセルスライダーCSS

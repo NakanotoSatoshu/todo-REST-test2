@@ -21,6 +21,7 @@ const emit = defineEmits<{
 
 //バリデーション用コンストラクタ--------------------------------------------------------------------------------Vuelidate-----------
 const formData = reactive({
+  tem: "" ,
   id: "",
   user_id: "",
   item_name: "",
@@ -30,19 +31,23 @@ const formData = reactive({
   finished_date: "",
 });
 
+const tem = ref(props.item);
+
 //バリデーションルール
-// const rules = {
-//   item_name: { required },
-//    expire_date: { required },
-//    finished_date: { required },
-//    first_name: { required },
-//    family_name: { required },
-// };
-// const v$ = useVuelidate(rules, formData);
-// const submitForm = async () => {
-//   const result = await v$.value.$validate();
-//   console.log('result', result); // true or false
-// };
+const rules = {
+   item_name: { required },
+   user_id: { required },
+   expire_date: { required },
+   finished_date: { required },
+   first_name: { required },
+   family_name: { required },
+};
+
+const v$ = useVuelidate(rules, formData);
+const submitForm = async () => {
+  const result = await v$.value.$validate();
+  console.log('result', result); // true or false
+};
 //バリデーション用コンストラクタ--------------------------------------------------------------------------------Vuelidate----------
 
 //DATEフォーマット
@@ -61,7 +66,6 @@ const notExpire = (f: Date, e: Date) => { var d = new Date; if (f === null) { if
 const modalEditToggleChild = () => { modalEdit.value = !modalEdit.value; };
 const modalEdit = ref(false);
 
-
 //テスト--------------------DevOps-------------------------------------DevOps-------------------------------------
 const d = () => { new Date('yyyy-MM-dd') }
 //date: new Date().toISOString().slice(0, 10);
@@ -72,11 +76,8 @@ const d = () => { new Date('yyyy-MM-dd') }
 //console.log(format(props.item.expire_date));
 //console.log(new Date(props.item.expire_date));
 //console.log('itemのやつ' + typeof(props.item.finished_date));
-
 const modalEdit3 = ref(props.modalEdit);
 const fadeAway = ref(false);
-
-
 //const fullName2 =(props.item.family_name);
 //console.log(props.item.user.family_name);
 const fullName = computed(() => `${props.item.user.family_name} ${props.item.user.first_name}`);
@@ -109,29 +110,25 @@ defineExpose({
 <template>
   <Transition enter-active-class="transition duration-100" enter-from-class="transform opacity-0 -translate-y-20 "
     leave-active-class="transition duration-10" leave-to-class="transform opacity-0 -translate-y-20">
-    <div class="bg-info  modalEdit animated  fadeInLeft" v-show="modalEdit">
+    <div class="bg-info mb-4  rounded-lg  modalEdit animated  fadeInLeft" v-show="modalEdit">
       <div class="mt-1 flex justify-center">
         <div class="w-full max-w-sm text-gray-700">
           <h5 class="text-2xl font-bold mb-2">EDIT</h5>
-          <form class=" shadow-md rounded p-2" method="" @submit.prevent="">
+          <form class=" shadow-md rounded p-2" method="" @submit.prevent="submitForm">
             <!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
             <!--  <th class=""> 
    					  </th> 親で必要な場合ブロックコメントは消してください   
               下は全てオンクリックでhiddenを表示させます インプット要素がバインディングされていて送信されるない-->
-            <!--   <select class="form-select form-select-sm mb-3"  name="index" v-model="useris">
-        <option class="btn-lg btn-outline-dark" v-for="user in UserList"  v-bind:value="fullName" >
-          <h5>{{ user.family_name }}{{ user.first_name}}</h5></option> 
-	</select>  -->
           <ul>
             <li>
               <td class="btn-s btn-outline-warning" @click="OpenModalItem">
                 {{ item.item_name }}
               </td>
               <input class="border rounded w-full p-2" style="background-color:transparent;" id="item_name "
-                type="hidden" :placeholder="item.item_name" v-model="formData.item_name" />
-              <!-- <div v-for="error of v$.item_name.$errors" :key="error.$uid">
+                type="hidden" :placeholder="item.item_name" v-model.lazy="formData.item_name" />
+               <div v-for="error of v$.item_name.$errors" :key="error.$uid">
                 <div class="text-red-700 font-bold">{{ error.$message }}</div>
-              </div> -->
+              </div> 
             </li>
             <li>
               <!--セレクトにする------------ 名前-------------------->
@@ -139,37 +136,15 @@ defineExpose({
                 {{ props.item.user.family_name }} {{ props.item.user.first_name }}
                 </td>
                 <!-- selectタグにv-model="プロパティ名"を記述することで、選択した内容をプロパティに反映させることができます-->
-              <select class="border rounded w-full p-2" style="background-color:transparent;" v-model="formData.user_id">
-                <option class="border rounded w-full p-2" v-for="user in UserList">
+              <select class="border rounded w-full p-2" style="background-color:transparent;" v-model.tirm="formData.user_id">
+                <option class="border rounded w-full p-2" v-for="user in UserList" v-bind:value="item.user_id">
                   {{ user.family_name }}{{ user.first_name }}
                 </option>
               </select>
                 <!--optionタグの中身にitemをバインドでき、尚且つUserListとバインドできればよい-->
-                <!-- <h5>2ndTestSelect</h5>
-                <select class="border rounded w-full p-2" v-model="userFull2">
-                  <option class="border rounded w-full p-2">
-                    選べ！！！
-                  </option>
-                  <option class="border rounded w-full p-2">
-                    aho
-                  </option>
-                  <option class="border rounded w-full p-2">
-                    {{ item.id }}
-                  </option>
-                </select> 
-                ここのREFのやつ{{ userFull }}
-                ITEMのやつ{{ item.user.family_name }}{{ item.user.first_name }}-->
-                <!--      <input
-                          class="border rounded w-full p-2"
-                          style="background-color:transparent;"
-                          id="fullName"
-                          type="hidden"
-                          placeholder="担当者"
-                          v-model="fullName"
-                           />  style="display:none"  -->
-                <!--      <div v-for="error of v$.fullName.$errors" :key="error.$uid">
+                      <div v-for="error of v$.user_id.$errors" :key="error.$uid">
                     <div class="text-red-700 font-bold">{{ error.$message }}</div>
-                  </div>   -->
+                  </div>   
               </li>
               <li>
                 <!-------------- 期限日-------------------->
@@ -177,10 +152,10 @@ defineExpose({
                   {{ format(item.expire_date) }}
                 </td>
                 <input class="border rounded w-full p-2" style="background-color:transparent;" id="expire_date"
-                  type="hidden" placeholder="期限日" v-model="item.expire_date" />
-          <!-- <div v-for="error of v$.expire_date.$errors" :key="error.$uid">
+                  type="hidden" placeholder="期限日" v-model.Date="formData.expire_date" />
+                <div v-for="error of v$.expire_date.$errors" :key="error.$uid">
                   <div class="text-red-700 font-bold">{{ error.$message }}</div>
-                </div> -->
+                </div> 
               </li>
               <li>
                 <!-- ------------完了日-------------------->
@@ -188,10 +163,10 @@ defineExpose({
                   {{ (item.finished_date) }}
                 </td>
                 <input class="border rounded w-full p-2" style="background-color:transparent;" id="finished_date"
-                  type="hidden" placeholder="完了日" v-model="item.finished_date" />
-         <!--  <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
+                  type="hidden" placeholder="完了日" v-model.Date="formData.finished_date" />
+                <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
                   <div class="text-red-700 font-bold">{{ error.$message }}</div>
-                </div> -->
+                </div> 
               </li>
               <li>
                 <td class=" animated fadeIn infinite" v-show="isNull(item.finished_date)" @click="OpenModalFinish">
@@ -199,11 +174,11 @@ defineExpose({
                 </td>   
               <input class="border rounded w-full p-2" style="background-color:transparent;" id="finished_date"
                 type="hidden" placeholder="完了日"
-                v-model="item.finished_date" />
+                v-model.Date="formData.finished_date" />
                 <!--  :value="format(item.finished_date)" -->
-       <!--  <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
+              <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
                 <div class="text-red-700 font-bold">{{ error.$message }}</div> 
-              </div> -->
+              </div> 
               </li>
               <span></span>
               <li>
