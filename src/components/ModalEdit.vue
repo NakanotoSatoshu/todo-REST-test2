@@ -16,29 +16,38 @@ dayjs.locale(ja);
 const props = defineProps<{ modalEdit: boolean, item: TodoItems, TodoList: TodoItems[], UserList: UsersModel[] }>();
 
 const emit = defineEmits<{
-  (eventName: "edit", id?: number, item?: TodoItems): any;
+  (eventName: "edit", id?: number, formData?: any): any;
 }>();
 
+//DATEフォーマット
+const format = (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY-MM-DD'); return created_at };
 //バリデーション用コンストラクタ--------------------------------------------------------------------------------Vuelidate-----------
 const formData = reactive({
-  tem: "" ,
-  id: "",
-  user_id: "",
-  item_name: "",
-  first_name: "",
-  family_name: "",
-  expire_date: "",
-  finished_date: "",
+  id: props.item.id,
+  user_id: props.item.user_id,
+  userName: " " ,
+  fullName: " " ,
+  registration_date:"",
+  item_name: props.item.item_name,
+  first_name: props.item.first_name,
+  family_name: props.item.family_name,
+  expire_date: format(props.item.expire_date),
+  finished_date: format (props.item.finished_date),
+  is_deleted: "",
+  create_date_time: "",
+  update_date_time: "",
+  priority: "",
+  user: "",
 });
 
-const tem = ref(props.item);
+const item = ref(props.item);
 
 //バリデーションルール
 const rules = {
    item_name: { required },
    user_id: { required },
-   expire_date: { required },
-   finished_date: { required },
+   expire_date: { Date },
+   finished_date: { Date },
    first_name: { required },
    family_name: { required },
 };
@@ -50,8 +59,6 @@ const submitForm = async () => {
 };
 //バリデーション用コンストラクタ--------------------------------------------------------------------------------Vuelidate----------
 
-//DATEフォーマット
-const format = (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY-MM-DD'); return created_at };
 //JSでのDateがNullの場合invailddate表示を防ぐ
 const isInvalidDate = () => { return props.TodoList.filter((item) => { if (item.finished_date === null) { Number(item.finished_date) } else { return item.finished_date } }) };
 //完了日があるつまり完了してるやつ
@@ -68,6 +75,8 @@ const modalEdit = ref(false);
 
 //テスト--------------------DevOps-------------------------------------DevOps-------------------------------------
 const d = () => { new Date('yyyy-MM-dd') }
+//console.log(d);
+//console.log(formData.finished_date);
 //date: new Date().toISOString().slice(0, 10);
 //console.log();
 //const day2 = dayjs(new Date(props.item.finished_date));
@@ -95,6 +104,11 @@ const OpenModalName = (e: any) => { e.currentTarget.nextElementSibling.setAttrib
 const OpenModalExipire = (e: any) => { e.currentTarget.nextElementSibling.setAttribute('type', 'date'); };
 const OpenModalFinish = (e: any) => { e.currentTarget.nextElementSibling.setAttribute('type', 'date'); };
 
+//const toStng = computed(() => format(props.item.expire_date)) ; 
+//const toStng2 = computed(() => format(props.item.expire_date)) ; 
+
+//console.log(toStng);
+//console.log(toStng2);
 //テスト--------------------DevOps-------------------------------------DevOps-------------------------------------
 
 //メソッドエクスポート
@@ -163,7 +177,7 @@ defineExpose({
                   {{ (item.finished_date) }}
                 </td>
                 <input class="border rounded w-full p-2" style="background-color:transparent;" id="finished_date"
-                  type="hidden" placeholder="完了日" v-model.Date="formData.finished_date" />
+                  type="hidden" placeholder="完了日" v-model="formData.finished_date" />
                 <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
                   <div class="text-red-700 font-bold">{{ error.$message }}</div>
                 </div> 
@@ -188,7 +202,7 @@ defineExpose({
                 <td class=" animated  fadeIn">
                   <div class="flex items-center justify-between">
                     <button class="shadow-lg p-1 mb-1 rounded btn-sm btn-dark" type="submit"
-                      v-bind:href="'/edit/' + item.id" @click="emit('edit', item.id, item)">送信</button>
+                      v-bind:href="'/edit/' + item.id" @click="emit('edit', item.id, formData)">送信</button>
                   </div>
                 </td>
               </li>

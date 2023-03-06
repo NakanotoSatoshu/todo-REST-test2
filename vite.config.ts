@@ -8,7 +8,7 @@ export default  defineConfig({
     VitePluginFonts({
       google: {
         families: [
-           'Noto Sans JP'// ここに導入したいフォント名を入れる
+           'Noto Sans JP' ,'Open Sans'// ここに導入したいフォント名を入れる
         ],
       }
     })

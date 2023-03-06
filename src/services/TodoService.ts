@@ -63,10 +63,10 @@ class TodoService {
   }
 }
 // 編集する。
-public postEdit(id?: number , item?: TodoItems ): void  { const toEdit = id; const toItems = item ;
+public postEdit(id?: number , formData?: any ): void  { const toEdit = id; const toItems = formData ;
  // console.log(toEdit + 'きちゃあああああああああ' + item )
   if (toEdit !== undefined && toItems !== undefined) { axios
-    .post<TodoItems[]>(this.RESTAPI_URL + 'edit/' +  id, item,{ withCredentials:true})
+    .post<TodoItems[]>(this.RESTAPI_URL + 'edit/' +  id, formData,{ withCredentials:true})
     .then((res) => {  console.log(res.statusText);    })
     .catch( (error) => console.log(error + 'false')                          );
   }

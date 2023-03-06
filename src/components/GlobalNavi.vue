@@ -117,6 +117,7 @@ const goToUrl = (url?: string) => {
         <section class="" id="">
           <div class="container-fluid" >
             <!-- コンテンツをrouter-viewに変更 -->
+            <router-view  name="entry" to=""/>
             <router-view />
           </div>
         </section>

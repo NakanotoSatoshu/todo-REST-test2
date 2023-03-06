@@ -10,7 +10,7 @@ import SMenu from './SlideMenu.vue';
 import type{ Task } from "../models/Task";
 import ModalE from './ModalEdit.vue';
 
-dayjs.locale(ja);
+//dayjs.locale(ja);
 
 const props = defineProps<{TodoList: TodoItems[] , UserList: UsersModel[] ,open: boolean }>();
 
@@ -19,7 +19,7 @@ const emit = defineEmits<{
   (eventName: "incomplete", id?: number , item?:any): any;
   (eventName: "delete2", id?: number): void;
   (eventName: "delete",id?:number, item?:any):any;
-  (eventName: "edit",id?:number, item?:TodoItems):any;
+  (eventName: "edit",id?:number, formData?:any):any;
   (transName: "comp",id?:number): any;
 }>();
 
@@ -99,7 +99,7 @@ isInvalidDate();
 <!-----テーブル幅レスポンシブ指定-->
 <div class="col-xl-10 col-md-9">
   <table class="table  table-hover table-sm mb-4 p-4 iPhoneSE bg-body mb-4  ">
-    <thead class="table-dark opaS">
+    <thead class="table-">
       <tr>
 		<!-- <th scope="col align-middle"  class="text-center iPhonseSE2">#</th> -->
         <th scope="col align-middle" class="text-center col-3 iPhoneSE2">項目名</th>
@@ -146,7 +146,7 @@ isInvalidDate();
 					 <!-------------- 完了-------------------------------------------------------->
 		 			<Transition  name="slide-up" mode="out-in">
 								<button 
-								class="shadow-l p-1 mb-1 rounded btn-complete btn-lg btn-light"   
+								class="shadow-sm p-1 mb-1 rounded btn-complete btn-lg btn-light"   
 								v-bind:href="'/complete/' + item.id" 
 								v-show="isNull(item.finished_date)"
 								@click="emit('complete',  item.id, item)" 
@@ -157,7 +157,7 @@ isInvalidDate();
 					<!-------------- 戻す---------------------------------------------------------->
 					<Transition name="slide-up" mode="out-in">
 								<button 
-								class="shadow-lg p-1 mb-1 rounded btn-incomplete btn-lg btn-outline-light" 
+								class="shadow-sm p-1 mb-1 rounded btn-incomplete btn-lg btn-outline-light" 
 								v-bind:href="'/incomplete/' + item.id" 
 								v-show="hasNull(item.finished_date)"
 								@click="emit('incomplete',  item.id, item) "
@@ -174,7 +174,7 @@ isInvalidDate();
 						    <!-------------- 更新画面----------------------------------------->
 							<li>
 	                           <button 
-							   class="shadow-lg p-1 mb-1 rounded btn-lg btn-light modal-open2"   
+							   class="shadow-sm p-1 mb-1 rounded btn-lg btn-light modal-open2"   
 							   v-bind:href="'/edit/' + item.id" 
 							   @click="onChildMethodClick2">
 							   <i class="fa-solid fa-calendar-days"></i>
@@ -202,7 +202,7 @@ isInvalidDate();
 					ref="childRef" 
 					:modalEdit="modalEdit"  
 					:item="item" 
-					@edit="(id,item) => todoService.postEdit(id,item)" 
+					@edit="(id,formData) => todoService.postEdit(id,formData)" 
 					:TodoList="TodoList"
 					:UserList="UserList"
 					></ModalE> 
@@ -212,7 +212,7 @@ isInvalidDate();
        </table>
       </div>
 	<!-----コンポーネント化するーーーーーーーーーーーーー-->
-    <div id="" class="col-1 McShadow iPhoneSE2" ></div>
+    <div id="" class="col-2 McShadow iPhoneSE2" ></div>
 </div>
 </template>
 

@@ -19,6 +19,7 @@ const routers: Array<RouteRecordRaw> = [
   {
     path: "/entry",
     component: Entry,
+    props: true,
   },
   {
     path: "/edit",
