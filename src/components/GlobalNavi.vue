@@ -56,7 +56,14 @@ const goToUrl = (url?: string) => {
                 <li class="nav-item active ">
                 </li>
                 <li class="nav-item ">
+               <!--    <router-link 
+                    :to="{ 
+                     name: 'Entry', 
+                     params: { },
+                     query:{str: 'test'} }"
+                     > -->
                     <a class="nav-link mr-2  p-1 mb-2  rounded border-bottom-0" href="/entry">タスク追加</a>
+              <!--     </router-link> -->
                 </li>
                 <li class="nav-item ">
 
@@ -117,7 +124,9 @@ const goToUrl = (url?: string) => {
         <section class="" id="">
           <div class="container-fluid" >
             <!-- コンテンツをrouter-viewに変更 -->
-            <router-view  name="entry" to=""/>
+            <RouterLink to="/about">About</RouterLink>
+  <!--           <router-view  name="Entry" :to="{ name: 'Entry', params: {EntryOpen: true } }"/> -->
+          <!--   <router-view :to="{ name: '/entry',  query:{EntryOpen: true  }}">リンク名</router-view>  -->
             <router-view />
           </div>
         </section>

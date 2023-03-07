@@ -71,7 +71,7 @@ todoService.getAllUsers();
   </div>
 </div> -->
   <div class="container-fluid p-1 m-1 ">
-            <Entry Ref="hildRef" :EntryOpen="EntryOpen" ></Entry>
+            <!-- <Entry Ref="hildRef" :EntryOpen="EntryOpen" ></Entry> -->
             <Delete
             :open="open"
             :TodoList="todoService.todoItmes"

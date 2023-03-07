@@ -8,19 +8,17 @@ import NotFound from "../components/NotFound.vue";
 
 
 const routers: Array<RouteRecordRaw> = [
-  {
-    path: "/home",
-    component: Home,
-  },
-  {
-    path: "/todo",
-    component: TodoList,
-  },
+  {path: "/home",component: Home,},
+ // {path: "/:todo",components: {default:TodoList,Entry: Entry},props:true },
+  {path: "/todo", component: TodoList,},
   {
     path: "/entry",
     component: Entry,
-    props: true,
-  },
+    props: {
+      EntryOpen: true,
+   
+    },
+ },
   {
     path: "/edit",
     component: ModalE,

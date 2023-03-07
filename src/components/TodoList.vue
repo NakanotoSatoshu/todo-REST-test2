@@ -9,6 +9,9 @@ import type {UsersModel} from "../models/TodoItems";
 import SMenu from './SlideMenu.vue';
 import type{ Task } from "../models/Task";
 import ModalE from './ModalEdit.vue';
+import ModalEntry from './Entry.vue';
+import Left from './LeftSide.vue';
+import Light from './LightSide.vue';
 
 //dayjs.locale(ja);
 
@@ -90,11 +93,13 @@ isInvalidDate();
 
 <template>
 <!--------------コンテイナー幅なんとかして---------------------->
+<ModalEntry></ModalEntry>
 <div class="row">
 <!--------------UserList受取確認---------------------->
 <!-- [{{ UserList }}  -->
 <!-----レフトサイド、コンポーネント化するーーーーーーーーーーーーー-->
-<div id="" class="col-1 bg-light McShadow iPhoneSE2" >
+<div id="" class="col-1  McShadow iPhoneSE2" >
+	<Left></Left>
 </div>
 <!-----テーブル幅レスポンシブ指定-->
 <div class="col-xl-10 col-md-9">
@@ -151,8 +156,10 @@ isInvalidDate();
 								v-show="isNull(item.finished_date)"
 								@click="emit('complete',  item.id, item)" 
 							    >
-								<i class="fa-solid fa-power-off"></i>
-							    </button>
+								<span class="fa-layers fa-fw">
+								  <i class="fa-solid fa-power-off "></i>
+							   </span>
+							</button>
 					</Transition>
 					<!-------------- 戻す---------------------------------------------------------->
 					<Transition name="slide-up" mode="out-in">
@@ -212,7 +219,9 @@ isInvalidDate();
        </table>
       </div>
 	<!-----コンポーネント化するーーーーーーーーーーーーー-->
-    <div id="" class="col-2 McShadow iPhoneSE2" ></div>
+    <div id="" class="col-2 McShadow iPhoneSE2" >
+		
+	</div>
 </div>
 </template>
 
