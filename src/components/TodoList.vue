@@ -24,6 +24,7 @@ const emit = defineEmits<{
   (eventName: "delete",id?:number, item?:any):any;
   (eventName: "edit",id?:number, formData?:any):any;
   (transName: "comp",id?:number): any;
+  (eventName: "entry",formData?:any):any;
 }>();
 
 //DATEフォーマット
@@ -82,6 +83,7 @@ const onChildMethodClick2 = (e:any) => {
 	//childRef.value[number-1].modalEditToggleChild();
 }
 //const onChildMethodClick = (id :any) => { childRef.value[num].modalEditToggleChild(); };
+const EntryOpen = ref(false);
 //テスト----------------DevOps-----------------------------------------------------------------------------------------------------
 const showS = ref(false);
 const modalEdit = ref(false);
@@ -93,7 +95,8 @@ isInvalidDate();
 
 <template>
 <!--------------コンテイナー幅なんとかして---------------------->
-<ModalEntry></ModalEntry>
+<!-- <ModalEntry Ref="ChildRef" :EntryOpen="EntryOpen"></ModalEntry> -->
+<ModalEntry :UserList="UserList" @entry="(formData: any) => todoService.postEntry(formData)"></ModalEntry>
 <div class="row">
 <!--------------UserList受取確認---------------------->
 <!-- [{{ UserList }}  -->
@@ -164,7 +167,7 @@ isInvalidDate();
 					<!-------------- 戻す---------------------------------------------------------->
 					<Transition name="slide-up" mode="out-in">
 								<button 
-								class="shadow-sm p-1 mb-1 rounded btn-incomplete btn-lg btn-outline-light" 
+								class="shadow-sm p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-light" 
 								v-bind:href="'/incomplete/' + item.id" 
 								v-show="hasNull(item.finished_date)"
 								@click="emit('incomplete',  item.id, item) "
@@ -252,7 +255,7 @@ isInvalidDate();
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 0.14s ease-in-out;
+  transition: all 0.84s ease-in-out;
 }
 
 .slide-up-enter-from {

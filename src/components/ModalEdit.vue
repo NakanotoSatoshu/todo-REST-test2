@@ -166,7 +166,7 @@ defineExpose({
                   {{ format(item.expire_date) }}
                 </td>
                 <input class="border rounded w-full p-2" style="background-color:transparent;" id="expire_date"
-                  type="hidden" placeholder="期限日" v-model.Date="formData.expire_date" />
+                  type="hidden" placeholder="期限日" v-model="formData.expire_date" />
                 <div v-for="error of v$.expire_date.$errors" :key="error.$uid">
                   <div class="text-red-700 font-bold">{{ error.$message }}</div>
                 </div> 

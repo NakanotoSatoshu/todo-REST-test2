@@ -26,7 +26,7 @@ const menuItems: MenuItem[] = [
 
 <template>
   <!-- ナビバー  表示　現在 -->
-  <AppNavi :EntryOpen="EntryOpen" title="Todo" :menu-items="menuItems" ></AppNavi>  
+  <AppNavi  title="Todo" :menu-items="menuItems" ></AppNavi>  
   
 </template>
 

@@ -12,7 +12,7 @@ import Edit from "../components/ModalEdit.vue";
 import Delete from "../components/ModalDelete.vue";
 import { isTemplateNode } from "@vue/compiler-core";
 
-const props = defineProps<{ EntryOpen: boolean }>();
+//const props = defineProps<{ EntryOpen: boolean }>();
 
 const tasks: Task[] = reactive([
   {
@@ -80,6 +80,7 @@ todoService.getAllUsers();
             :open="open" 
             :UserList="todoService.users"
             :TodoList="todoService.todoItmes" 
+              @entry="(formData) => todoService.postEntry(formData)"
               @delete2="(id) => todoService.deleteTask(id)" 
               @delete="(id) => todoService.postDelete(id)" 
               @edit="(id,formData) => todoService.postEdit(id,formData)" 

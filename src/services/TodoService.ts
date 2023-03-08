@@ -55,11 +55,12 @@ class TodoService {
   }
   // 投稿する。
   public postEntry(formData?: any): void  { const toEntry = formData;
+    console.log('Comon');
     if (toEntry !== undefined) {
       axios
-      .post(this.RESTAPI_URL + '/entry' , { withCredentials:true},{ headers:{ 'Content-Type': 'application/json;charset=UTF-8',}})
-      .then((res) => { console.log(res)      })
-      .catch( (error) => console.log(error)  );
+      .post(this.RESTAPI_URL + 'entry' , { withCredentials:true},{ headers:{ 'Content-Type': 'application/json;charset=UTF-8',}})
+      .then((res) => { console.log(res)  ;  console.log(formData);  })
+      .catch( (error) => console.log(error) );console.log(formData);
     }
   } 
  // 削除する。

@@ -23,7 +23,7 @@ import { ref } from "vue";
 import { RouterView, useRouter } from "vue-router";
 
 // タイトルとメニューアイテムを設定できるようにする。
-defineProps<{ title: string; menuItems: MenuItem[] ,EntryOpen: boolean}>();
+defineProps<{ title: string; menuItems: MenuItem[] }>();
 
 const EntryOpen = ref(false);
 
@@ -124,7 +124,7 @@ const goToUrl = (url?: string) => {
         <section class="" id="">
           <div class="container-fluid" >
             <!-- コンテンツをrouter-viewに変更 -->
-            <RouterLink to="/about">About</RouterLink>
+           <!--  <RouterLink to="/about">About</RouterLink> -->
   <!--           <router-view  name="Entry" :to="{ name: 'Entry', params: {EntryOpen: true } }"/> -->
           <!--   <router-view :to="{ name: '/entry',  query:{EntryOpen: true  }}">リンク名</router-view>  -->
             <router-view />
