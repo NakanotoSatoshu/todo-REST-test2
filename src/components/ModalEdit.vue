@@ -19,8 +19,21 @@ const emit = defineEmits<{
   (eventName: "edit", id?: number, formData?: any): any;
 }>();
 
+//アセット---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //DATEフォーマット
 const format = (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY-MM-DD'); return created_at };
+//JSでのDateがNullの場合invailddate表示を防ぐ
+const isInvalidDate = () => { return props.TodoList.filter((item) => { if (item.finished_date === null) { Number(item.finished_date) } else { return item.finished_date } }) };
+//完了日があるつまり完了してるやつ
+const isNull = (d: Date | undefined) => { if (null === d) { return true } else { return false } };
+//完了日がないつまり未完了してるやつ
+const hasNull = (d: Date | undefined) => { if (null === d) { return false } else { return true } };
+//期限日を現在より過ぎている
+const isExpire = (f: Date, e: Date) => { var d = new Date; if (f === null) { if (new Date(e) < d) { return true } else { return false } } };
+//期限日以内である
+const notExpire = (f: Date, e: Date) => { var d = new Date; if (f === null) { if (new Date(e) > d) { return true } else { return false } } };
+//アセット---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 //バリデーション用コンストラクタ--------------------------------------------------------------------------------Vuelidate-----------
 const formData = reactive({
   id: props.item.id,
@@ -43,11 +56,12 @@ const formData = reactive({
 const item = ref(props.item);
 
 //バリデーションルール
+//完了日チェック式部位ーリアンで
 const rules = {
    item_name: { required },
    user_id: { required },
    expire_date: { Date },
-   finished_date: { Date },
+  // finished_date: { Boolean },
    first_name: { required },
    family_name: { required },
 };
@@ -59,16 +73,8 @@ const submitForm = async () => {
 };
 //バリデーション用コンストラクタ--------------------------------------------------------------------------------Vuelidate----------
 
-//JSでのDateがNullの場合invailddate表示を防ぐ
-const isInvalidDate = () => { return props.TodoList.filter((item) => { if (item.finished_date === null) { Number(item.finished_date) } else { return item.finished_date } }) };
-//完了日があるつまり完了してるやつ
-const isNull = (d: Date | undefined) => { if (null === d) { return true } else { return false } };
-//完了日がないつまり未完了してるやつ
-const hasNull = (d: Date | undefined) => { if (null === d) { return false } else { return true } };
-//期限日を現在より過ぎている
-const isExpire = (f: Date, e: Date) => { var d = new Date; if (f === null) { if (new Date(e) < d) { return true } else { return false } } };
-//期限日以内である
-const notExpire = (f: Date, e: Date) => { var d = new Date; if (f === null) { if (new Date(e) > d) { return true } else { return false } } };
+
+
 //モーダルトグル
 const modalEditToggleChild = () => { modalEdit.value = !modalEdit.value; };
 const modalEdit = ref(false);
@@ -112,11 +118,11 @@ const OpenModalFinish = (e: any) => { e.currentTarget.nextElementSibling.setAttr
 //テスト--------------------DevOps-------------------------------------DevOps-------------------------------------
 
 //メソッドエクスポート
-isInvalidDate();
 defineExpose({
   modalEditToggleChild
 });
 
+isInvalidDate();
 // ユーザーをすべて取得する。ここでこれを実行すると全てのtrで実行されるので重たくなり避ける
 //todoService.getUsers();
 </script>
@@ -150,7 +156,7 @@ defineExpose({
                 {{ props.item.user.family_name }} {{ props.item.user.first_name }}
                 </td>
                 <!-- selectタグにv-model="プロパティ名"を記述することで、選択した内容をプロパティに反映させることができます-->
-              <select class="border rounded w-full p-2" style="background-color:transparent;" v-model.tirm="formData.user_id">
+              <select class="border rounded w-full p-2" style="background-color:transparent;" v-model="formData.user_id">
                 <option class="border rounded w-full p-2" v-for="user in UserList" v-bind:value="item.user_id">
                   {{ user.family_name }}{{ user.first_name }}
                 </option>
@@ -172,9 +178,9 @@ defineExpose({
                 </div> 
               </li>
               <li>
-                <!-- ------------完了日-------------------->
-                <td class="btn-s btn-outline-warning" v-show="hasNull(item.finished_date)" @click="OpenModalFinish">
-                  {{ (item.finished_date) }}
+                <!-- ------------完了日----------------ここは本当はチェックボタン---->
+         <!--         <td class="btn-s btn-outline-warning" v-show="hasNull(item.finished_date)" @click="OpenModalFinish">
+                  {{ (item.finished_date) }}チェック式にしてください
                 </td>
                 <input class="border rounded w-full p-2" style="background-color:transparent;" id="finished_date"
                   type="hidden" placeholder="完了日" v-model="formData.finished_date" />
@@ -184,15 +190,15 @@ defineExpose({
               </li>
               <li>
                 <td class=" animated fadeIn infinite" v-show="isNull(item.finished_date)" @click="OpenModalFinish">
-                  未
+                  未チェック式にしてください
                 </td>   
               <input class="border rounded w-full p-2" style="background-color:transparent;" id="finished_date"
                 type="hidden" placeholder="完了日"
                 v-model.Date="formData.finished_date" />
-                <!--  :value="format(item.finished_date)" -->
+          
               <div v-for="error of v$.finished_date.$errors" :key="error.$uid">
                 <div class="text-red-700 font-bold">{{ error.$message }}</div> 
-              </div> 
+              </div>  -->
               </li>
               <span></span>
               <li>

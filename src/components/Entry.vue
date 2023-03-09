@@ -45,7 +45,7 @@ const submitForm = async () => {
 
 const router = useRouter();
 const EnOp = ref(false);
-console.log(EnOp);
+//console.log(EnOp);
 const EisToggle = ref(false);
 //console.log(props);
 //const EntryToggle = () => { props.EntryOpen === !props.EntryOpen  }
@@ -69,7 +69,7 @@ const toggle = () => {  EnOp.value = !EnOp.value; };
               <div class="row my-2">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6">
-                      <form action="" method=""  @submit.prevent="submitForm">
+                 <form   @submit.prevent="submitForm">
 <!--------------------------------------------------------------------------------- 項目名の入力エリア -->
                         <div class="form-group" >
                             <label for="item_name">項目名</label>
@@ -91,10 +91,10 @@ const toggle = () => {  EnOp.value = !EnOp.value; };
                         <!--------------------------------------------------------------------------------- 期限日の入力エリア -->
                         <div class="form-group" >
                             <label for="expire_date">期限</label>
-                            <input class="form-control" id="expire_date"
+                            <input class="" id="expire_date"
                   type="date" placeholder="期限日" v-model="formData.expire_date" />
                         </div>
-                        <button class="btn btn-primary" type="submit" v-bind:href="'edit'"
+                        <button class="btn btn-primary" type="submit" v-bind:href="'entry'"
                          @click="emit('entry', formData)">登録</button>
                        <button type="button" class="btn btn-default pull-right"><a href="/home">キャンセル</a></button>
                     </form>

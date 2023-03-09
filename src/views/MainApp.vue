@@ -57,7 +57,8 @@ const open = ref(true);
 // taskをすべて取得する。
 todoService.getAllTasks();
 // ユーザーをすべて取得する。
-todoService.getAllUsers();
+const more = () => {todoService.getAllUsers();  console.log('MainApp'); }
+more();
 </script>
 
 <template>

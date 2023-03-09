@@ -30,7 +30,7 @@ watch(count, () => {
     <!--アニメ要素-->
         <div class="col-1 "  v-for="(item, index) in list" :key="index">
          <!--  <input class=" bg-primary mt-2 p-3" v-model="item.text" /> -->
-         <img src="../assets/abe.jpg" :v-bind="item.text" />
+         <img   src="../assets/abe.jpg" :v-bind="item.text" />
         </div>
       
      </TransitionGroup>

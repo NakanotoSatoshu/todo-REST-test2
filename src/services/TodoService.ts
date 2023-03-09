@@ -58,9 +58,9 @@ class TodoService {
     console.log('Comon');
     if (toEntry !== undefined) {
       axios
-      .post(this.RESTAPI_URL + 'entry' , { withCredentials:true},{ headers:{ 'Content-Type': 'application/json;charset=UTF-8',}})
-      .then((res) => { console.log(res)  ;  console.log(formData);  })
-      .catch( (error) => console.log(error) );console.log(formData);
+      .post<TodoItems[]>(this.RESTAPI_URL + 'entry' , formData,{ withCredentials:true} )
+      .then((res) => { console.log(res)  ;  console.log('ok!!' + formData);  })
+      .catch( (error) => console.log(error) );console.log('error' + formData);
     }
   } 
  // 削除する。
@@ -75,9 +75,12 @@ class TodoService {
 // 編集する。
 public postEdit(id?: number , formData?: any ): void  { const toEdit = id; const toItems = formData ;
  // console.log(toEdit + 'きちゃあああああああああ' + item )
-  if (toEdit !== undefined && toItems !== undefined) { axios
+  if (toEdit !== undefined && toItems !== undefined) { 
+    ////JSでのDateがNullの場合invailddate表示を防ぐ
+   //  if(){    }
+    axios
     .post<TodoItems[]>(this.RESTAPI_URL + 'edit/' +  id, formData,{ withCredentials:true})
-    .then((res) => {  console.log(res.statusText);    })
+    .then((res) => {  console.log(res.statusText); console.log('ok!!' + formData);   })
     .catch( (error) => console.log(error + 'false')                          );
   }
 }
