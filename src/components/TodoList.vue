@@ -94,7 +94,7 @@ isInvalidDate();
 </script>
 
 <template>
-<!--------------コンテイナー幅なんとかして---------------------->
+<!--------------#########簡易タスク追加部###いずれモーダル化########################---------------------->
 <!-- <ModalEntry Ref="ChildRef" :EntryOpen="EntryOpen"></ModalEntry> -->
 <ModalEntry :UserList="UserList" @entry="(formData: any) => todoService.postEntry(formData)"></ModalEntry>
 <div class="row">
@@ -106,6 +106,7 @@ isInvalidDate();
 </div>
 <!-----テーブル幅レスポンシブ指定-->
 <div class="col-xl-10 col-md-9">
+  <!--------------#########テーブル#####################------>
   <table class="table  table-hover table-sm mb-4 p-4 iPhoneSE bg-body mb-4  ">
     <thead class="table-">
       <tr>
@@ -203,11 +204,12 @@ isInvalidDate();
 							 </li>
 							</ul>
 						<div class="iPhoneSE3 ">
-							<!--------------iPhone用に各機能を移さなければならない----あとWEB晩では非表示に----------------------------------------->
+							<!--------------iPhone用に各機能を移さなければならない----あとWEB晩では非表示に-------------------------------------->
 							<SMenu :showS="showS" ></SMenu>
 						</div>
 					  </td>
 	                </tr>
+					<!--------#######モーダル編集画面###########-------------------------------------->
 				    <ModalE 
 					ref="childRef" 
 					:modalEdit="modalEdit"  

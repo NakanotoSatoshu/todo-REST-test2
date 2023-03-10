@@ -14,18 +14,9 @@ const routers: Array<RouteRecordRaw> = [
  // {path: "/entry",component: Entry,
  // props: {EntryOpen: true,},
  //},
-  {
-    path: "/edit",
-    component: ModalE,
-  },
-  {
-    path: "/game",
-    component: Game,
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    component: NotFound,
-  },
+  {path: "/edit",component: ModalE,},
+  {path: "/game",component: Game,},
+  {path: "/:pathMatch(.*)*",component: NotFound,},
 ];
 
 const router = createRouter({

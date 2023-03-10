@@ -53,13 +53,13 @@ const goToUrl = (url?: string) => {
   if (url != undefined) {
     router.push(url); }
 };
-const toggle = () => {  EnOp.value = !EnOp.value; };
-//defineExpose({ EntryToggle});
+const EnOptoggle = () => {  EnOp.value = !EnOp.value; };
+defineExpose({ EnOptoggle });
 </script>
 
 <template>
    <!-- <a class="navbar-brand ps-3 " @click="goToUrl('/entry')">タスク追加</a> -->
-   <button @click="toggle">タスク追加</button> 
+   <button @click="EnOptoggle">タスク追加</button> 
   <!-- <div v-show="entryOpen === !entryOpen">   -->
  <!--  <div v-show="{EntryOpen}">  -->
 <!-- <div class="container"> -->

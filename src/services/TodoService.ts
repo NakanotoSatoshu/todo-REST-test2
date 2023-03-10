@@ -1,9 +1,23 @@
 import axios from "axios";
-import { reactive } from "vue";
+import { reactive ,computed, readonly,inject,provide} from "vue";
 import type { TodoItems } from "../models/TodoItems";
 import type { UsersModel } from "../models/TodoItems";
 import { Task } from "../models/Task";
+//import { useTodo } from '../models/TodoItems';
 
+let todo:TodoItems ; 
+export function useTodo() {
+  const TodoList = reactive([]);
+   
+  const firstItem = computed(() => TodoList[0] ?? null);
+
+  function add(todo) {TodoList.push(todo);}
+
+  return { TodoList: readonly(TodoList), firstItem, add };
+};
+
+const todoStore = useTodo();
+provide('todo', todoStore);
 class TodoService {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   private service = axios.create({

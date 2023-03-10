@@ -53,7 +53,7 @@ const deleteTask = (id: number) => {
 // taskをすべて取得する。
 //todoService.getAllTasks();
 
-todoService.getAllUsers();
+//todoService.getAllUsers();
 //const UserList : UsersModel[] = todoService.users;
 console.log('USA!USA!');
 </script>

@@ -1,5 +1,5 @@
 import "./UsersModel.ts";
-export interface TodoItems {
+export interface TodoItems { 
   id?: number;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   user_id?: number;
