@@ -1,23 +1,13 @@
 import axios from "axios";
-import { reactive ,computed, readonly,inject,provide} from "vue";
+import { reactive ,computed} from "vue";
+//import { storeToRefs } from 'pinia';
 import type { TodoItems } from "../models/TodoItems";
 import type { UsersModel } from "../models/TodoItems";
-import { Task } from "../models/Task";
-//import { useTodo } from '../models/TodoItems';
+//import { Task } from "../models/Task";
+//import { useTodo } from '../store/TodoList';
+//import { useStoreTodo } from '../store/TodoList';
 
-let todo:TodoItems ; 
-export function useTodo() {
-  const TodoList = reactive([]);
-   
-  const firstItem = computed(() => TodoList[0] ?? null);
 
-  function add(todo) {TodoList.push(todo);}
-
-  return { TodoList: readonly(TodoList), firstItem, add };
-};
-
-const todoStore = useTodo();
-provide('todo', todoStore);
 class TodoService {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   private service = axios.create({
@@ -31,16 +21,18 @@ class TodoService {
   private RESTAPI_URL = '/api/todo/';
   
   // タスクリスト
-  private tasks: Task[] =            reactive([]);
+  //private TodoList = inject('todoProvide');
+  //private tasks: Task[] =            reactive([]);
   private TodoList: TodoItems[] =    reactive([]); 
+ // private TodoList  = storeToRefs(useStoreTodo());
   private UsersList: UsersModel[] =  reactive([]);
 
   //削除フラグのあるものをこの世から消し去る
   private getFilter = () => this.TodoList.filter( (item) => { return item.is_deleted === 0 } );
   
-  // タスクをこの地球上から取得する。
+  // タスクをこの地球上から取得する。// サーチでも使えるようにサーチメソッドを導入し、ストアでグローバル管理か？
   get todoItmes(): TodoItems[] {  return this.getFilter() };
-  // ユーザーをこの地球上から取得する
+  // ユーザーをこの地球上から取得する/// サーチでも使えるようにサーチメソッドを導入し、ストアでグローバル管理か？
   get users(): UsersModel[] { console.log('getMoreUser' ); return this.UsersList     };
 
   // 全ユーザーを地球上から取得する。
@@ -60,13 +52,14 @@ class TodoService {
   });}
   
   // お手本のタスクを削除する。
-  public deleteTask(id?: number): void {
-    const index = this.tasks.findIndex((t) => t.id === id);
-    if (index !== undefined) {
-      this.tasks.splice(index, 1);
-      axios.delete(this.RESTAPI_URL  + id);
-    }
-  }
+  // public deleteTask(id?: number): void {
+  //   const index = this.tasks.findIndex((t) => t.id === id);
+  //   if (index !== undefined) {
+  //     this.tasks.splice(index, 1);
+  //     axios.delete(this.RESTAPI_URL  + id);
+  //   }
+  // }
+
   // 投稿する。
   public postEntry(formData?: any): void  { const toEntry = formData;
     console.log('Comon');

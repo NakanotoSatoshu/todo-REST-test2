@@ -17,6 +17,7 @@
     "animate.css": "^4.1.1",
     "axios": "^1.2.3",
     "dayjs": "^1.11.7",
+    "pinia": "^2.0.33",
     "startbootstrap-sb-admin": "^7.0.5",
     "vite-plugin-fonts": "^0.7.0",
     "vue": "^3.2.45",

@@ -87,6 +87,7 @@ const goToUrl = (url?: string) => {
             <li>
             <form class="form-inline my-2 my-lg-0" >
                 <li>
+                  <!-- #####################検索フォーム#################### -->
                 <input class="form-control mr-sm-2 m-1 p-2 iPhoneSE2" 
                 type="search" 
                 placeholder="Search" 

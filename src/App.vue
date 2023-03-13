@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref ,provide} from "vue";
 import AppNavi, { type MenuItem } from "./components/GlobalNavi.vue";
+//import { useStoreCounter } from './store/counter';
+import { useTodo } from './store/TodoList';
 
-    
-const EntryOpen = ref(false);
+const todoStore = useTodo();
+provide('todoProvide', todoStore);
+
+//const EntryOpen = ref(false);
 // メニューを設定する。
 const menuItems: MenuItem[] = [
   {

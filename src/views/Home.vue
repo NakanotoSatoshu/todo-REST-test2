@@ -6,12 +6,21 @@ import tra from '../services/TrantisonService';
 import todoService from "../services/TodoService";
 import type {TodoItems} from "../models/TodoItems";
 import type {UsersModel} from "../models/TodoItems";
-import SMenu from '../components/SlideMenu.vue';
+//import SMenu from '../components/SlideMenu.vue';
 import type{ Task } from "../models/Task";
 import TestHome from '../components/TestHome.vue';
-import Game from '../components/Game.vue';
+//import Game from '../components/Game.vue';
+import { useStoreCounter } from '../store/counter';
+//import HelloPinia from '../components/HelloPinia.vue';
+import { storeToRefs } from 'pinia';
+import ProductList from '../components/ProductList.vue';
+import ShoppingCart from '../components/ShoppingCart.vue';
 
-const open = ref(true);
+const counter = useStoreCounter();
+const { count, doubleCount } = storeToRefs(counter);
+const { increment } = counter;
+
+//const open = ref(true);
 //const UserList : UsersModel[] = reactive([]);
 const tasks: Task[] = reactive([
   {
@@ -60,11 +69,29 @@ console.log('USA!USA!');
 
 <template>
    <div class="container-fluid px-4 McShadow">
-      <h1 class="mt-4">User List</h1>
+      <h1 class="mt-4">TestHome</h1>
       <div class="mt-1 flex justify-center">
+        
+ <!--        <h1>Pinia入門</h1>
+        <p>Count:{{ count }}</p>
+         <p>DoubleCount:{{ doubleCount }}</p>
+         <div>
+                  <button @click="increment">Up</button>
+           </div>
+  <HelloPinia /> -->
+  <h1>Pinia入門（カート)</h1>
+    <hr />
+    <h2>商品一覧</h2>
+    <ProductList />
+    <hr />
+    <ShoppingCart />
     <!--   <TaskAdd @add="(newTaskTitle: string) => addTask(newTaskTitle)"></TaskAdd>
       <TaskTest :tasks="tasks" @delete="(id: number) => deleteTask(id)" @done="(id: number) => doneTask(id)"></TaskTest>  -->
-       <TestHome :UserList="todoService.users" ></TestHome>  
+      <!--  <TestHome :UserList="todoService.users" ></TestHome>  --> 
       </div>
      </div>
 </template>
+
+<style>
+
+</style>

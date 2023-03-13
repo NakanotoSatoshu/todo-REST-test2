@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref,computed,PropType } from 'vue';
+import { reactive, ref,computed } from 'vue';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 import tra from '../services/TrantisonService';
@@ -7,15 +7,15 @@ import todoService from "../services/TodoService";
 import type {TodoItems} from "../models/TodoItems";
 import type {UsersModel} from "../models/TodoItems";
 import SMenu from './SlideMenu.vue';
-import type{ Task } from "../models/Task";
+//import type{ Task } from "../models/Task";
 import ModalE from './ModalEdit.vue';
 import ModalEntry from './Entry.vue';
 import Left from './LeftSide.vue';
 import Light from './LightSide.vue';
 
-//dayjs.locale(ja);
+dayjs.locale(ja);
 
-const props = defineProps<{TodoList: TodoItems[] , UserList: UsersModel[] ,open: boolean }>();
+const props = defineProps<{TodoList: TodoItems[] , UserList: UsersModel[]  }>();
 
 const emit = defineEmits<{
   (eventName: "complete", id?: number ,item?: any): any;
@@ -41,7 +41,7 @@ const isExpire = (f: Date  , e:  Date  ) => { var d = new Date 	;if(f === null){
 const notExpire = (f: Date  , e:  Date  ) => { var d = new Date ; if(f === null){if(new Date(e) > d){return true}else{ 	return false  }}  };
 
 //テスト用
-const CompleteaAnime  = () => { };
+//const CompleteaAnime  = () => { };
 const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );		
 const getComputed = computed (  () => props.TodoList.filter( (item) => { return item.is_deleted === 0 }));
 const testClick = () => { console.log('ClickThis??'); };
@@ -58,10 +58,10 @@ async function transInComp(el: Element, done: () => void) { el.classList.add("ov
     {duration: 500,easing: "ease-out",}).finished;
   el.classList.remove("overflow-hidden");
   done();}
-const open = ref(props.open);
-const testman = ref<(emit)
-const testman2 = ref('');
-const docState = ref('完了')
+//const open = ref(props.open);
+//const testman = ref<(emit)
+//const testman2 = ref('');
+//onst docState = ref('完了')
 const toggle2 = () => { showS.value = !showS.value; };
 const MEShow = ref(false);
 const modalEditToggle = () => { MEShow.value = !MEShow.value }; //----これですると全部のTRで出てしまう

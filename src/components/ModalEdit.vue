@@ -80,7 +80,7 @@ const modalEditToggleChild = () => { modalEdit.value = !modalEdit.value; };
 const modalEdit = ref(false);
 
 //テスト--------------------DevOps-------------------------------------DevOps-------------------------------------
-const d = () => { new Date('yyyy-MM-dd') }
+//const d = () => { new Date('yyyy-MM-dd') }
 //console.log(d);
 //console.log(formData.finished_date);
 //date: new Date().toISOString().slice(0, 10);
@@ -91,17 +91,17 @@ const d = () => { new Date('yyyy-MM-dd') }
 //console.log(format(props.item.expire_date));
 //console.log(new Date(props.item.expire_date));
 //console.log('itemのやつ' + typeof(props.item.finished_date));
-const modalEdit3 = ref(props.modalEdit);
-const fadeAway = ref(false);
+//const modalEdit3 = ref(props.modalEdit);
+//const fadeAway = ref(false);
 //const fullName2 =(props.item.family_name);
 //console.log(props.item.user.family_name);
-const fullName = computed(() => `${props.item.user.family_name} ${props.item.user.first_name}`);
+//const fullName = computed(() => `${props.item.user.family_name} ${props.item.user.first_name}`);
 //const userFull = reactive([  props.item.user.first_name,props.item.user.family_name ]);
 //selectタグのバインドをtodoテーブルのuser_idにバインドすることでごまかしている。
-const userFull = ref(props.item.user_id);
+//const userFull = ref(props.item.user_id);
 //console.log('user-_id' + formData.user_id)
-const userFull2 = ref([props.item.user.first_name, props.item.user.family_name]);
-const useris = reactive([]);
+//const userFull2 = ref([props.item.user.first_name, props.item.user.family_name]);
+//const useris = reactive([]);
 //TODOリスト内のユーザーとユーザーリストのユーザーの一致--porps.UserList内を展開して内部のuser.family_nameと一致させたい
 //const nameIsEql = computed(() => fullName === useRoute.family_name + user.fairsname); 
 
