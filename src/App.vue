@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref ,provide} from "vue";
+import { provide} from "vue";
 import AppNavi, { type MenuItem } from "./components/GlobalNavi.vue";
+import todoService from "./services/TodoService";
 //import { useStoreCounter } from './store/counter';
 import { useTodo } from './store/TodoList';
 
@@ -31,7 +32,7 @@ const menuItems: MenuItem[] = [
 
 <template>
   <!--　＃＃＃＃＃＃＃ナビバー  表示　＃＃＃＃＃現在＃＃＃＃＃＃＃＃＃＃＃＃＃ -->
-  <AppNavi  title="Todo" :menu-items="menuItems" ></AppNavi>  
+  <AppNavi  title="Todo" :menu-items="menuItems" @search="todoService.GetSearch(searchword)"></AppNavi>  
 </template>
 
 

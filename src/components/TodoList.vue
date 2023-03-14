@@ -42,10 +42,10 @@ const notExpire = (f: Date  , e:  Date  ) => { var d = new Date ; if(f === null)
 
 //テスト用
 //const CompleteaAnime  = () => { };
-const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );		
-const getComputed = computed (  () => props.TodoList.filter( (item) => { return item.is_deleted === 0 }));
-const testClick = () => { console.log('ClickThis??'); };
-const ttt = ():any => { console.log(emit);}
+//const getFilter = () => props.TodoList.filter( (item) => { return item.is_deleted === 0 } );		
+//const getComputed = computed (  () => props.TodoList.filter( (item) => { return item.is_deleted === 0 }));
+//const testClick = () => { console.log('ClickThis??'); };
+//const ttt = ():any => { console.log(emit);}
         //完了アニメ
 async function transComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "未完了";
   await el.animate(  [{ height: 0, }, { height: `${(el as HTMLElement).offsetHeight}px`,},],
@@ -62,9 +62,9 @@ async function transInComp(el: Element, done: () => void) { el.classList.add("ov
 //const testman = ref<(emit)
 //const testman2 = ref('');
 //onst docState = ref('完了')
-const toggle2 = () => { showS.value = !showS.value; };
-const MEShow = ref(false);
-const modalEditToggle = () => { MEShow.value = !MEShow.value }; //----これですると全部のTRで出てしまう
+//const toggle2 = () => { showS.value = !showS.value; };
+//const MEShow = ref(false);
+//const modalEditToggle = () => { MEShow.value = !MEShow.value }; //----これですると全部のTRで出てしまう
 //テスト----------------DevOps-----------------------------------------------------------------------------------------------------
 const modalEditToggle3 = () => { childRef.value.modalEditToggleChild();  };
 const childRef = ref(ModalE);
@@ -83,7 +83,7 @@ const onChildMethodClick2 = (e:any) => {
 	//childRef.value[number-1].modalEditToggleChild();
 }
 //const onChildMethodClick = (id :any) => { childRef.value[num].modalEditToggleChild(); };
-const EntryOpen = ref(false);
+//const EntryOpen = ref(false);
 //テスト----------------DevOps-----------------------------------------------------------------------------------------------------
 const showS = ref(false);
 const modalEdit = ref(false);

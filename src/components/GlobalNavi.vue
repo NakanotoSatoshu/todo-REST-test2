@@ -21,15 +21,22 @@ export interface MenuItem {
 <script setup lang="ts">
 import { ref ,reactive} from "vue";
 import { RouterView, useRouter } from "vue-router";
+import todoService from "../services/TodoService";
 
 // タイトルとメニューアイテムを設定できるようにする。
 defineProps<{ title: string; menuItems: MenuItem[] }>();
 
-const search = reactive({
-    test: "",
-});
+const emit = defineEmits<{
+  (eventName: "search", searchword?: any): any;
+}>();
 
-const EntryOpen = ref(false);
+//const param = ref('');
+const searchword = ref( '');
+//const search = todoService.GetSearch(searchword.value);
+
+//const EntryOpen = ref(false);
+
+const test = todoService.Search();
 
 const router = useRouter();
 
@@ -93,10 +100,12 @@ const goToUrl = (url?: string) => {
                 placeholder="Search" 
                 aria-label="Search" 
                 name="str"
-                v-model="search">
+                v-model="searchword">
                 </li>
                 <li>
-                <button class="btn btn-outline-dark m-4 my-sm-1  p-2 iPhoneSE2" type="submit">検索</button>
+                <button class="btn btn-outline-dark m-4 my-sm-1  p-2 iPhoneSE2" type="submit" 
+                 @keypress="emit('search', searchword) ">検索</button>
+                {{ searchword }}
               </li>
             </form>
             </li>

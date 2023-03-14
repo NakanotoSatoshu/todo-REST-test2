@@ -29,12 +29,23 @@ class TodoService {
 
   //削除フラグのあるものをこの世から消し去る
   private getFilter = () => this.TodoList.filter( (item) => { return item.is_deleted === 0 } );
-  
+ 
+  public  GetSearch (param : any) : void { this.TodoList.filter(item => { return   this.TodoList.includes(param) })};
   // タスクをこの地球上から取得する。// サーチでも使えるようにサーチメソッドを導入し、ストアでグローバル管理か？
   get todoItmes(): TodoItems[] {  return this.getFilter() };
   // ユーザーをこの地球上から取得する/// サーチでも使えるようにサーチメソッドを導入し、ストアでグローバル管理か？
   get users(): UsersModel[] { console.log('getMoreUser' ); return this.UsersList     };
-
+  
+  // 検索する。
+  public Search(param?: String): void  { const query = param;
+    console.log('Fi');
+    if (query !== undefined) {
+      axios
+      .post(this.RESTAPI_URL + '/search/' + param ,{ withCredentials:true} )
+      .then((res) => { console.log(res)  ;  console.log('ok!!' + query);  })
+      .catch( (error) => console.log(error) );console.log('error' + query);
+    }
+  } 
   // 全ユーザーを地球上から取得する。
   public getAllUsers() : void { axios
     .get<UsersModel[]>(this.RESTAPI_URL + 'home')

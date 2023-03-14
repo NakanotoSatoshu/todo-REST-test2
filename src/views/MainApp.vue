@@ -4,7 +4,7 @@ import { Task } from "../models/Task";
 import todoService from "../services/TodoService";
 //import tra from "../services/TrantisonService";
 import TaskAdd from "../components/TaskAdd.vue";
-import Entry from "../components/Entry.vue";
+//import Entry from "../components/Entry.vue";
 import TaskList from "../components/TodoList.vue";
 import TaskTest from "../components/TaskTest.vue";
 //import Head from "../components/Header.vue";
@@ -25,10 +25,12 @@ const doneTask = (id: number) => {let task = tasks.find((t) => t.id === id);if (
  task.done = !task.done; }};
 // taskを削除する。
 const deleteTask = (id: number) => {tasks.forEach((task, index) => { if (task.id == id) tasks.splice(index, 1); });};
-const childRef = ref(Entry);
+
+//const childRef = ref(Entry);
 //const EntryOpen = ref(false);
 //const childEntryToggle = () => {childRef.value.EntryToggle()}
 //const open = ref(true);
+
 // taskをすべて取得する。
 todoService.getAllTasks();
 // ユーザーをすべて取得する。
@@ -48,7 +50,7 @@ more();
 </div> -->
   <!-- MainApp -------------------------->
   <div class="container-fluid p-1 m-1 ">
-            <!-- <Entry Ref="hildRef" :EntryOpen="EntryOpen" ></Entry> -->
+          <!-- <Entry Ref="hildRef" :EntryOpen="EntryOpen" ></Entry> -->
           <!--   <Delete
             :open="open"
             :TodoList="todoService.todoItmes"
@@ -59,7 +61,7 @@ more();
             :UserList="todoService.users"
             :TodoList="todoService.todoItmes" 
             @entry="(formData) => todoService.postEntry(formData)"
-      
+    
             @delete="(id) => todoService.postDelete(id)" 
             @edit="(id,formData) => todoService.postEdit(id,formData)" 
             @complete="(id,item) => todoService.postComplete(id,item) " 
