@@ -7,7 +7,6 @@ import { useTodo } from './store/TodoList';
 
 const todoStore = useTodo();
 provide('todoProvide', todoStore);
-
 //const EntryOpen = ref(false);
 // メニューを設定する。
 const menuItems: MenuItem[] = [
@@ -32,7 +31,7 @@ const menuItems: MenuItem[] = [
 
 <template>
   <!--　＃＃＃＃＃＃＃ナビバー  表示　＃＃＃＃＃現在＃＃＃＃＃＃＃＃＃＃＃＃＃ -->
-  <AppNavi  title="Todo" :menu-items="menuItems" @search="todoService.GetSearch(searchword)"></AppNavi>  
+  <AppNavi  title="Todo" :menu-items="menuItems" @search="todoService.GetSearch(searchWord)"></AppNavi>  
 </template>
 
 

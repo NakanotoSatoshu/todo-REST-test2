@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { reactive ,ref,computed} from 'vue';
+import { reactive ,ref,computed, onMounted} from 'vue';
+import axios from "axios";
 //import dayjs from 'dayjs';
 //import ja from 'dayjs/locale/ja';
 //import tra from '../services/TrantisonService';
@@ -8,6 +9,7 @@ import { reactive ,ref,computed} from 'vue';
 //import type {UsersModel} from "../models/TodoItems";
 //import SMenu from '../components/SlideMenu.vue';
 import type{ Task } from "../models/Task";
+import type{ user } from "../store/TodoList";
 import TestHome from '../components/TestHome.vue';
 //import Game from '../components/Game.vue';
 import { useStoreCounter } from '../store/counter';
@@ -19,6 +21,7 @@ import ShoppingCart from '../components/ShoppingCart.vue';
 const counter = useStoreCounter();
 const { count, doubleCount } = storeToRefs(counter);
 const { increment } = counter;
+
 
 //const open = ref(true);
 //const UserList : UsersModel[] = reactive([]);
@@ -52,16 +55,49 @@ const deleteTask = (id: number) => {
 //todoService.getAllUsers();
 //const UserList : UsersModel[] = todoService.users;
 console.log('USA!USA!');
-//const search = ref('');
 //const user = reactive([]);
+const getAX = ()=>{
+axios.get('https://jsonplaceholder.typicode.com/users')
+          .then(response => users = response.data);};
+var search = ref('');
+var users = reactive([]);
+const taskss: Task[] = reactive([
+  {id: 1,title: "起きる", done: false,},
+  { id: 2, title: "着替える",done: false,},]);
+console.log(users);
+var search_users = computed ( () => { return taskss.filter(Task  => {return Task.title.includes(search) 
+  ||
+            user.email.includes(search) ||
+            user.website.includes(search)})});
 
+onMounted(() => {
+  getAX();
+});
 </script>
 
 <template>
    <div class="container-fluid px-4 McShadow">
       <h1 class="mt-4">TestHome</h1>
       <div class="mt-1 flex justify-center">   
-        <div>検索：<input type="text" v-model="search"></div>   
+        {{ search }}
+        <div>検索：<input type="text" v-model="search"></div>
+       
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Website</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="user in search_users" :key="user.id">
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.website }}</td>
+        </tr>
+    </tbody>
+</table>
  <!--        <h1>Pinia入門</h1>
         <p>Count:{{ count }}</p>
          <p>DoubleCount:{{ doubleCount }}</p>

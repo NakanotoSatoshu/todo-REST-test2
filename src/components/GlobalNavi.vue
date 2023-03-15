@@ -16,10 +16,11 @@ export interface MenuItem {
   icon?: string;
   url?: string;
 }
+
 </script>
 
 <script setup lang="ts">
-import { ref ,reactive} from "vue";
+import { ref ,reactive,toRefs} from "vue";
 import { RouterView, useRouter } from "vue-router";
 import todoService from "../services/TodoService";
 
@@ -27,11 +28,15 @@ import todoService from "../services/TodoService";
 defineProps<{ title: string; menuItems: MenuItem[] }>();
 
 const emit = defineEmits<{
-  (eventName: "search", searchword?: any): any;
+  (eventName: "search", searchword2?: any): any;
 }>();
 
 //const param = ref('');
-const searchword = ref( '');
+//const searchword = toRefs(reactive({  }) );
+const searchword = ref('');
+const searchword2  = searchword.value.trim;
+console.log(searchword2);
+
 //const search = todoService.GetSearch(searchword.value);
 
 //const EntryOpen = ref(false);
@@ -94,18 +99,21 @@ const goToUrl = (url?: string) => {
             <li>
             <form class="form-inline my-2 my-lg-0" >
                 <li>
-                  <!-- #####################検索フォーム#################### -->
+                <!-- #####################検索フォーム#################### -->
                 <input class="form-control mr-sm-2 m-1 p-2 iPhoneSE2" 
                 type="search" 
                 placeholder="Search" 
                 aria-label="Search" 
-                name="str"
-                v-model="searchword">
+                v-model="searchword"
+                @keypress="emit('search', searchword) "
+                >
                 </li>
                 <li>
+                  <!-- #####################インクリメンタルサーチ発火#################### -->
                 <button class="btn btn-outline-dark m-4 my-sm-1  p-2 iPhoneSE2" type="submit" 
-                 @keypress="emit('search', searchword) ">検索</button>
+                 @keypress="emit('search', searchword2) ">検索</button>
                 {{ searchword }}
+                {{ searchword2 }}
               </li>
             </form>
             </li>

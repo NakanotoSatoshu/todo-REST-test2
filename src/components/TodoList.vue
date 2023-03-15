@@ -88,6 +88,7 @@ const onChildMethodClick2 = (e:any) => {
 const showS = ref(false);
 const modalEdit = ref(false);
 const msg = ref('Hello TypeScript');
+const todoooo = ref(props.TodoList);
 //const TodoList = ref(); 
 
 isInvalidDate();

@@ -28,9 +28,14 @@ class TodoService {
   private UsersList: UsersModel[] =  reactive([]);
 
   //削除フラグのあるものをこの世から消し去る
-  private getFilter = () => this.TodoList.filter( (item) => { return item.is_deleted === 0 } );
+  private getFilter = () => this.TodoList.filter( (item) => { return item.is_deleted === 0 });
  
-  public  GetSearch (param : any) : void { this.TodoList.filter(item => { return   this.TodoList.includes(param) })};
+  public  GetSearch (param : any) : void { this.TodoList.filter(item => { return   this.TodoList.includes(param) }
+   ); console.log('slice' + this.TodoList);};
+  
+  public  GetSearch2 = computed (  (param : any) => {this.TodoList.filter( item => { return   this.TodoList.includes(param)}
+  );  console.log('slice' + this.TodoList);});
+
   // タスクをこの地球上から取得する。// サーチでも使えるようにサーチメソッドを導入し、ストアでグローバル管理か？
   get todoItmes(): TodoItems[] {  return this.getFilter() };
   // ユーザーをこの地球上から取得する/// サーチでも使えるようにサーチメソッドを導入し、ストアでグローバル管理か？
