@@ -20,20 +20,25 @@ export interface MenuItem {
 </script>
 
 <script setup lang="ts">
-import { ref ,reactive,toRefs} from "vue";
+import { ref ,reactive,toRefs,computed} from "vue";
 import { RouterView, useRouter } from "vue-router";
 import todoService from "../services/TodoService";
 
 // タイトルとメニューアイテムを設定できるようにする。
 defineProps<{ title: string; menuItems: MenuItem[] }>();
 
-const emit = defineEmits<{
-  (eventName: "search", searchword2?: any): any;
-}>();
+// const emit = defineEmits<{
+//   (eventName: "search", searchword2?: any): any;
+// }>();
 
 //const param = ref('');
 //const searchword = toRefs(reactive({  }) );
 const searchword = ref('');
+
+//TodoliSTをグローバルにしないとめんどくさい
+// const GetSearch2 = computed (  (param : any) => { TodoList.filter( item => { return   TodoList.includes(param)}
+//   );  console.log('sliced' + TodoList);});
+
 const searchword2  = searchword.value.trim;
 console.log(searchword2);
 
@@ -105,15 +110,15 @@ const goToUrl = (url?: string) => {
                 placeholder="Search" 
                 aria-label="Search" 
                 v-model="searchword"
-                @keypress="emit('search', searchword) "
+               
                 >
                 </li>
                 <li>
                   <!-- #####################インクリメンタルサーチ発火#################### -->
                 <button class="btn btn-outline-dark m-4 my-sm-1  p-2 iPhoneSE2" type="submit" 
-                 @keypress="emit('search', searchword2) ">検索</button>
+                >検索</button>
                 {{ searchword }}
-                {{ searchword2 }}
+               
               </li>
             </form>
             </li>

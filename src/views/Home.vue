@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive ,ref,computed, onMounted} from 'vue';
+import { reactive ,ref,computed,toRef, onMounted} from 'vue';
 import axios from "axios";
 //import dayjs from 'dayjs';
 //import ja from 'dayjs/locale/ja';
@@ -55,20 +55,24 @@ const deleteTask = (id: number) => {
 //todoService.getAllUsers();
 //const UserList : UsersModel[] = todoService.users;
 console.log('USA!USA!');
+
 //const user = reactive([]);
+
+//インクリメンタルサーチ成功例
 const getAX = ()=>{
 axios.get('https://jsonplaceholder.typicode.com/users')
           .then(response => users = response.data);};
-var search = ref('');
+var search= ref('');
 var users = reactive([]);
 const taskss: Task[] = reactive([
   {id: 1,title: "起きる", done: false,},
   { id: 2, title: "着替える",done: false,},]);
 console.log(users);
-var search_users = computed ( () => { return taskss.filter(Task  => {return Task.title.includes(search) 
-  ||
-            user.email.includes(search) ||
-            user.website.includes(search)})});
+var search_users = computed ( () => {
+  let searchWord = search.value.trim()
+    if (searchWord === '') return users; 
+   return taskss.filter(Task  => {return Task.title.includes(search.value) 
+ })});
 
 onMounted(() => {
   getAX();
@@ -92,9 +96,8 @@ onMounted(() => {
     </thead>
     <tbody>
         <tr v-for="user in search_users" :key="user.id">
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.website }}</td>
+            <td>{{ user.title }}</td>
+            <td>{{ user.id }}</td>
         </tr>
     </tbody>
 </table>

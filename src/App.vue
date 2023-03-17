@@ -31,7 +31,7 @@ const menuItems: MenuItem[] = [
 
 <template>
   <!--　＃＃＃＃＃＃＃ナビバー  表示　＃＃＃＃＃現在＃＃＃＃＃＃＃＃＃＃＃＃＃ -->
-  <AppNavi  title="Todo" :menu-items="menuItems" @search="todoService.GetSearch(searchWord)"></AppNavi>  
+  <AppNavi  title="Todo" :menu-items="menuItems" ></AppNavi>  
 </template>
 
 

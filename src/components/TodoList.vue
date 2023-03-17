@@ -122,6 +122,8 @@ isInvalidDate();
     </thead>
       <tbody class="animated fadeIn"> 
 	<!-- 	<transition-group name="flip-list" tag=""> -->
+		<!---@@@@@@@@@@@propsのTodoListのメソッドかして展開する@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-----
+			                             ↓↓↓↓↓↓↓↓↓----->
 	        <template v-for="(item)  in  TodoList " :key="item.user_id"  >
 				<tr class="m-4  testToggle"
 				   :class="{

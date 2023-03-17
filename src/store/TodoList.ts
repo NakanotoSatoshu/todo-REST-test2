@@ -3,6 +3,10 @@ import { reactive ,ref,computed, readonly,provide} from "vue";
 import type { TodoItems } from "../models/TodoItems";
 import { defineStore } from 'pinia';
 
+/* 
+　　　// 検索導入の際に、グローバルにストアするのを、検索ワードではリアクティブではないので、リストを変化させる　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 */
+
 //pinia方式
 export const useStoreTodo = defineStore('TodoPinia', {
     state: () => ({Ttems: [],   }),
@@ -37,15 +41,15 @@ provide('todoProvide', todoStore);
 export interface user {
 id: number,
 name: string,
-"username": "Bret",
+username: string,
 email:string,
-"address": {
-  "street": "Kulas Light",
-  "suite": "Apt. 556",
-  "city": "Gwenborough",
-  "zipcode": "92998-3874",
-  "geo": {
-    "lat": "-37.3159",
-    "lng": "81.1496"
-  }
-}}
+// "address": {
+//   "street": "Kulas Light",
+//   "suite": "Apt. 556",
+//   "city": "Gwenborough",
+//   "zipcode": "92998-3874",
+//   "geo": {
+//     "lat": "-37.3159",
+//     "lng": "81.1496"
+//   }}
+}

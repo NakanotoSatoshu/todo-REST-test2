@@ -34,7 +34,7 @@ class TodoService {
    ); console.log('slice' + this.TodoList);};
   
   public  GetSearch2 = computed (  (param : any) => {this.TodoList.filter( item => { return   this.TodoList.includes(param)}
-  );  console.log('slice' + this.TodoList);});
+  );  console.log('sliced' + this.TodoList);});
 
   // タスクをこの地球上から取得する。// サーチでも使えるようにサーチメソッドを導入し、ストアでグローバル管理か？
   get todoItmes(): TodoItems[] {  return this.getFilter() };
@@ -43,7 +43,7 @@ class TodoService {
   
   // 検索する。
   public Search(param?: String): void  { const query = param;
-    console.log('Fi');
+    console.log('Starting AXIOS to REST API method ');
     if (query !== undefined) {
       axios
       .post(this.RESTAPI_URL + '/search/' + param ,{ withCredentials:true} )
