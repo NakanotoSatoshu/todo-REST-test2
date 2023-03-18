@@ -54,16 +54,14 @@ class TodoService {
   // 全ユーザーを地球上から取得する。
   public getAllUsers() : void { axios
     .get<UsersModel[]>(this.RESTAPI_URL + 'home')
-    .then((res) => { Array.prototype
-    .push.apply(this.UsersList, res.data);
+    .then((res) => { Array.prototype.push.apply(this.UsersList, res.data);
      console.log('getUser');
   });}
 
   // 全タスクを地球上から取得する。
   public getAllTasks() : void {axios
       .get<TodoItems[]>(this.RESTAPI_URL)
-      .then((res) => { Array.prototype
-      .push.apply(this.TodoList, res.data);
+      .then((res) => { Array.prototype.push.apply(this.TodoList, res.data);
     // console.log(res.data);
   });}
   

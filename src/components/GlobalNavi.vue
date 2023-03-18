@@ -4,6 +4,7 @@ import {inject,provide} from 'vue'
 // ロケールのインポート
 import 'dayjs/locale/ja'
 import dayjs from "dayjs";
+import { icon } from "@fortawesome/fontawesome-svg-core";
 
 // ロケール設定
 //DATEフォーマット
@@ -21,6 +22,8 @@ export interface MenuItem {
 
 <script setup lang="ts">
 import { ref ,reactive,toRefs,computed} from "vue";
+import { defineStore ,storeToRefs } from 'pinia';
+import { useStoreTodo } from '../store/StoredTodoList';
 import { RouterView, useRouter } from "vue-router";
 import todoService from "../services/TodoService";
 
@@ -33,20 +36,27 @@ defineProps<{ title: string; menuItems: MenuItem[] }>();
 
 //const param = ref('');
 //const searchword = toRefs(reactive({  }) );
-const searchword = ref('');
+
+//const searchword = ref('');
+//provide('search', searchword.value);
+const {search } = storeToRefs(useStoreTodo());
+console.log('@Navi' + search.value);
+useStoreTodo()
+//Pinia方式検索メソッド値props以外で・・検索ワードでストア管理しているコンピュートされたものがここにくる
+
 
 //TodoliSTをグローバルにしないとめんどくさい
 // const GetSearch2 = computed (  (param : any) => { TodoList.filter( item => { return   TodoList.includes(param)}
 //   );  console.log('sliced' + TodoList);});
 
-const searchword2  = searchword.value.trim;
-console.log(searchword2);
+//const searchword2  = searchword.value.trim;
+//console.log(searchword2);
 
 //const search = todoService.GetSearch(searchword.value);
 
 //const EntryOpen = ref(false);
 
-const test = todoService.Search();
+//const test = todoService.Search();
 
 const router = useRouter();
 
@@ -109,7 +119,7 @@ const goToUrl = (url?: string) => {
                 type="search" 
                 placeholder="Search" 
                 aria-label="Search" 
-                v-model="searchword"
+                v-model="search"
                
                 >
                 </li>
@@ -117,7 +127,7 @@ const goToUrl = (url?: string) => {
                   <!-- #####################インクリメンタルサーチ発火#################### -->
                 <button class="btn btn-outline-dark m-4 my-sm-1  p-2 iPhoneSE2" type="submit" 
                 >検索</button>
-                {{ searchword }}
+                {{ search }}
                
               </li>
             </form>

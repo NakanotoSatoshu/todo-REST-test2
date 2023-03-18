@@ -1,6 +1,7 @@
 import axios from "axios";
-import { reactive ,ref,computed, readonly,provide} from "vue";
+import { reactive ,ref,computed, readonly,provide, onMounted, inject} from "vue";
 import type { TodoItems } from "../models/TodoItems";
+import todoService from "../services/TodoService";
 import { defineStore } from 'pinia';
 
 /* 
@@ -8,10 +9,31 @@ import { defineStore } from 'pinia';
 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 */
 
 //pinia方式
-export const useStoreTodo = defineStore('TodoPinia', {
-    state: () => ({Ttems: [],   }),
-    actions: { SearchTodoPinia(product:any) { const param = this.items.find((todo) => todo.id === product.id);
-    }, }, });
+export const useStoreTodo = defineStore('store', () => {
+    todoService.getAllTasks();
+ // setTimeout(function(){
+  async function Async(){ 
+    let TodoList : TodoItems[] =  todoService.todoItmes;
+    console.log('Stored This First' + TodoList);
+    var search  = ref('');
+    console.log('Input Word This ' + search.value);
+    var Search_TodoList = computed ( () => {
+      let searchWord = search.value.trim();
+      if (searchWord === '' && searchWord === undefined) return TodoList; 
+      return TodoList.filter( (item)  => {return item.item_name.includes(search.value) 
+    })});console.log('computed this ' + Search_TodoList + 'This Word' + search.value);
+    return { Search_TodoList ,search,TodoList};
+   }
+  }
+  //,1000);
+  );
+
+//インクリメンタルサーチ成功例
+    // export  var Search_TodoList = computed ( () => {
+    //   let searchWord = search.value.trim()
+    //     if (searchWord === '') return users; 
+    //    return TodoList.filter(item  => {return TodoList.item_name.includes(search.value) 
+    //  })});
 
 //inject.privide方式
 export function useTodo() {
@@ -21,6 +43,15 @@ export function useTodo() {
   return { TodoList: readonly(TodoList), firstItem, add };
 };
 
+
+
+
+
+
+
+
+
+//テスト以下ゴミ
 export function useTodoSearch(todoStore) {
     const query = ref('');
     function matches(q, todo) {}
@@ -53,3 +84,7 @@ email:string,
 //     "lng": "81.1496"
 //   }}
 }
+
+// onMounted(() => {
+//   getAX();
+// });

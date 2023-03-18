@@ -3,7 +3,7 @@ import { provide} from "vue";
 import AppNavi, { type MenuItem } from "./components/GlobalNavi.vue";
 import todoService from "./services/TodoService";
 //import { useStoreCounter } from './store/counter';
-import { useTodo } from './store/TodoList';
+import { useTodo } from './store/StoredTodoList';
 
 const todoStore = useTodo();
 provide('todoProvide', todoStore);

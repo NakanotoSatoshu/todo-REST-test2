@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref,computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useStoreTodo } from '../store/StoredTodoList';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 import tra from '../services/TrantisonService';
@@ -15,6 +17,11 @@ import Light from './LightSide.vue';
 
 dayjs.locale(ja);
 
+//Pinia方式検索メソッド値props以外で・・検索ワードでストア管理しているコンピュートされたものがここにくる
+useStoreTodo();
+const {Search_TodoList ,search }  = storeToRefs(useStoreTodo());
+console.log('@TodoListMain' + search.value);
+
 const props = defineProps<{TodoList: TodoItems[] , UserList: UsersModel[]  }>();
 
 const emit = defineEmits<{
@@ -27,6 +34,7 @@ const emit = defineEmits<{
   (eventName: "entry",formData?:any):any;
 }>();
 
+//アセット＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠
 //DATEフォーマット
 const format =  (date: string | number | Date | dayjs.Dayjs | null | undefined) => { let created_at = dayjs(date).format('YYYY-MM-DD') ;return created_at      };
 //JSでのDateがNullの場合invailddate表示を防ぐ
@@ -123,8 +131,8 @@ isInvalidDate();
       <tbody class="animated fadeIn"> 
 	<!-- 	<transition-group name="flip-list" tag=""> -->
 		<!---@@@@@@@@@@@propsのTodoListのメソッドかして展開する@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-----
-			                             ↓↓↓↓↓↓↓↓↓----->
-	        <template v-for="(item)  in  TodoList " :key="item.user_id"  >
+			                             ↓↓↓↓↓↓↓↓↓状態管理の名前に変piniaだとuseStore,injectだとそれ----->
+	        <template v-for="item in  Search_TodoList" :key="item.user_id"  >
 				<tr class="m-4  testToggle"
 				   :class="{
 					'inComp':isExpire(item.finished_date,item.expire_date) ,
