@@ -3,6 +3,7 @@ import Home from "../views/Home.vue";
 import TodoList from "../views/MainApp.vue";
 import Game from "../components/Game.vue";
 import ModalE from "../components/ModalEdit.vue";
+//import Search from "../components/Search.vue";
 import Entry from "../components/Entry.vue";
 import NotFound from "../components/NotFound.vue";
 
@@ -16,6 +17,7 @@ const routers: Array<RouteRecordRaw> = [
  //},
   {path: "/edit",component: ModalE,},
   {path: "/game",component: Game,},
+  //{path: "/seach:param",component: Serach,},
   {path: "/:pathMatch(.*)*",component: NotFound,},
 ];
 

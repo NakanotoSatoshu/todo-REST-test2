@@ -9,23 +9,33 @@ import { defineStore } from 'pinia';
 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 */
 
 //pinia方式
+//2023/03/20一旦チートで完成。ここにフルスタックフレームワーク一旦完成する。!!!!!!!やっと全部終わった！！！\(^0^)/
 export const useStoreTodo = defineStore('store', () => {
+  let TodoList : TodoItems[] = reactive([]);
+  //async function Async(): Promise<any>{  
+    //return new Promise((resolve, reject) => {
     todoService.getAllTasks();
- // setTimeout(function(){
-  async function Async(){ 
-    let TodoList : TodoItems[] =  todoService.todoItmes;
+  setTimeout(function(){
+    TodoList  =  todoService.todoItmes;
+  },500);
+    //resolve('resolve!!');
+  //  const result = await Async();
+  //  console.log(result);
     console.log('Stored This First' + TodoList);
+  
+    //const result =  todoService.getAllTasks();
     var search  = ref('');
     console.log('Input Word This ' + search.value);
-    var Search_TodoList = computed ( () => {
+     var Search_TodoList = computed ( () => {
       let searchWord = search.value.trim();
       if (searchWord === '' && searchWord === undefined) return TodoList; 
       return TodoList.filter( (item)  => {return item.item_name.includes(search.value) 
     })});console.log('computed this ' + Search_TodoList + 'This Word' + search.value);
-    return { Search_TodoList ,search,TodoList};
-   }
+    return { Search_TodoList ,search};
+    //}
+    //)
   }
-  //,1000);
+  //}
   );
 
 //インクリメンタルサーチ成功例
@@ -36,7 +46,7 @@ export const useStoreTodo = defineStore('store', () => {
     //  })});
 
 //inject.privide方式
-export function useTodo() {
+export  function useTodo() {
   const TodoList: TodoItems[] = reactive([]);
   const firstItem = computed(() => TodoList[0] ?? null);
   function add(todo:any) {TodoList.push(todo);}

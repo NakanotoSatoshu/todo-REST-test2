@@ -39,8 +39,8 @@ defineProps<{ title: string; menuItems: MenuItem[] }>();
 
 //const searchword = ref('');
 //provide('search', searchword.value);
-const {search } = storeToRefs(useStoreTodo());
-console.log('@Navi' + search.value);
+const {search} = storeToRefs(useStoreTodo());
+//console.log('@Navi' + search.value);
 useStoreTodo()
 //Pinia方式検索メソッド値props以外で・・検索ワードでストア管理しているコンピュートされたものがここにくる
 
@@ -83,24 +83,8 @@ const goToUrl = (url?: string) => {
                 <li class="nav-item active ">
                 </li>
                 <li class="nav-item ">
-               <!--    <router-link 
-                    :to="{ 
-                     name: 'Entry', 
-                     params: { },
-                     query:{str: 'test'} }"
-                     > -->
                     <a class="nav-link mr-2  p-1 mb-2  rounded border-bottom-0" >タスク追加</a>
-              <!--     </router-link> -->
                 </li>
-                 <!--   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-					           <a class="nav-link "  id="navbar" role="button"
-                        data-toggle="" aria-haspopup="true" aria-expanded="false" href="#" sec:authentication="name"></a>
-							<li sec:authorize="isAuthenticated()"></li>
-							<li class="nav-link mr-2  p-1 mb-2  rounded border-bottom-0 iPhoneSE2">さんようこそ。</li>
-                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                         <div class="dropdown-divider"></div>
-                        <form class="dropdown-item" method="post" >-->
             <li>
               <div class="mr-2  p-2 mb-2  rounded border-bottom-0 iPhoneSE2" text="">
             現在日時
@@ -109,8 +93,6 @@ const goToUrl = (url?: string) => {
             <li>
             <div class="mr-2  p-2 mb-2  rounded border-bottom-0 iPhoneSE2" text="">{{dayjs().format('YYYY年M月DD日')}}</div>
             </li>
-          <!--   <div text=""></div>
-           	<div class="mr-2"></div> -->
             <li>
             <form class="form-inline my-2 my-lg-0" >
                 <li>
@@ -158,16 +140,12 @@ const goToUrl = (url?: string) => {
       <!-- #####################コンテンツ部分#################### -->
       <div id="layoutSidenav_content">
         <section class="" id="">
-          <div class="container-fluid" >
             <!-- コンテンツをrouter-viewに変更 -->
-           <!--  <RouterLink to="/about">About</RouterLink> -->
-           <!--<router-view  name="Entry" :to="{ name: 'Entry', params: {EntryOpen: true } }"/> -->
-          <!--   <router-view :to="{ name: '/entry',  query:{EntryOpen: true  }}">リンク名</router-view>  -->
-           <!-- この中にMainAppが入ります ----------------------------------------->
+            <!-- この中にMainAppが入ります ------------------------->
             <router-view />
-          </div>
         </section>
       </div>
     </div>
   </body>
+  
 </template>

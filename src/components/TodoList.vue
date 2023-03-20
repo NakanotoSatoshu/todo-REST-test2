@@ -20,7 +20,7 @@ dayjs.locale(ja);
 //Pinia方式検索メソッド値props以外で・・検索ワードでストア管理しているコンピュートされたものがここにくる
 useStoreTodo();
 const {Search_TodoList ,search }  = storeToRefs(useStoreTodo());
-console.log('@TodoListMain' + search.value);
+//console.log('@TodoListMain' + search.value);
 
 const props = defineProps<{TodoList: TodoItems[] , UserList: UsersModel[]  }>();
 
@@ -103,12 +103,9 @@ isInvalidDate();
 </script>
 
 <template>
-<!--------------#########簡易タスク追加部###いずれモーダル化########################---------------------->
-<!-- <ModalEntry Ref="ChildRef" :EntryOpen="EntryOpen"></ModalEntry> -->
+<!--------------#########簡易タスク追加部###いずれモーダル化#####################--->
 <ModalEntry :UserList="UserList" @entry="(formData: any) => todoService.postEntry(formData)"></ModalEntry>
 <div class="row">
-<!--------------UserList受取確認---------------------->
-<!-- [{{ UserList }}  -->
 <!-----レフトサイド、コンポーネント化するーーーーーーーーーーーーー-->
 <div id="" class="col-1  McShadow iPhoneSE2" >
 	<Left></Left>
@@ -129,20 +126,18 @@ isInvalidDate();
       </tr>
     </thead>
       <tbody class="animated fadeIn"> 
-	<!-- 	<transition-group name="flip-list" tag=""> -->
+	 	
 		<!---@@@@@@@@@@@propsのTodoListのメソッドかして展開する@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-----
 			                             ↓↓↓↓↓↓↓↓↓状態管理の名前に変piniaだとuseStore,injectだとそれ----->
-	        <template v-for="item in  Search_TodoList" :key="item.user_id"  >
+	    <template v-for="item in  Search_TodoList" :key="item.user_id"  >
+			  <!-- <TransitionGroup name="list" tag=""> -->
 				<tr class="m-4  testToggle"
 				   :class="{
 					'inComp':isExpire(item.finished_date,item.expire_date) ,
 					'forwardComp':notExpire(item.finished_date,item.expire_date)
 					}">
 						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
-					    <!-- <th class="">
-						     <input type="checkbox" class="check text-center align-middle iPhonseSE2" id="btncheck1" autocomplete="off" 
-							 @click="toggle2" >
- 					    </th> -->
+
 						<!-------------- 未完了----------->
 						<td class=" p-1 mb-1 rounded  align-middle btn-sm btn-outline-warning modalDel" v-show="item.finished_date !== null" >
 						{{item.item_name}}		</td>       <!-- v-show="isNotComp" -->
@@ -219,21 +214,22 @@ isInvalidDate();
 							<SMenu :showS="showS" ></SMenu>
 						</div>
 					  </td>
-	                </tr>
-					<!--------#######モーダル編集画面###########-------------------------------------->
-				    <ModalE 
-					ref="childRef" 
-					:modalEdit="modalEdit"  
-					:item="item" 
-					@edit="(id,formData) => todoService.postEdit(id,formData)" 
-					:TodoList="TodoList"
-					:UserList="UserList"
-					></ModalE> 
-				</template> 
-			<!-- </transition-group> -->
-	     </tbody>	
-       </table>
-      </div>
+	            </tr>
+				
+				<!--------#######モーダル編集画面###########-------------------------------------->
+				<ModalE 
+				ref="childRef" 
+				:modalEdit="modalEdit"  
+				:item="item" 
+				@edit="(id,formData) => todoService.postEdit(id,formData)" 
+				:TodoList="TodoList"
+				:UserList="UserList"
+				></ModalE> 
+		</template> 
+			<!-- </transition-group>  -->
+	  </tbody>	
+   </table>
+</div>
 	<!-----コンポーネント化するーーーーーーーーーーーーー-->
     <div id="" class="col-2 McShadow iPhoneSE2" >
 		
@@ -263,9 +259,6 @@ isInvalidDate();
   height: 1em;
 }
 
-
-
-
 .slide-up-enter-active,
 .slide-up-leave-active {
   transition: all 0.84s ease-in-out;
@@ -283,5 +276,15 @@ isInvalidDate();
 
 .flip-list-move {
   transition: transform 0.8s ease;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

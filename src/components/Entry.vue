@@ -58,11 +58,7 @@ defineExpose({ EnOptoggle });
 </script>
 
 <template>
-   <!-- <a class="navbar-brand ps-3 " @click="goToUrl('/entry')">タスク追加</a> -->
    <button @click="EnOptoggle">タスク追加</button> 
-  <!-- <div v-show="entryOpen === !entryOpen">   -->
- <!--  <div v-show="{EntryOpen}">  -->
-<!-- <div class="container"> -->
   <Transition name="slide-up" mode="out-in">
   <div v-show="EnOp ">  
               <!-- 入力フォーム -->

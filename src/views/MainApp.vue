@@ -39,34 +39,17 @@ more();
 </script>
 
 <template>
-<!--    <div class="container-fluid px-4 McShadow">
-      <h1 class="mt-4">Todo List</h1>
-  <div class="row">
-    <div class="col-xl-6 col-md-6">
-      <TaskAdd @add="(newTaskTitle) => addTask(newTaskTitle)"></TaskAdd>
-      <TaskTest :tasks="tasks" @delete="(id) => deleteTask(id)" @done="(id) => doneTask(id)"></TaskTest>
-     </div>
-  </div>
-</div> -->
   <!-- MainApp -------------------------->
   <div class="container-fluid p-1 m-1 ">
-          <!-- <Entry Ref="hildRef" :EntryOpen="EntryOpen" ></Entry> -->
-          <!--   <Delete
-            :open="open"
-            :TodoList="todoService.todoItmes"
-            ></Delete> -->
             <!--#############TodoList部 #####################--------------->
             <TaskList 
-          
             :UserList="todoService.users"
             :TodoList="todoService.todoItmes" 
             @entry="(formData) => todoService.postEntry(formData)"
-    
             @delete="(id) => todoService.postDelete(id)" 
             @edit="(id,formData) => todoService.postEdit(id,formData)" 
             @complete="(id,item) => todoService.postComplete(id,item) " 
             @incomplete="(id,item) => todoService.postInComplete(id,item)"></TaskList>
-            <!--  <Head :open="open"  ></Head> -->
    </div> 
 </template>
 
