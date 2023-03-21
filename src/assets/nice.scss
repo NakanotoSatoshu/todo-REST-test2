@@ -1,29 +1,35 @@
 @charset "UTF-8";
 /*ベースTRクラス */
-.testToggle{
+.Base{
   /* appleGray */
  /*  background-color: #6e6e73; */
  	background-color: #dee2e6; 
-    color: rgba(0, 0, 0, 0.685);
-    font-weight: 100;
+  color: #1d1d1f;
+  font-weight: 400;
 }
 
 .inComp{
-	background-color: rgba(226, 226, 226, 0.233)!important;
-    color: #ff0000;
-    font-weight: 700;
+	background-color: rgba(226, 226, 226, 0.333)!important;
+  color: #b60808ea;
+  font-weight: 700;
+  text-decoration: underline dotted rgba(255, 0, 0, 0.411);
+  // text-emphasis: filled double-circle #ff030365;
 }
 
 .forwardComp{
   background-color: rgb(255, 255, 255)!important;
-    color: hsl(180, 100%, 0%);
+  color: #1d1d1f;
 }
 
 /*文字の色変える重要 */
 .btn-outline-warning {
-  color: #000000 !important;
+  color: #1d1d1f !important;
   border-color: #ffffff00;
 }
+.btn-sm{
+  font-size: 16px!important;
+}
+
 /*スライドメニュ時の高さ */
 .showNow{
  height: 20%;
@@ -47,13 +53,14 @@
 
 .iPhoneSE{
 	word-break: break-all;
-    width: 99%;
+    width: 100%;
     
 }
 
 font{
 	font-family: 'Noto Sans JP', 'Open Sans',sans-serif;
-	font-size:2px;
+	font-size:14px;
+  color: #1d1d1f;
   line-height: 1.42859;
   font-weight: 400;
   /* font-weight: bold; */
@@ -64,12 +71,18 @@ li{
 	float:left;
 }
 
+/*  2023/03/21更新　*/
 table{
 	font-family: 'Open Sans', sans-serif;
-  font-size:16px;
-	border-radius: 5px;
-  border-bottom-width:3px!important;
+  font-size:17px;
+  letter-spacing: -1.399px;
+  background-color: #6e6e73!important;
+  border-collapse: separate!important;
+  border-spacing: 0.179rem 0.579rem!important;
+	border-radius: 18px;
+  border-bottom-width:0px!important;
   box-shadow:0px 2px 4px rgb(0 0 0 / 30%)!important;
+  transition: all .3s cubic-bezier(0,0,.5,1);
  /*  background-image: url(../assets/tamu.jpg) ; */
   
 }
@@ -77,25 +90,38 @@ table{
 thead{
   border-radius: 8px;
   padding:  8px;
+  color: #6e6e73;
 }
 
 tr{
 /* 	display: -webkit - box;
   display: -webkit - flex; */
+  border-style:none!important;
   position: relative;
 	border-radius: 8px;
-  margin: 10px;
-	box-shadow: 0px 2px 4px rgb(0 0 0 / 30%);
+  margin: 4px;
+	box-shadow: 2px 2px 4px rgb(0 0 0 / 40%);
  
 }
 
 td{
 	font-family: 'Open Sans', sans-serif;
-	border-radius: 0px;
+	border-radius: 8px;
   border-style:none!important;
+  box-shadow: 0px 4px 8px rgba(0,0,0,.08)!important;
   // border-spacing: 1px 1rem;
   // writing-mode: horizontal-tb;
   // border-collapse: separate;
+}
+
+.btn-complete{
+  background-color: rgba(0, 102, 204, 0.575);
+}
+
+.modalEdit{
+  background-color: rgba(0, 102, 204, 0.575);
+  letter-spacing: -1.399px;
+  border-radius: 18px;
 }
 
 /*カルーセルスライダーCSS

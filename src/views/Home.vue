@@ -9,7 +9,7 @@ import axios from "axios";
 //import type {UsersModel} from "../models/TodoItems";
 //import SMenu from '../components/SlideMenu.vue';
 import type{ Task } from "../models/Task";
-import type{ user } from "../store/StoredTodoListdoList";
+//import type{ user } from "../store/StoredTodoListdoList";
 import TestHome from '../components/TestHome.vue';
 //import Game from '../components/Game.vue';
 import { useStoreCounter } from '../store/counter';

@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { provide} from "vue";
 import AppNavi, { type MenuItem } from "./components/GlobalNavi.vue";
+import { useStoreTodo } from './store/StoredTodoList';
 import todoService from "./services/TodoService";
 //import { useStoreCounter } from './store/counter';
-import { useTodo } from './store/StoredTodoList';
+//import { useTodo } from './store/StoredTodoList';
 
-const todoStore = useTodo();
-provide('todoProvide', todoStore);
+useStoreTodo();
+console.log('First App lunch the useStore');
+// const todoStore = useTodo();
+// provide('todoProvide', todoStore);
 //const EntryOpen = ref(false);
 // メニューを設定する。
 const menuItems: MenuItem[] = [
@@ -17,7 +20,7 @@ const menuItems: MenuItem[] = [
   {
     type: "menu",
     title: "ToDo",
-    icon: "fa-list",
+    icon: "fa-text",
     url: "/todo",
   },
   {
@@ -32,18 +35,6 @@ const menuItems: MenuItem[] = [
 <template>
   <!--　＃＃＃＃＃＃＃ナビバー  表示　＃＃＃＃＃現在＃＃＃＃＃＃＃＃＃＃＃＃＃ -->
   <AppNavi  title="Todo" :menu-items="menuItems" ></AppNavi>  
-  <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright © Your Website 2022</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                ·
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
 </template>
 
 

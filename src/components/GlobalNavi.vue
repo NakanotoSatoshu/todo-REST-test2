@@ -36,26 +36,19 @@ defineProps<{ title: string; menuItems: MenuItem[] }>();
 
 //const param = ref('');
 //const searchword = toRefs(reactive({  }) );
-
 //const searchword = ref('');
 //provide('search', searchword.value);
 const {search} = storeToRefs(useStoreTodo());
-//console.log('@Navi' + search.value);
-useStoreTodo()
+console.log('@Navi' + search.value);
+
 //Pinia方式検索メソッド値props以外で・・検索ワードでストア管理しているコンピュートされたものがここにくる
-
-
 //TodoliSTをグローバルにしないとめんどくさい
 // const GetSearch2 = computed (  (param : any) => { TodoList.filter( item => { return   TodoList.includes(param)}
 //   );  console.log('sliced' + TodoList);});
-
 //const searchword2  = searchword.value.trim;
 //console.log(searchword2);
-
 //const search = todoService.GetSearch(searchword.value);
-
 //const EntryOpen = ref(false);
-
 //const test = todoService.Search();
 
 const router = useRouter();
@@ -144,6 +137,18 @@ const goToUrl = (url?: string) => {
             <!-- この中にMainAppが入ります ------------------------->
             <router-view />
         </section>
+        <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright © Your Website 2022</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                ·
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
       </div>
     </div>
   </body>

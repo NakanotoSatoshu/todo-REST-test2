@@ -130,10 +130,10 @@ isInvalidDate();
 <template>
   <Transition enter-active-class="transition duration-100" enter-from-class="transform opacity-0 -translate-y-20 "
     leave-active-class="transition duration-10" leave-to-class="transform opacity-0 -translate-y-20">
-    <div class="bg-info mb-4  rounded-lg  modalEdit animated  fadeInLeft" v-show="modalEdit">
+    <div class="bg mb-4 p-2 rounded-lg  modalEdit animated  fadeInLeft" v-show="modalEdit">
       <div class="mt-1 flex justify-center">
         <div class="w-full max-w-sm text-gray-700">
-          <h5 class="text-2xl font-bold mb-2">EDIT</h5>
+          <h3 class="text-2xl font-bold mb-2">編集</h3>
           <form class=" shadow-md rounded p-2" method="" @submit.prevent="submitForm">
             <!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
             <!--  <th class=""> 

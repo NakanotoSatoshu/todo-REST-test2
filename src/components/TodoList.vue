@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia';
 import { useStoreTodo } from '../store/StoredTodoList';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
-import tra from '../services/TrantisonService';
+//import tra from '../services/TrantisonService';
 import todoService from "../services/TodoService";
 import type {TodoItems} from "../models/TodoItems";
 import type {UsersModel} from "../models/TodoItems";
@@ -18,9 +18,8 @@ import Light from './LightSide.vue';
 dayjs.locale(ja);
 
 //Pinia方式検索メソッド値props以外で・・検索ワードでストア管理しているコンピュートされたものがここにくる
-useStoreTodo();
 const {Search_TodoList ,search }  = storeToRefs(useStoreTodo());
-//console.log('@TodoListMain' + search.value);
+console.log('@TodoListMain' + search.value);
 
 const props = defineProps<{TodoList: TodoItems[] , UserList: UsersModel[]  }>();
 
@@ -55,17 +54,17 @@ const notExpire = (f: Date  , e:  Date  ) => { var d = new Date ; if(f === null)
 //const testClick = () => { console.log('ClickThis??'); };
 //const ttt = ():any => { console.log(emit);}
         //完了アニメ
-async function transComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "未完了";
-  await el.animate(  [{ height: 0, }, { height: `${(el as HTMLElement).offsetHeight}px`,},],
-    { duration: 500, easing: "ease-out",}).finished;
-  el.classList.remove("overflow-hidden");
-  done();}
-		// 未完了アニメ
-async function transInComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "完了";
-  await el.animate([{ height: `${(el as HTMLElement).offsetHeight}px`,},{height: 0,},],
-    {duration: 500,easing: "ease-out",}).finished;
-  el.classList.remove("overflow-hidden");
-  done();}
+// async function transComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "未完了";
+//   await el.animate(  [{ height: 0, }, { height: `${(el as HTMLElement).offsetHeight}px`,},],
+//     { duration: 500, easing: "ease-out",}).finished;
+//   el.classList.remove("overflow-hidden");
+//   done();}
+// 		// 未完了アニメ
+// async function transInComp(el: Element, done: () => void) { el.classList.add("overflow-hidden"); el.textContent = "完了";
+//   await el.animate([{ height: `${(el as HTMLElement).offsetHeight}px`,},{height: 0,},],
+//     {duration: 500,easing: "ease-out",}).finished;
+//   el.classList.remove("overflow-hidden");
+//   done();}
 //const open = ref(props.open);
 //const testman = ref<(emit)
 //const testman2 = ref('');
@@ -95,15 +94,15 @@ const onChildMethodClick2 = (e:any) => {
 //テスト----------------DevOps-----------------------------------------------------------------------------------------------------
 const showS = ref(false);
 const modalEdit = ref(false);
-const msg = ref('Hello TypeScript');
-const todoooo = ref(props.TodoList);
+//const msg = ref('Hello TypeScript');
+//const todoooo = ref(props.TodoList);
 //const TodoList = ref(); 
 
 isInvalidDate();
 </script>
 
 <template>
-<!--------------#########簡易タスク追加部###いずれモーダル化#####################--->
+<!----#########簡易タスク追加部###いずれモーダル化#####################--->
 <ModalEntry :UserList="UserList" @entry="(formData: any) => todoService.postEntry(formData)"></ModalEntry>
 <div class="row">
 <!-----レフトサイド、コンポーネント化するーーーーーーーーーーーーー-->
@@ -112,8 +111,8 @@ isInvalidDate();
 </div>
 <!-----テーブル幅レスポンシブ指定-->
 <div class="col-xl-10 col-md-9">
-  <!--------------#########テーブル#####################------>
-  <table class="table  table-hover table-sm mb-4 p-4 iPhoneSE bg-body mb-4  ">
+  <!----------#########テーブル#####################-->
+  <table class="table  table-hover table-sm mb-4 p-2 iPhoneSE bg-body mb-4  " cellpadding="0px" cellspacing="0px">
     <thead class="table-">
       <tr>
 		<!-- <th scope="col align-middle"  class="text-center iPhonseSE2">#</th> -->
@@ -126,12 +125,12 @@ isInvalidDate();
       </tr>
     </thead>
       <tbody class="animated fadeIn"> 
-	 	
-		<!---@@@@@@@@@@@propsのTodoListのメソッドかして展開する@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-----
-			                             ↓↓↓↓↓↓↓↓↓状態管理の名前に変piniaだとuseStore,injectだとそれ----->
+
+		<!---@@@@@@@@@@@propsのTodoListのメソッドかして展開する@@@@@@@@@@@@@@@@@@@@@@@@@@@-----
+			                      ↓↓↓↓↓↓↓↓↓状態管理の名前に変piniaだとuseStore,injectだとそれ-->
 	    <template v-for="item in  Search_TodoList" :key="item.user_id"  >
 			  <!-- <TransitionGroup name="list" tag=""> -->
-				<tr class="m-4  testToggle"
+				<tr class="m-4  Base"
 				   :class="{
 					'inComp':isExpire(item.finished_date,item.expire_date) ,
 					'forwardComp':notExpire(item.finished_date,item.expire_date)
@@ -161,7 +160,7 @@ isInvalidDate();
 					 <!-------------- 完了-------------------------------------------------------->
 		 			<Transition  name="slide-up" mode="out-in">
 								<button 
-								class="shadow-sm p-1 mb-1 rounded btn-complete btn-lg btn-light"   
+								class=" p-1 mb-1 rounded btn-complete btn-lg btn-light"   
 								v-bind:href="'/complete/' + item.id" 
 								v-show="isNull(item.finished_date)"
 								@click="emit('complete',  item.id, item)" 
@@ -174,7 +173,7 @@ isInvalidDate();
 					<!-------------- 戻す---------------------------------------------------------->
 					<Transition name="slide-up" mode="out-in">
 								<button 
-								class="shadow-sm p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-light" 
+								class=" p-1 mb-1 rounded btn-incomplete btn-sm btn-outline-light" 
 								v-bind:href="'/incomplete/' + item.id" 
 								v-show="hasNull(item.finished_date)"
 								@click="emit('incomplete',  item.id, item) "
@@ -182,7 +181,7 @@ isInvalidDate();
 								<i class="fa-solid fa-rotate-right"></i>
 								</button>
 					</Transition>	
-					<Transition @enter="tra.testEnter" @leave="tra.testLeave"></Transition>		
+					<!-- <Transition @enter="tra.testEnter" @leave="tra.testLeave"></Transition>		 -->
 							</li>
 							<!-- ------------ 未完了だった箇所----------- v-if="testman2 === '完了'" v-else-if="testman2 === '未完了'"-->
 							<li class="  animated  fadeIn" >
@@ -191,7 +190,7 @@ isInvalidDate();
 						    <!-------------- 更新画面----------------------------------------->
 							<li>
 	                           <button 
-							   class="shadow-sm p-1 mb-1 rounded btn-lg btn-light modal-open2"   
+							   class=" p-1 mb-1 rounded btn-lg btn-light modal-open2"   
 							   v-bind:href="'/edit/' + item.id" 
 							   @click="onChildMethodClick2">
 							   <i class="fa-solid fa-calendar-days"></i>
@@ -210,8 +209,9 @@ isInvalidDate();
 							 </li>
 							</ul>
 						<div class="iPhoneSE3 ">
-							<!--------------iPhone用に各機能を移さなければならない----あとWEB晩では非表示に-------------------------------------->
-							<SMenu :showS="showS" ></SMenu>
+							<!--------------iPhone用に各機能を移さなければならない,あとWEB晩では非表示に-------------------------------------->
+							<SMenu :showS="showS" >
+							</SMenu>
 						</div>
 					  </td>
 	            </tr>
@@ -231,7 +231,7 @@ isInvalidDate();
    </table>
 </div>
 	<!-----コンポーネント化するーーーーーーーーーーーーー-->
-    <div id="" class="col-2 McShadow iPhoneSE2" >
+    <div id="" class="col-1 McShadow iPhoneSE2" >
 		
 	</div>
 </div>
@@ -261,17 +261,17 @@ isInvalidDate();
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 0.84s ease-in-out;
+  transition: all 0.24s ease-in-out;
 }
 
 .slide-up-enter-from {
 	opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(5px);
 }
 
 .slide-up-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-5px);
 }
 
 .flip-list-move {

@@ -32,7 +32,7 @@ const deleteTask = (id: number) => {tasks.forEach((task, index) => { if (task.id
 //const open = ref(true);
 
 // taskをすべて取得する。
-todoService.getAllTasks();
+//todoService.getAllTasks();
 // ユーザーをすべて取得する。
 const more = () => {todoService.getAllUsers();  console.log('MainApp'); }
 more();
