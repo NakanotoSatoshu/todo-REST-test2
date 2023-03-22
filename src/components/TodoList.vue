@@ -106,16 +106,16 @@ isInvalidDate();
 <ModalEntry :UserList="UserList" @entry="(formData: any) => todoService.postEntry(formData)"></ModalEntry>
 <div class="row">
 <!-----レフトサイド、コンポーネント化するーーーーーーーーーーーーー-->
-<div id="" class="col-1  McShadow iPhoneSE2" >
+<div id="" class="col-1 grid  McShadow iPhoneSE2" >
 	<Left></Left>
 </div>
 <!-----テーブル幅レスポンシブ指定-->
-<div class="col-xl-10 col-md-9">
+<div class="col-xl-9 col-md-8">
   <!----------#########テーブル#####################-->
   <table class="table  table-hover table-sm mb-4 p-2 iPhoneSE bg-body mb-4  " cellpadding="0px" cellspacing="0px">
     <thead class="table-">
       <tr>
-		<!-- <th scope="col align-middle"  class="text-center iPhonseSE2">#</th> -->
+		<th scope="col align-middle" class="text-center col-0 iPhoneSE2">#</th>
         <th scope="col align-middle" class="text-center col-3 iPhoneSE2">項目名</th>
         <th scope="col align-middle" class="text-center col-1 iPhoneSE2">担当者</th>
         <th scope="col align-middle" class="text-center col-2 iPhoneSE2">登録日</th>
@@ -130,18 +130,45 @@ isInvalidDate();
 			                      ↓↓↓↓↓↓↓↓↓状態管理の名前に変piniaだとuseStore,injectだとそれ-->
 	    <template v-for="item in  Search_TodoList" :key="item.user_id"  >
 			  <!-- <TransitionGroup name="list" tag=""> -->
-				<tr class="m-4  Base"
+				<tr class="Base"
 				   :class="{
-					'inComp':isExpire(item.finished_date,item.expire_date) ,
-					'forwardComp':notExpire(item.finished_date,item.expire_date)
+					'Comp':hasNull(item.finished_date),
+					'Expired':isExpire(item.finished_date,item.expire_date) ,
+					'Normal':notExpire(item.finished_date,item.expire_date)
 					}">
 						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
-
+						
+						<td class=" p-1  rounded  align-middle" v-show="item.finished_date !== null">
+							<Transition  name="slide-up" mode="out-in"> 
+							<!-- <img class="sumi" src="../assets/sumi2.png"> -->
+							<button class="p-1 btn">
+							<i class="fa-solid fa-square-check sumi"></i>
+							</button>
+							</Transition>
+						</td>
+						
+						<td class=" p-1  rounded  align-middle  " v-show="item.finished_date === null">
+							<Transition  name="slide-up" mode="out-in">
+								<button 
+								class=" p-1  rounded btn-complete btn btn-light"   
+								v-bind:href="'/complete/' + item.id" 
+								v-show="isNull(item.finished_date)"
+								@click="emit('complete',  item.id, item)" 
+							    >
+								<span class="fa-layers fa-fw">
+								  <i class="fa-solid fa-power-off "></i>
+							   </span>
+							</button>
+						</Transition>
+						</td>  
 						<!-------------- 未完了----------->
 						<td class=" p-1 mb-1 rounded  align-middle btn-sm btn-outline-warning modalDel" v-show="item.finished_date !== null" >
-						{{item.item_name}}		</td>       <!-- v-show="isNotComp" -->
+						{{item.item_name}}		
+						</td>       <!-- v-show="isNotComp" -->
 						<!-- ------------ 完了----------->
-						<td class=" p-1 mb-1 rounded align-middle btn-sm btn-outline-warning modalDel"  v-show="item.finished_date === null">{{item.item_name}}</td>
+						<td class=" p-1 mb-1 rounded align-middle btn-sm btn-outline-warning modalDel"  v-show="item.finished_date === null">
+						{{item.item_name}}
+					    </td>
 	                   <!-- ------------ 名前-------------------->
 	                    <td class=" p-1 mb-1 rounded  text-center align-middle iPhonseSE2 modalName" >{{item.user.family_name}}{{item.user.first_name}}
 	                    </td>
@@ -159,16 +186,14 @@ isInvalidDate();
 							  <li class=" button animated fadeIn">
 					 <!-------------- 完了-------------------------------------------------------->
 		 			<Transition  name="slide-up" mode="out-in">
-								<button 
-								class=" p-1 mb-1 rounded btn-complete btn-lg btn-light"   
+								<a
+								class=" p-1 mb-1 rounded btn-complete btn btn-light"   
 								v-bind:href="'/complete/' + item.id" 
 								v-show="isNull(item.finished_date)"
 								@click="emit('complete',  item.id, item)" 
 							    >
-								<span class="fa-layers fa-fw">
-								  <i class="fa-solid fa-power-off "></i>
-							   </span>
-							</button>
+								
+					</a>
 					</Transition>
 					<!-------------- 戻す---------------------------------------------------------->
 					<Transition name="slide-up" mode="out-in">
@@ -199,7 +224,7 @@ isInvalidDate();
 							 	<!-------------- 削除画面--------------------------------------------------->	
 	                         <li>
 	                  		  <button id="js-open" 
-							  class="shadow-lg p-1 mb-1 rounded btn-lg btn-light  modal-open"  
+							  class="shadow-lg p-1 mb-1 rounded btn-lg btn-danger  modal-open"  
 							   type="button" 
 							   v-bind:href="'/delete/' + item.id"
 							   @click="emit('delete', item.id)"

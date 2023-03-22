@@ -10,37 +10,43 @@ import { defineStore } from 'pinia';
 
 //pinia方式
 //2023/03/20一旦チートで完成。ここにフルスタックフレームワーク一旦完成する。!!!!!!!やっと全部終わった！！！\(^0^)/
+//やはりPromise必要asyncawaitは学習必須
 export const useStoreTodo = defineStore('store', () => {
   let TodoList : TodoItems[] = reactive([]);
   //async function Async(): Promise<any>{  
     //return new Promise((resolve, reject) => {
-    todoService.getAllTasks();
+  todoService.getAllTasks();
   setTimeout(function(){
     TodoList  =  todoService.todoItmes;
     console.log('Stored This First' + TodoList);
+    return TodoList.filter( (item)  => {
+      return item.item_name.includes("") 
+    })
   },200);
     //resolve('resolve!!');
   //  const result = await Async();
   //  console.log(result);
     //const result =  todoService.getAllTasks();
-    let search  = ref('');
-    console.log('Input Word This ' + search.value);
-     let Search_TodoList = computed ( () => {
-      let searchWord = search.value.trim();
-      if (searchWord === '' && searchWord === undefined) {
-          // if(TodoList === undefined && TodoList === '' )
-          // setTimeout(function(){
-          //   TodoList  =  todoService.todoItmes;
-          // },2000);
-           return TodoList; }
-      return TodoList.filter( (item)  => {return item.item_name.includes(search.value) 
-    })});console.log('computed this ' + Search_TodoList + 'This Word' + search.value);
-    return { Search_TodoList ,search};
+  let search  = ref('');
+  console.log('Input Word This ' + search.value);
+  let Search_TodoList = computed ( () => {
+    let searchWord = search.value.trim();
+    if (searchWord === '' || searchWord === undefined) {
+      // if(TodoList === undefined && TodoList === '' )
+      // setTimeout(function(){
+      //   TodoList  =  todoService.todoItmes;
+      // },2000);
+      searchWord = '';
+    }
+    return TodoList.filter( (item)  => {
+      return item.item_name.includes(search.value) 
+    })
+  });
+  console.log('computed this ' + Search_TodoList + 'This Word' + search.value);
+  return { Search_TodoList ,search};
     //}
     //)
-  }
-  //}
-  );
+});
 
 //インクリメンタルサーチ成功例
     // export  var Search_TodoList = computed ( () => {

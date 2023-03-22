@@ -8,15 +8,30 @@
   font-weight: 400;
 }
 
-.inComp{
+.Comp{
+   //background-image:
+   //linear-gradient(to bottom, rgba(255, 255, 0, 0), rgb(255, 0, 0)),
+   //url('vue.svg');
+   //text-decoration-line: line-through;
+   text-decoration-style: solid;
+   text-decoration-thickness: 0.002px;
+   text-decoration-skip-ink: auto;
+   text-decoration-color: rgba(236, 229, 229, 0.575);
+   text-shadow: 0px 2.23px #12121315;
+   font-weight: 100;
+   color: rgba(71, 71, 85, 0.39)!important;
+   cursor: wait;
+}
+
+.Expired{
 	background-color: rgba(226, 226, 226, 0.333)!important;
   color: #b60808ea;
-  font-weight: 700;
-  text-decoration: underline dotted rgba(255, 0, 0, 0.411);
+  font-weight: 600;
+  //text-decoration: underline dotted rgba(255, 0, 0, 0.116);
   // text-emphasis: filled double-circle #ff030365;
 }
 
-.forwardComp{
+.Normal{
   background-color: rgb(255, 255, 255)!important;
   color: #1d1d1f;
 }
@@ -75,10 +90,10 @@ li{
 table{
 	font-family: 'Open Sans', sans-serif;
   font-size:17px;
-  letter-spacing: -1.399px;
+  letter-spacing: -1.409px;
   background-color: #6e6e73!important;
   border-collapse: separate!important;
-  border-spacing: 0.179rem 0.579rem!important;
+  border-spacing: 0.179rem 0.599rem!important;
 	border-radius: 18px;
   border-bottom-width:0px!important;
   box-shadow:0px 2px 4px rgb(0 0 0 / 30%)!important;
@@ -98,8 +113,10 @@ tr{
   display: -webkit - flex; */
   border-style:none!important;
   position: relative;
-	border-radius: 8px;
-  margin: 4px;
+ // display: flex;
+  flex-direction: column;
+	border-radius: 2px;
+  margin: 2.3%;
 	box-shadow: 2px 2px 4px rgb(0 0 0 / 40%);
  
 }
@@ -389,8 +406,21 @@ td{
 	color:white;
 	font-weight: 100;
 }
+
 .red{
 	background-color: gray;
+}
+
+.grid{
+  grid-row: 1 / span 2;
+}
+
+.sumi{
+  color: red;
+  //background-color: red;
+  fill:red;
+  //width: 15%;
+  transform: rotate(20);
 }
 
 .opa{

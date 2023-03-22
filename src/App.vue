@@ -33,7 +33,7 @@ const menuItems: MenuItem[] = [
 </script>
 
 <template>
-  <!--　＃＃＃＃＃＃＃ナビバー  表示　＃＃＃＃＃現在＃＃＃＃＃＃＃＃＃＃＃＃＃ -->
+  <!--＃＃＃＃＃＃＃ナビバー 表示＃＃＃＃＃現在＃＃＃＃＃＃＃＃＃＃＃＃＃ -->
   <AppNavi  title="Todo" :menu-items="menuItems" ></AppNavi>  
 </template>
 

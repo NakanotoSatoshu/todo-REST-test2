@@ -20,7 +20,7 @@ const routers: Array<RouteRecordRaw> = [
   //{path: "/seach:param",component: Serach,},
   {path: "/:pathMatch(.*)*",component: NotFound,},
 ];
-
+console.log('router On');
 const router = createRouter({
   history: createWebHistory(),
   routes: routers,
