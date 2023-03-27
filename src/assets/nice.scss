@@ -17,7 +17,7 @@
    text-decoration-thickness: 0.002px;
    text-decoration-skip-ink: auto;
    text-decoration-color: rgba(236, 229, 229, 0.575);
-   text-shadow: 0px 2.23px #12121315;
+   text-shadow: 0px 2.23px #12121344;
    font-weight: 100;
    color: rgba(71, 71, 85, 0.39)!important;
    cursor: wait;
@@ -122,7 +122,7 @@ tr{
 }
 
 td{
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Noto Sans JP', sans-serif,メイリオ, Meiryo,ヒラギノ角ゴ Pro W3,;
 	border-radius: 8px;
   border-style:none!important;
   box-shadow: 0px 4px 8px rgba(0,0,0,.08)!important;
@@ -144,11 +144,11 @@ td{
 /*カルーセルスライダーCSS
 */
 .swiper {
-  width: 100%!important;
+    width: 100%!important;
   /*height:; */
     -ms-flex-negative: 0;
     -webkit-flex-shrink: 0;
-    /* flex-shrink : 0;*/
+    flex-shrink : 0;
     height: 100%;
     position: relative;
     -webkit-transition-property: -webkit - transform;

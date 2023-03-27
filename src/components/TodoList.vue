@@ -18,8 +18,8 @@ import Light from './LightSide.vue';
 dayjs.locale(ja);
 
 //Pinia方式検索メソッド値props以外で・・検索ワードでストア管理しているコンピュートされたものがここにくる
-const {Search_TodoList ,search }  = storeToRefs(useStoreTodo());
-console.log('@TodoListMain' + search.value);
+//const {Search_TodoList ,search }  = storeToRefs(useStoreTodo());
+//console.log('@TodoListMain' + search.value);
 
 const props = defineProps<{TodoList: TodoItems[] , UserList: UsersModel[]  }>();
 
@@ -128,7 +128,7 @@ isInvalidDate();
 
 		<!---@@@@@@@@@@@propsのTodoListのメソッドかして展開する@@@@@@@@@@@@@@@@@@@@@@@@@@@-----
 			                      ↓↓↓↓↓↓↓↓↓状態管理の名前に変piniaだとuseStore,injectだとそれ-->
-	    <template v-for="item in  Search_TodoList" :key="item.user_id"  >
+	    <template v-for="item in  TodoList" :key="item.user_id"  >
 			  <!-- <TransitionGroup name="list" tag=""> -->
 				<tr class="Base"
 				   :class="{

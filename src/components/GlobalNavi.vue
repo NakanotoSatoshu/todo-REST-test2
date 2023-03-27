@@ -23,7 +23,7 @@ export interface MenuItem {
 <script setup lang="ts">
 import { ref ,reactive,toRefs,computed} from "vue";
 import { defineStore ,storeToRefs } from 'pinia';
-import { useStoreTodo } from '../store/StoredTodoList';
+import { useStoreSearchTodo } from '../store/StoredTodoList';
 import { RouterView, useRouter } from "vue-router";
 import todoService from "../services/TodoService";
 
@@ -38,7 +38,7 @@ defineProps<{ title: string; menuItems: MenuItem[] }>();
 //const searchword = toRefs(reactive({  }) );
 //const searchword = ref('');
 //provide('search', searchword.value);
-const {search} = storeToRefs(useStoreTodo());
+const {search} = storeToRefs(useStoreSearchTodo());
 console.log('@Navi' + search.value);
 
 //Pinia方式検索メソッド値props以外で・・検索ワードでストア管理しているコンピュートされたものがここにくる

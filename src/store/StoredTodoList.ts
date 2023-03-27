@@ -18,11 +18,20 @@ export const useStoreTodo = defineStore('store', () => {
   todoService.getAllTasks();
   setTimeout(function(){
     TodoList  =  todoService.todoItmes;
-    console.log('Stored This First' + TodoList);
-    return TodoList.filter( (item)  => {
-      return item.item_name.includes("") 
-    })
+    console.log('Stored This First' + TodoList)
   },200);
+  return { TodoList};
+});
+
+export const useStoreSearchTodo = defineStore('storeSearch', () => {
+ // let TodoList : TodoItems[] = reactive([]);
+  //async function Async(): Promise<any>{  
+    //return new Promise((resolve, reject) => {
+ // todoService.getAllTasks();
+//  setTimeout(function(){
+ //   TodoList  =  todoService.todoItmes;
+//    console.log('Stored This First' + TodoList)
+//  },200);
     //resolve('resolve!!');
   //  const result = await Async();
   //  console.log(result);
@@ -36,7 +45,7 @@ export const useStoreTodo = defineStore('store', () => {
       // setTimeout(function(){
       //   TodoList  =  todoService.todoItmes;
       // },2000);
-      searchWord = '';
+      return ;
     }
     return TodoList.filter( (item)  => {
       return item.item_name.includes(search.value) 

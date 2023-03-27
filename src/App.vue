@@ -2,7 +2,7 @@
 import { provide} from "vue";
 import AppNavi, { type MenuItem } from "./components/GlobalNavi.vue";
 import { useStoreTodo } from './store/StoredTodoList';
-import todoService from "./services/TodoService";
+//import todoService from "./services/TodoService";
 //import { useStoreCounter } from './store/counter';
 //import { useTodo } from './store/StoredTodoList';
 
