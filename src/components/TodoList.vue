@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref,computed } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useStoreTodo } from '../store/StoredTodoList';
+//import { storeToRefs } from 'pinia';
+//import { useStoreTodo } from '../store/StoredTodoList';
 import dayjs from 'dayjs';
 import ja from 'dayjs/locale/ja';
 //import tra from '../services/TrantisonService';
@@ -139,16 +139,16 @@ isInvalidDate();
 						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
 						
 						<td class=" p-1  rounded  align-middle" v-show="item.finished_date !== null">
-							<Transition  name="slide-up" mode="out-in"> 
+							<Transition  name="flip-list" > 
 							<!-- <img class="sumi" src="../assets/sumi2.png"> -->
-							<button class="p-1 btn">
-							<i class="fa-solid fa-square-check sumi"></i>
-							</button>
+							<span class="p-1 btn sumi">
+							<i class="fa-solid fa-check fa-xl"></i>
+						    </span>
 							</Transition>
 						</td>
 						
 						<td class=" p-1  rounded  align-middle  " v-show="item.finished_date === null">
-							<Transition  name="slide-up" mode="out-in">
+							<Transition  name="flip-list" >
 								<button 
 								class=" p-1  rounded btn-complete btn btn-light"   
 								v-bind:href="'/complete/' + item.id" 
@@ -300,12 +300,12 @@ isInvalidDate();
 }
 
 .flip-list-move {
-  transition: transform 0.8s ease;
+  transition: transform 1.8s ease-in-out;
 }
 
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s ease;
+  transition: all 1.5s ease;
 }
 .list-enter-from,
 .list-leave-to {

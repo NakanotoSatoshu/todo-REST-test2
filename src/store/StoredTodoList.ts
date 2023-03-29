@@ -11,7 +11,7 @@ import { defineStore } from 'pinia';
 //pinia方式
 //2023/03/20一旦チートで完成。ここにフルスタックフレームワーク一旦完成する。!!!!!!!やっと全部終わった！！！\(^0^)/
 //やはりPromise必要asyncawaitは学習必須
-export const useStoreTodo = defineStore('store', () => {
+export const useStoredAllTodos = defineStore('store', () => {
   let TodoList : TodoItems[] = reactive([]);
   //async function Async(): Promise<any>{  
     //return new Promise((resolve, reject) => {
@@ -45,7 +45,7 @@ export const useStoreSearchTodo = defineStore('storeSearch', () => {
       // setTimeout(function(){
       //   TodoList  =  todoService.todoItmes;
       // },2000);
-      return ;
+      return TodoList;
     }
     return TodoList.filter( (item)  => {
       return item.item_name.includes(search.value) 

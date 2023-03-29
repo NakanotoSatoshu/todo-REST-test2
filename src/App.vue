@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { provide} from "vue";
 import AppNavi, { type MenuItem } from "./components/GlobalNavi.vue";
-import { useStoreTodo } from './store/StoredTodoList';
+import { useStoredAllTodos } from './store/StoredTodoList';
 //import todoService from "./services/TodoService";
 //import { useStoreCounter } from './store/counter';
 //import { useTodo } from './store/StoredTodoList';
 
-useStoreTodo();
+useStoredAllTodos();
 console.log('First App lunch the useStore');
 // const todoStore = useTodo();
 // provide('todoProvide', todoStore);
