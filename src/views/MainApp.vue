@@ -15,7 +15,7 @@ import { storeToRefs } from 'pinia';
 import { useStoredAllTodos ,useStoreSearchTodo} from '../store/StoredTodoList';
 
 //2023/03/27サービスロジックに普通のやつをまずストアして、検索は別のメソッドを用意したが無理だった。
-const {TodoList}  = storeToRefs(useStoredAllTodos());
+const {TodoList2}  = storeToRefs(useStoredAllTodos());
 const {Search_TodoList ,search }  = storeToRefs(useStoreSearchTodo());
 useStoredAllTodos();
 console.log('@TodoListMain' + search.value);
@@ -53,7 +53,7 @@ more();
   <!--#############TodoList部 #####################--------------->
     <TaskList 
                :UserList="todoService.users"
-               :TodoList="todoService.todoItmes" 
+               :TodoList="todoService.todoItmes"
                      @entry="(formData) => todoService.postEntry(formData)"
                      @delete="(id) => todoService.postDelete(id)" 
                      @edit="(id,formData) => todoService.postEdit(id,formData)" 

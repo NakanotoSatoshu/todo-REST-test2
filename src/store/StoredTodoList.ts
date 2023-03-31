@@ -3,6 +3,18 @@ import { reactive ,ref,computed, readonly,provide, onMounted, inject} from "vue"
 import type { TodoItems } from "../models/TodoItems";
 import todoService from "../services/TodoService";
 import { defineStore } from 'pinia';
+import GlobalMessages from '../api/today_progress';
+
+//2023/03/29本日の進捗をここにプッシュして最新状態を更新する
+export const useGlobalMessage = defineStore('GlobalMessage', {
+  state: () => ({
+    GlobalMessages: [],
+  }),
+  actions: {
+    addProgress(today_progress: string) {
+      this.GlobalMessages.push(today_progress);
+    },
+}});
 
 /* 
 　　　// 検索導入の際に、グローバルにストアするのを、検索ワードではリアクティブではないので、リストを変化させる　
@@ -12,6 +24,7 @@ import { defineStore } from 'pinia';
 //2023/03/20一旦チートで完成。ここにフルスタックフレームワーク一旦完成する。!!!!!!!やっと全部終わった！！！\(^0^)/
 //やはりPromise必要asyncawaitは学習必須
 export const useStoredAllTodos = defineStore('store', () => {
+console.log('Use Store get All Todo');
   let TodoList : TodoItems[] = reactive([]);
   //async function Async(): Promise<any>{  
     //return new Promise((resolve, reject) => {
