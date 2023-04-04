@@ -13,7 +13,7 @@ import SMenu from './SlideMenu.vue';
 import ModalE from './ModalEdit.vue';
 import ModalEntry from './Entry.vue';
 import Left from './LeftSide.vue';
-import Light from './LightSide.vue';
+import Light from './LightSIde.vue';
 
 dayjs.locale(ja);
 
@@ -102,11 +102,8 @@ isInvalidDate();
 </script>
 
 <template>
-<!----#########簡易タスク追加部###いずれモーダル化#####################--->
-<ModalEntry :UserList="UserList" @entry="(formData: any) => todoService.postEntry(formData)"></ModalEntry>
-<div class="row">
 <!-----レフトサイド、コンポーネント化するーーーーーーーーーーーーー-->
-<div id="" class="col-1 grid  McShadow iPhoneSE2" >
+<div id="" class="col-2 grid  McShadow iPhoneSE2" >
 	<Left></Left>
 </div>
 <!-----テーブル幅レスポンシブ指定-->
@@ -136,8 +133,8 @@ isInvalidDate();
 					'Expired':isExpire(item.finished_date,item.expire_date) ,
 					'Normal':notExpire(item.finished_date,item.expire_date)
 					}">
-						<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
-						
+				<!-------------- TODO項目----------------IPHONEでみたとき項目多くする---->
+						<!-------------- ワンタッチアクション---->
 						<td class=" p-1  rounded  align-middle" v-show="item.finished_date !== null">
 							<Transition  name="flip-list" > 
 							<!-- <img class="sumi" src="../assets/sumi2.png"> -->
@@ -150,7 +147,7 @@ isInvalidDate();
 						<td class=" p-1  rounded  align-middle  " v-show="item.finished_date === null">
 							<Transition  name="flip-list" >
 								<button 
-								class=" p-1  rounded btn-complete btn btn-light"   
+								class=" p-1  rounded  btn btn-light"   
 								v-bind:href="'/complete/' + item.id" 
 								v-show="isNull(item.finished_date)"
 								@click="emit('complete',  item.id, item)" 
@@ -257,9 +254,9 @@ isInvalidDate();
 </div>
 	<!-----コンポーネント化するーーーーーーーーーーーーー-->
     <div id="" class="col-1 McShadow iPhoneSE2" >
-		
+		<Light></Light>
 	</div>
-</div>
+
 </template>
 
 

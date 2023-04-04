@@ -26,9 +26,14 @@ import { defineStore ,storeToRefs } from 'pinia';
 import { useStoreSearchTodo } from '../store/StoredTodoList';
 import { RouterView, useRouter } from "vue-router";
 import todoService from "../services/TodoService";
+import type {TodoItems} from "../models/TodoItems";
+import type {UsersModel} from "../models/TodoItems";
+import ModalEntry from './Entry.vue';
+//import { EnOptoggle } from './Entry.vue';
 
 // タイトルとメニューアイテムを設定できるようにする。
-defineProps<{ title: string; menuItems: MenuItem[] }>();
+//2023/4/4naviにUserlistなどを受けさせる
+defineProps<{ title: string; menuItems: MenuItem[] , UserList: UsersModel[]}>();
 
 // const emit = defineEmits<{
 //   (eventName: "search", searchword2?: any): any;
@@ -51,10 +56,13 @@ console.log('@Navi' + search.value);
 //const EntryOpen = ref(false);
 //const test = todoService.Search();
 
+//       globalMessage2023/4/4更新エントリーのボタンをナビにつけるぞ！！
+const childRef = ref(ModalEntry);
+const childEnO = (e : any) => { childRef.value.EnOptoggle(); };
+//EnOptoggle();
+
 const router = useRouter();
-
 const isToggle = ref(false);
-
 const goToUrl = (url?: string) => {
   if (url != undefined) {
     router.push(url); }
@@ -76,7 +84,9 @@ const goToUrl = (url?: string) => {
                 <li class="nav-item active ">
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link mr-2  p-1 mb-2  rounded border-bottom-0" >タスク追加</a>
+                    <a class="nav-link mr-2  p-1 mb-2  rounded border-bottom-0" 
+                    @click="childEnO"
+                    >タスク追加</a>
                 </li>
             <li>
               <div class="mr-2  p-2 mb-2  rounded border-bottom-0 iPhoneSE2" text="">
@@ -133,9 +143,19 @@ const goToUrl = (url?: string) => {
       <!-- #####################コンテンツ部分#################### -->
       <div id="layoutSidenav_content">
         <section class="" id="">
+          <!-- MainApp -------------------------->
+          <div class="container-fluid p-1 m-1 ">
+            <div class="row">
             <!-- コンテンツをrouter-viewに変更 -->
             <!-- この中にMainAppが入ります ------------------------->
+            <!----#########簡易タスク追加部###いずれモーダル化#####################--->
+            <ModalEntry ref="childRef" 
+            :UserList="UserList" 
+            @entry="(formData: any) => todoService.postEntry(formData)"
+            ></ModalEntry>
             <router-view />
+            </div>
+          </div>
         </section>
         <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">

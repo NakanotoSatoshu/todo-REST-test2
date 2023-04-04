@@ -5,6 +5,7 @@ import { useStoredAllTodos } from './store/StoredTodoList';
 //import todoService from "./services/TodoService";
 //import { useStoreCounter } from './store/counter';
 //import { useTodo } from './store/StoredTodoList';
+import todoService from "./services/TodoService";
 
 useStoredAllTodos();
 console.log('First App lunch the useStore');
@@ -34,7 +35,8 @@ const menuItems: MenuItem[] = [
 
 <template>
   <!--＃＃＃＃＃＃＃ナビバー 表示＃＃＃＃＃現在＃＃＃＃＃＃＃＃＃＃＃＃＃ -->
-  <AppNavi  title="Todo" :menu-items="menuItems" ></AppNavi>  
+  <AppNavi  title="Todo" :menu-items="menuItems" 
+  :UserList="todoService.users"></AppNavi>  
 </template>
 
 

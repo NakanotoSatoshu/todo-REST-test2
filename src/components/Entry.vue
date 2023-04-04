@@ -58,7 +58,7 @@ defineExpose({ EnOptoggle });
 </script>
 
 <template>
-   <button @click="EnOptoggle">タスク追加</button> 
+   <!-- <button @click="EnOptoggle">タスク追加</button>  -->
   <Transition name="slide-up" mode="out-in">
   <div v-show="EnOp ">  
               <!-- 入力フォーム -->
