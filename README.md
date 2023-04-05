@@ -1,17 +1,14 @@
 # RESTfullTODOアプリです。TEST用です
+担当者を選択でき、TODOリストを共有できる感じです。
 
 フロントエンドのWeb APIにVue3を使い、バックエンドのREST APIをSpringで構築しました。
 # 実装環境
-開発環境:
+
 バックエンド:
 サーバー：Java11 Spring Boot2.7.3、DB:MySQL、
 
 フロントエンド
-HTML＆CSS(Saas)、JavaScript(Vue3.2.45:TypeScript4.9.3)、
-ビルドツール:vite4.0.0
-FontAwesome
-GoogleFont
-Bootstrap5
+HTML＆CSS(Saas)、JavaScript(Vue3.2.45:TypeScript4.9.3)、FontAwesome、GoogleFont、Bootstrap5、ビルドツール:vite4.0.0
 
 工夫した点
 画面遷移なしでアプリケーションを使っていただけるように工夫しました。またサーバーと最低限の情報で通信を行えるようにしました。
@@ -21,6 +18,10 @@ Bootstrap5
 学習しながら作ったので、少し動作が重いところがありますので、リファクタリングしながら技術向上を図っていきたいと思っています。
 
 未を主張させた
+完了させるという点でわかりやすく一目でいけるようにした
+クロスオリジン共有に苦労した
+SpringのREST化に苦労
+・コンフィグがむずい、スプリングセキュリティの設定がむずい
 # ユーザー利用環境
 
 　レスポンシブデザインとなっていますので、スマホやタブレットにも対応しています。
