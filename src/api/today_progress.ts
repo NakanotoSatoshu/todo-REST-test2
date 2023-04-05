@@ -1,11 +1,15 @@
     
 const GlobalMessages = [
-    { date:'',today_progress: '' },
+    { date:'9999',today_progress: 'なんだ馬鹿野郎' },
 
   ];
   
   export default {
-    getProducts(cb : any) {
-      setTimeout(() => cb(GlobalMessages), 100);
+    getProgeress(callbackIsMuzui : any) {
+      setTimeout(
+        function(){
+        callbackIsMuzui(GlobalMessages), 100
+      }
+      );
     },
   };

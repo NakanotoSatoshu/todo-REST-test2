@@ -1,17 +1,13 @@
-#RESTfullTODOアプリです。
+# RESTfullTODOアプリです。TEST用です
 
 フロントエンドのWeb APIにVue3を使い、バックエンドのREST APIをSpringで構築しました。
-
-
 # 実装環境
-開発環境
-バックエンド
-サーバー：Java11 Spring Boot2.7.3
-DB:MySQL
+開発環境:
+バックエンド:
+サーバー：Java11 Spring Boot2.7.3、DB:MySQL、
 
 フロントエンド
-HTML＆CSS(Saas)
-JavaScript(Vue3.2.45:TypeScript4.9.3)
+HTML＆CSS(Saas)、JavaScript(Vue3.2.45:TypeScript4.9.3)、
 ビルドツール:vite4.0.0
 FontAwesome
 GoogleFont

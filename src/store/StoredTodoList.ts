@@ -3,7 +3,7 @@ import { reactive ,ref,computed, readonly,provide, onMounted, inject} from "vue"
 import type { TodoItems } from "../models/TodoItems";
 import todoService from "../services/TodoService";
 import { defineStore } from 'pinia';
-import GlobalMessages from '../api/today_progress';
+import Progress from '../api/today_progress';
 
 //2023/03/29本日の進捗をここにプッシュして最新状態を更新する
 export const useGlobalMessage = defineStore('GlobalMessage', {
@@ -11,6 +11,9 @@ export const useGlobalMessage = defineStore('GlobalMessage', {
     GlobalMessages: [],
   }),
   actions: {
+    getProducts() {
+      Progress.getProgeress((GlobalMessages : any) => (this.GlobalMessages = GlobalMessages));
+    },
     addProgress(today_progress: string) {
       this.GlobalMessages.push(today_progress);
     },

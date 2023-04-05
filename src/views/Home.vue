@@ -17,7 +17,7 @@ import { useStoreCounter } from '../store/counter';
 import { storeToRefs } from 'pinia';
 import ProductList from '../components/ProductList.vue';
 import ShoppingCart from '../components/ShoppingCart.vue';
-
+import { useGlobalMessage } from '../store/StoredTodoList';
 const counter = useStoreCounter();
 const { count, doubleCount } = storeToRefs(counter);
 const { increment } = counter;
@@ -76,6 +76,7 @@ var search_users = computed ( () => {
 
 onMounted(() => {
   getAX();
+  useGlobalMessage();
 });
 </script>
 
