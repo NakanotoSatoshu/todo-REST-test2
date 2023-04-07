@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { provide} from "vue";
 import AppNavi, { type MenuItem } from "./components/GlobalNavi.vue";
+import Footer from "./components/Footer.vue";
 import { useStoredAllTodos } from './store/StoredTodoList';
 //import todoService from "./services/TodoService";
 //import { useStoreCounter } from './store/counter';
@@ -37,6 +38,7 @@ const menuItems: MenuItem[] = [
   <!--＃＃＃＃＃＃＃ナビバー 表示＃＃＃＃＃現在＃＃＃＃＃＃＃＃＃＃＃＃＃ -->
   <AppNavi  title="Todo" :menu-items="menuItems" 
   :UserList="todoService.users"></AppNavi>  
+  <Footer></Footer>
 </template>
 
 
