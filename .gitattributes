@@ -1,2 +1,2 @@
 .vue linguist-language=Vue
-.css linguist-vendored
+.css linguist-detectable=false
