@@ -11,7 +11,7 @@ import { dom } from "@fortawesome/fontawesome-svg-core";
 
 // Bootstrap 5 + SB Admin
 import "startbootstrap-sb-admin/src/scss/styles.scss";
-import "./assets/nice.scss";
+import "./assets/universal.scss";
 import "./assets/Chaos.css";
 import 'animate.css';
 import './style.css';
