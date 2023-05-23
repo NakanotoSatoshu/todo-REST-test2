@@ -7,17 +7,19 @@
 
 # 実装環境
 
-## バックエンド
-Java11 Spring Boot2.7.3
-
-## サーバー
-MySQL 
-
-## フロントエンド
-Vue.js3.2.45:TypeScript4.9.3 ,FontAwesome、GoogleFont、Bootstrap5、
-
-### ビルドツール
-vite4.0.0
+**バックエンドミドルウェア**
+- Java:11 
+- Spring Boot : 2.7.3
+**データベースサーバー**
+- MySQL 
+**フロントエンド**
+- Vue.js:3.2.45
+- TypeScript:4.9.3
+- FontAwesome:
+- GoogleFont:
+- Bootstrap5:
+**ビルドツール**
+- vite:4.0.0
 
 ## 工夫した点
 画面遷移なしでアプリケーションを使っていただけるように工夫しました。またサーバーと最低限の情報で通信を行えるようにしました。
