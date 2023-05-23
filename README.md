@@ -10,14 +10,23 @@
 **バックエンドミドルウェア**
 - Java:11 
 - Spring Boot : 2.7.3
+
 **データベースサーバー**
 - MySQL 
+
 **フロントエンド**
 - Vue.js:3.2.45
 - TypeScript:4.9.3
-- FontAwesome:
-- GoogleFont:
+- @fortawesome/vue-fontawesome: 3.0.0-5
+- GoogleFont
 - Bootstrap5:
+- startbootstrap-sb-admin:7.0.5
+- animate.css: 4.1.1
+- axios: 1.2.3"
+- dayjs": 1.11.7
+- pinia": 2.0.33
+- vue-i18n: 9.3.0-beta.16,
+- vue-router: 4.1.6
 **ビルドツール**
 - vite:4.0.0
 
