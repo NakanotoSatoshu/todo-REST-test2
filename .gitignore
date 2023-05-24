@@ -24,7 +24,8 @@ dist-ssr
 *.sw?
 
 .vscode/
-doc/
+doc2/
+doc3/
 src\assets\tamu.jpg/
 src\assets\abe.jpg/
 src\assets\tk213-2.jpg/
