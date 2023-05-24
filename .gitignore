@@ -7,7 +7,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-doc
 node_modules
 dist
 dist-ssr
@@ -25,8 +24,8 @@ dist-ssr
 *.sw?
 
 .vscode/
-
-src\assets\tamu.jpg
-src\assets\abe.jpg
-src\assets\tk213-2.jpg
-src\assets\hotokeai.css
+doc/
+src\assets\tamu.jpg/
+src\assets\abe.jpg/
+src\assets\tk213-2.jpg/
+src\assets\hotokeai.css/

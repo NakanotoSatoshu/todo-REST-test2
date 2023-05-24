@@ -1,5 +1,5 @@
-# RESTfullTODOアプリです。
-これからやること（Todo）を項目として登録でき、複数のTodoで構成されたリストを他のユーザーと共有できるWebアプリケーションを作成しました。Springについて学習しながら作成し、基本的な機能は備わっています。主に、フロントエンドはJavaScriptのフレームワークであるVue、バックエンドはJavaのフレームワークであるSpringで作成しました。
+# RESTfullTODOアプリ
+これからやることリスト（Todo）を項目として登録でき、複数のTodoで構成されたリストを他のユーザーと共有できるWebアプリケーションを作成しました。Springについて学習しながら作成し、基本的な機能は備わっています。主に、フロントエンドはJavaScriptのフレームワークであるVue、バックエンドはJavaのフレームワークであるSpringで作成しました。
 
 <p align="center"><img src="doc\ScShot 2023-04-04 153300.png" width="830"></a></p>
 
@@ -15,7 +15,8 @@
 **フロントエンド**
 - Vue.js:3.2.45
 - TypeScript:4.9.3
-- @fortawesome/vue-fontawesome: 3.0.0-5
+- FontAwesome
+   - fortawesome/vue-fontawesome: 3.0.0-5
 - GoogleFont
 - Bootstrap5:
    - startbootstrap-sb-admin:7.0.5
@@ -46,7 +47,7 @@
 
 レスポンシブデザインとなっていますので、スマホやタブレットにも対応しています。
 他にもユーザーに親しみやすいデザインを心がけて作成しております。
-
+- 完了ボタンのわかりやすさを工夫しています。簡単に完了したかどうかを判断できるUI/UXを心がげました。
 
 ## 機能
 
