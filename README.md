@@ -1,7 +1,7 @@
 # RESTfullTODOアプリ
 これからやることリスト（Todo）を項目として登録でき、複数のTodoで構成されたリストを他のユーザーと共有できるWebアプリケーションを作成しました。Springについて学習しながら作成し、基本的な機能は備わっています。主に、フロントエンドはJavaScriptのフレームワークであるVue、バックエンドはJavaのフレームワークであるSpringで作成しました。RESTfullなので画面遷移が無くモバイルアプリ感覚でご使用頂けると思います。
 
-<p align="center"><img src="PFshot20230524.png" width="830"></a></p>
+<p align="center"><img src="/public/PFshot20230525.png" width="830"></a></p>
 
 ## 実装環境
 
